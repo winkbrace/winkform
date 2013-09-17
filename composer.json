@@ -1,0 +1,26 @@
+{
+    "name": "winkbrace/winkform",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Bas de Ruiter",
+            "email": "info@basderuiter.nl"
+        }
+    ],
+    "require": {
+        "php": ">=5.3.0",
+        "illuminate/validation": "4.0.x"
+    },
+    "require-dev": {
+        "illuminate/database": "4.0.x",
+        "mockery/mockery": "0.7.2",
+        "phpunit/phpunit": "3.7.*"
+    },
+    "autoload": {
+        "psr-0": {
+            "WinkForm": ""
+        }
+    },
+    "target-dir": "WinkForm",
+    "minimum-stability": "dev"
+}
