@@ -30,6 +30,9 @@ spl_autoload_register(function($class) {
     // library Input classes
     elseif (file_exists(WINKFORM_PATH . 'Input/' . $file))
         require_once WINKFORM_PATH . 'Input/' . $file;
+    // library Input classes
+    elseif (file_exists(WINKFORM_PATH . 'Button/' . $file))
+        require_once WINKFORM_PATH . 'Button/' . $file;
     
     // else not found. Maybe another autoloader will find the class
 });

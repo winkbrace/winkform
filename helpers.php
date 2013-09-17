@@ -294,7 +294,7 @@ function getPeriodFirstAndLast($period, $type)
         // else invalid input
         throw new \Exception('Invalid period type given - '.$type);
     }
-    catch (FormException $e)
+    catch (\Exception $e)
     {
         echo $e->getMessage();
         return false;

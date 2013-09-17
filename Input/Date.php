@@ -27,7 +27,7 @@ class Date extends Input
         $hidden = $this->getHidden() === true ? ' style="display:none;"' : '';
         
         // create TextInput object with all same properties as this DateInput object
-        $text = new TextInput($this->name);
+        $text = new Text($this->name);
         copySharedAttributes($text, $this);
         
         // set default width if none was given

@@ -6,6 +6,20 @@ class Image extends Button
     protected $type = 'image',
               $src,
               $alt;
+    
+    
+    /**
+     * construct Button
+     * @param string $name
+     * @param mixed optional $value
+     */
+    function __construct($name, $value = null)
+    {
+        parent::__construct($name, $value);
+    
+        // remove default bootstrapper btn class
+        $this->removeClass('btn');
+    }
 
     /**
      * render the image button
@@ -16,7 +30,7 @@ class Image extends Button
         $this->validate->isNotEmpty($this->src);
         if (! $this->validate->isValid())
             throw new \Exception($this->validate->getMessage('Error rendering '.get_class($this).' object with name '.$this->name));
-            
+        
         $output = $this->renderLabel()
                 . '<input'
                 . $this->renderType()

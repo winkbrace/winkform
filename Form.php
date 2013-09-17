@@ -16,7 +16,7 @@ abstract class Form
      * create AddressInput object
      * @param string $name
      * @param string $value
-     * @return \WinkForm\AddressInput
+     * @return \WinkForm\Input\Address
      */
     public static function address($name, $value = null)
     {
@@ -27,18 +27,18 @@ abstract class Form
      * create Button object
      * @param string $name
      * @param string $value
-     * @return \WinkForm\Button
+     * @return \WinkForm\Button\Button
      */
     public static function button($name, $value = null)
     {
-        return new Input\Button($name, $value);
+        return new Button\Button($name, $value);
     }
     
     /**
      * create ChainedDropdowns object
      * @param string $name
      * @param string $value
-     * @return \WinkForm\ChainedDropdowns
+     * @return \WinkForm\Input\ChainedDropdowns
      */
     public static function chainedDropdowns($name, $value = null)
     {
@@ -49,7 +49,7 @@ abstract class Form
      * create Checkbox object
      * @param string $name
      * @param string $value
-     * @return \WinkForm\Checkbox
+     * @return \WinkForm\Input\Checkbox
      */
     public static function checkbox($name, $value = null)
     {
@@ -62,7 +62,7 @@ abstract class Form
      * @param string $type
      * @param string $name
      * @param string $value
-     * @return \WinkForm\CustomInput
+     * @return \WinkForm\Input\Custom
      */
     public static function custom($type, $name, $value = null)
     {
@@ -75,7 +75,7 @@ abstract class Form
      * create DateInput object
      * @param string $name
      * @param string $value
-     * @return \WinkForm\DateInput
+     * @return \WinkForm\Input\Date
      */
     public static function date($name, $value = null)
     {
@@ -87,7 +87,7 @@ abstract class Form
      * @param string $name
      * @param dd-mm-yyyy $from
      * @param dd-mm-yyyy $to
-     * @return \WinkForm\DateRange
+     * @return \WinkForm\Input\DateRange
      */
     public static function dateRange($name, $from, $to)
     {
@@ -98,7 +98,7 @@ abstract class Form
      * create Dropdown object
      * @param string $name
      * @param string $value
-     * @return \WinkForm\Dropdown
+     * @return \WinkForm\Input\Dropdown
      */
     public static function dropdown($name, $value = null)
     {
@@ -109,7 +109,7 @@ abstract class Form
      * create FileInput object
      * @param string $name
      * @param string $value
-     * @return \WinkForm\FileInput
+     * @return \WinkForm\Input\File
      */
     public static function file($name, $value = null)
     {
@@ -120,7 +120,7 @@ abstract class Form
      * create HiddenInput object
      * @param string $name
      * @param string $value
-     * @return \WinkForm\HiddenInput
+     * @return \WinkForm\Input\Hidden
      */
     public static function hidden($name, $value = null)
     {
@@ -131,18 +131,18 @@ abstract class Form
      * create ImageButton object
      * @param string $name
      * @param string $value
-     * @return \WinkForm\ImageButton
+     * @return \WinkForm\Button\Image
      */
     public static function image($name, $value = null)
     {
-        return new Input\Image($name, $value);
+        return new Button\Image($name, $value);
     }
     
     /**
      * create MonthInput object
      * @param string $name
      * @param yyyy-mm $month
-     * @return \WinkForm\MonthInput
+     * @return \WinkForm\Input\Month
      */
     public static function month($name, $month = null)
     {
@@ -154,7 +154,7 @@ abstract class Form
      * @param string $name
      * @param yyyy-mm $from
      * @param yyyy-mm $to
-     * @return \WinkForm\MonthRange
+     * @return \WinkForm\Input\MonthRange
      */
     public static function monthRange($name, $from = null, $to = null)
     {
@@ -165,7 +165,7 @@ abstract class Form
      * create PasswordInput object
      * @param string $name
      * @param string $value
-     * @return \WinkForm\PasswordInput
+     * @return \WinkForm\Input\Password
      */
     public static function password($name, $value = null)
     {
@@ -176,7 +176,7 @@ abstract class Form
      * create RadioInput object
      * @param string $name
      * @param string $value
-     * @return \WinkForm\RadioInput
+     * @return \WinkForm\Input\Radio
      */
     public static function radio($name, $value = null)
     {
@@ -187,29 +187,29 @@ abstract class Form
      * create reset button
      * @param string $name
      * @param string $value
-     * @return \WinkForm\ResetButton
+     * @return \WinkForm\Button\Reset
      */
     public static function reset($name, $value = null)
     {
-        return new Input\Reset($name, $value);
+        return new Button\Reset($name, $value);
     }
     
     /**
      * create SubmitButton object
      * @param string $name
      * @param string $value
-     * @return \WinkForm\SubmitButton
+     * @return \WinkForm\Button\Submit
      */
     public static function submit($name, $value = null)
     {
-        return new Input\Submit($name, $value);
+        return new Button\Submit($name, $value);
     }
     
     /**
      * create TextInput object
      * @param string $name
      * @param string $value
-     * @return \WinkForm\TextInput
+     * @return \WinkForm\Input\Text
      */
     public static function text($name, $value = null)
     {
@@ -220,7 +220,7 @@ abstract class Form
      * create TextAreaInput object
      * @param string $name
      * @param string $value
-     * @return \WinkForm\TextAreaInput
+     * @return \WinkForm\Input\TextArea
      */
     public static function textarea($name, $value = null)
     {
@@ -231,7 +231,7 @@ abstract class Form
      * create WeekInput object
      * @param string $name
      * @param iyyy-iw $week
-     * @return \WinkForm\WeekInput
+     * @return \WinkForm\Input\Week
      */
     public static function week($name, $week = null)
     {
@@ -243,7 +243,7 @@ abstract class Form
      * @param string $name
      * @param iyyy-iw $from
      * @param iyyy-iw $to
-     * @return \WinkForm\WeekRange
+     * @return \WinkForm\Input\WeekRange
      */
     public static function weekRange($name, $from = null, $to = null)
     {
@@ -334,6 +334,7 @@ abstract class Form
         // always validate date inputs
         if ($input instanceof Input\Date)
             $this->validator->date($input->getPosted());
+        
         if ($input instanceof Input\DateRange)
         {
             $this->validator->date($input->getDateFrom()->getPosted());
@@ -548,7 +549,7 @@ abstract class Form
         // check the properties
         foreach (get_object_vars($this) as $input)
         {
-            if (is_object($input) && $input instanceof Input\FileInput)
+            if (is_object($input) && $input instanceof Input\File)
             {
                 $this->setEnctype(self::ENCTYPE_FILE);
                 return $this->enctype; // immediately quit searching when a FileInput is found
