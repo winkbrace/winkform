@@ -240,7 +240,7 @@ function getPeriodFirstAndLast($period, $type)
         elseif ($type == 'week')
         {
             if (strlen($period) != '7' || strstr($period, '-') === false)
-                throw new FormException('Invalid week period given (IYYY-IW) - '.$period);
+                throw new \Exception('Invalid week period given (IYYY-IW) - '.$period);
             
             $year = substr($period, 0, 4);
             $week = substr($period, -2);
@@ -255,7 +255,7 @@ function getPeriodFirstAndLast($period, $type)
         elseif ($type == 'month')
         {
             if (strlen($period) != '7' || strstr($period, '-') === false)
-                throw new FormException('Invalid month period given (YYYY-MM) - '.$period);
+                throw new \Exception('Invalid month period given (YYYY-MM) - '.$period);
             
             $year = substr($period, 0, 4);
             $month = substr($period, -2);
@@ -268,7 +268,7 @@ function getPeriodFirstAndLast($period, $type)
         elseif ($type == 'quarter')
         {
             if (strlen($period) != '6' || strstr($period, '-') === false)
-                throw new FormException('Invalid quarter period given (YYYY-Q) - '.$period);
+                throw new \Exception('Invalid quarter period given (YYYY-Q) - '.$period);
                 
             $year = substr($period, 0, 4);
             $quarter = substr($period, -1);
@@ -283,7 +283,7 @@ function getPeriodFirstAndLast($period, $type)
         elseif ($type == 'year')
         {
             if (strlen($period) != '4')
-                throw new FormException('Invalid year period given (YYYY) - '.$period);
+                throw new \Exception('Invalid year period given (YYYY) - '.$period);
                 
             $first = strtotime($period.'0101');
             $last = strtotime($period.'1231');
@@ -292,7 +292,7 @@ function getPeriodFirstAndLast($period, $type)
         }
         
         // else invalid input
-        throw new FormException('Invalid period type given - '.$type);
+        throw new \Exception('Invalid period type given - '.$type);
     }
     catch (FormException $e)
     {

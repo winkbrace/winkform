@@ -6,7 +6,7 @@
  * enctype="multipart/form-data"
  *
  */
-class FileInput extends Input
+class File extends Input
 {
     protected $type = 'file';
     
@@ -17,7 +17,7 @@ class FileInput extends Input
     {
         // default validity check
         if (! $this->validate->isValid())
-            throw new FormException($this->validate->getMessage('Error rendering '.get_class($this).' object with name '.$this->name));
+            throw new \Exception($this->validate->getMessage('Error rendering '.get_class($this).' object with name '.$this->name));
         
         // default "width" (actually invalid html, but it will work)
         if (empty($this->size))

@@ -20,7 +20,7 @@ class Checkbox extends Input
         // default validity check
         if (! $this->validate->isValid())
         {
-            throw new FormException($this->validate->getMessage('Error rendering '.get_class($this).' object with name '.$this->name, false));
+            throw new \Exception($this->validate->getMessage('Error rendering '.get_class($this).' object with name '.$this->name, false));
         }
         
         // I will assume style adjustments apply to the container div if there are more

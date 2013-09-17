@@ -1,14 +1,9 @@
-<?php
-namespace WinkForm;
+<?php namespace WinkForm;
 
 /**
  * file containing the required setup
  * @author b-deruiter
  */
-
-
-// Exceptions
-class FormException extends \Exception {}
 
 
 // constants
@@ -33,8 +28,8 @@ spl_autoload_register(function($class) {
     if (file_exists(WINKFORM_PATH . $file))
         require_once WINKFORM_PATH . $file;
     // library Input classes
-    elseif (file_exists(WINKFORM_PATH . 'inputs/' . $file))
-        require_once WINKFORM_PATH . 'inputs/' . $file;
+    elseif (file_exists(WINKFORM_PATH . 'Input/' . $file))
+        require_once WINKFORM_PATH . 'Input/' . $file;
     
     // else not found. Maybe another autoloader will find the class
 });

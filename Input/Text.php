@@ -1,28 +1,27 @@
 <?php namespace WinkForm\Input;
 
-class PasswordInput extends Input
+class Text extends Input
 {
-
-    protected $type = 'password',
+    
+    protected $type = 'text',
               $maxLength;
 
-    
     /**
-     * render the hidden input element
+     * render the text input element
      */
     public function render()
     {
         // default validity check
         if (! $this->validate->isValid())
-            throw new FormException($this->validate->getMessage('Error rendering '.get_class($this).' object with name '.$this->name));
-
+            throw new \Exception($this->validate->getMessage('Error rendering '.get_class($this).' object with name '.$this->name));
+            
         $output = $this->renderLabel()
                 . '<input'
                 . $this->renderType()
                 . $this->renderId()
                 . $this->renderClass()
                 . $this->renderName()
-                . ' value=""'
+                . $this->renderValue()
                 . $this->renderStyle()
                 . $this->renderDisabled()
                 . $this->renderMaxLength()
@@ -39,7 +38,7 @@ class PasswordInput extends Input
     }
     
     /**
-     * @return html maxlength="$maxLength"
+     * @return the $maxLength
      */
     public function renderMaxLength()
     {
@@ -52,7 +51,7 @@ class PasswordInput extends Input
     public function setMaxLength($maxLength)
     {
         if (! $this->validate->numeric($maxLength))
-            throw new FormException('Invalid value for maxLength: '.$maxLength);
+            throw new \Exception('Invalid value for maxLength: '.$maxLength);
         else
             $this->maxLength = $maxLength;
         

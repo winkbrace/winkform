@@ -31,7 +31,7 @@ class DateRange extends Input
             $this->validate->date($to);
         
         if (! $this->validate->isValid())
-            throw new FormException($this->validate->getMessage('Error creating '.get_class($this).' object with name '.$this->name));
+            throw new \Exception($this->validate->getMessage('Error creating '.get_class($this).' object with name '.$this->name));
         
         // create the two date input fields
         $this->setDateFrom(new DateInput($this->name.'-from', $from));
@@ -48,7 +48,7 @@ class DateRange extends Input
     {
         // default validity check
         if (! $this->validate->isValid())
-            throw new FormException($this->validate->getMessage('Error rendering '.get_class($this).' object with name '.$this->name));
+            throw new \Exception($this->validate->getMessage('Error rendering '.get_class($this).' object with name '.$this->name));
         
         // via casting we can pass all attributes that were set on DateRane down to the DateInput fields
         $excludes = array('type', 'name', 'id', 'value', 'label', 'selected', 'posted', 'required', 'invalidations', 'inReportForm');

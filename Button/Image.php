@@ -1,6 +1,6 @@
-<?php namespace WinkForm\Input;
+<?php namespace WinkForm\Button;
 
-class ImageButton extends Input
+class Image extends Button
 {
     
     protected $type = 'image',
@@ -15,7 +15,7 @@ class ImageButton extends Input
         // default validity check
         $this->validate->isNotEmpty($this->src);
         if (! $this->validate->isValid())
-            throw new FormException($this->validate->getMessage('Error rendering '.get_class($this).' object with name '.$this->name));
+            throw new \Exception($this->validate->getMessage('Error rendering '.get_class($this).' object with name '.$this->name));
             
         $output = $this->renderLabel()
                 . '<input'

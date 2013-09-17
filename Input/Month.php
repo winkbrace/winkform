@@ -1,6 +1,6 @@
 <?php namespace WinkForm\Input;
 
-class MonthInput extends Input
+class Month extends Input
 {
     
     protected $month,
@@ -43,7 +43,7 @@ class MonthInput extends Input
     {
         // default validity check
         if (! $this->validate->isValid())
-            throw new FormException($this->validate->getMessage('Error rendering '.get_class($this).' object with name '.$this->name));
+            throw new \Exception($this->validate->getMessage('Error rendering '.get_class($this).' object with name '.$this->name));
 
         // via casting we can pass all attributes that were set on DateRange down to the DateInput fields
         $excludes = array('name','id','value','values','label','labels','selected','posted','required','invalidations');
@@ -81,7 +81,7 @@ class MonthInput extends Input
         $this->validate->hasLength($selected, 7);
         $this->validate->contains($selected, '-');
         if (! $this->validate->isValid())
-            throw new FormException($this->validate->getMessage("Invalid string given for setting ".get_class($this)." object as selected: $selected. Has to be YYYY-MM."));
+            throw new \Exception($this->validate->getMessage("Invalid string given for setting ".get_class($this)." object as selected: $selected. Has to be YYYY-MM."));
         
         list($year, $month) = explode('-', $selected);
         
@@ -90,7 +90,7 @@ class MonthInput extends Input
         $this->validate->between($month, 1, 12);
         
         if (! $this->validate->isValid())
-            throw new FormException($this->validate->getMessage('Error setting selected values for '.get_class($this).' object with name '.$this->name));
+            throw new \Exception($this->validate->getMessage('Error setting selected values for '.get_class($this).' object with name '.$this->name));
         
         // set selected
         $this->month->setSelected($month, $flag);

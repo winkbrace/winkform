@@ -1,34 +1,20 @@
 <?php namespace WinkForm\Input;
 
-class ResetButton extends Input
+class Hidden extends Input
 {
-    protected $type = 'reset';
+    protected $type = 'hidden';
     
 
     /**
-     * construct SubmitButton
-     * @param string $name
-     * @param mixed optional $value
-     */
-    function __construct($name, $value = null)
-    {
-        parent::__construct($name, $value);
-        
-        // always set btn class
-        $this->addClass('btn');
-    }
-
-    /**
-     * render the reset button
+     * render the hidden input element
      */
     public function render()
     {
         // default validity check
         if (! $this->validate->isValid())
-            throw new FormException($this->validate->getMessage('Error rendering '.get_class($this).' object with name '.$this->name));
-        
-        $output = $this->renderLabel()
-                . '<input'
+            throw new \Exception($this->validate->getMessage('Error rendering '.get_class($this).' object with name '.$this->name));
+
+        $output = '<input'
                 . $this->renderType()
                 . $this->renderId()
                 . $this->renderClass()
@@ -39,12 +25,10 @@ class ResetButton extends Input
                 . $this->renderTitle()
                 . $this->renderDataAttributes()
                 . $this->renderRequired()
-                . $this->renderAutoFocus()
                 .' />'."\n";
         
         $output .= $this->renderInvalidations();
         
         return $output;
     }
-    
 }

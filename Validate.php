@@ -551,11 +551,11 @@ class Validate
             {
                 // if given $validation is a valid method of this class then run that method
                 if (! in_array($validation, $methods))
-                    throw new FormException('Invalid validation asked: '.$validation);
+                    throw new \Exception('Invalid validation asked: '.$validation);
                 
                 $r = new \ReflectionMethod($this, $validation);
                 if (count($r->getParameters()) > 1)
-                    throw new FormException('Cannot perform validation '.$validation.', because more than just value parameter is required.');
+                    throw new \Exception('Cannot perform validation '.$validation.', because more than just value parameter is required.');
                 
                 $this->$validation($value);
             }

@@ -1,6 +1,6 @@
 <?php namespace WinkForm\Input;
 
-class CustomInput extends Input
+class Custom extends Input
 {
 
     /**
@@ -18,7 +18,7 @@ class CustomInput extends Input
     {
         // default validity check
         if (! $this->validate->isValid())
-            throw new FormException($this->validate->getMessage('Error rendering '.get_class($this).' object with name '.$this->name));
+            throw new \Exception($this->validate->getMessage('Error rendering '.get_class($this).' object with name '.$this->name));
             
         $output = $this->renderLabel()
             . '<input'
@@ -81,12 +81,12 @@ class CustomInput extends Input
         
         // Check if he selected an input type that exists
         if (! array_key_exists($type, $allowedTypes))
-            throw new FormException('The type specified for this input field '. $type .' is not a valid one.
+            throw new \Exception('The type specified for this input field '. $type .' is not a valid one.
                             Please select one of the following types: ' . implode(', ', array_keys($allowedTypes)));
         
         // Check if we don't have already defined a class for this
         if (! is_null($allowedTypes[$type]))
-            throw new FormException('It looks like the type: ' . $type . ' already has a better implementation.
+            throw new \Exception('It looks like the type: ' . $type . ' already has a better implementation.
                             You should try this first: ' . implode(', ', $allowedTypes[$type]));
         
         // This will be the <input> element type

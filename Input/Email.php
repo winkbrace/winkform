@@ -1,10 +1,9 @@
 <?php namespace WinkForm\Input;
 
-class TextInput extends Input
+class Email extends Input
 {
+    protected $type = 'email';
     
-    protected $type = 'text',
-              $maxLength;
 
     /**
      * render the text input element
@@ -13,7 +12,7 @@ class TextInput extends Input
     {
         // default validity check
         if (! $this->validate->isValid())
-            throw new FormException($this->validate->getMessage('Error rendering '.get_class($this).' object with name '.$this->name));
+            throw new \Exception($this->validate->getMessage('Error rendering '.get_class($this).' object with name '.$this->name));
             
         $output = $this->renderLabel()
                 . '<input'
@@ -29,7 +28,6 @@ class TextInput extends Input
                 . $this->renderDataAttributes()
                 . $this->renderRequired()
                 . $this->renderPlaceholder()
-                . $this->renderAutoFocus()
                 .' />'."\n";
         
         $output .= $this->renderInvalidations();
@@ -37,25 +35,4 @@ class TextInput extends Input
         return $output;
     }
     
-    /**
-     * @return the $maxLength
-     */
-    public function renderMaxLength()
-    {
-        return ! empty($this->maxLength) ? ' maxlength="'.$this->maxLength.'"' : '';
-    }
-
-    /**
-     * @param int $maxLength
-     */
-    public function setMaxLength($maxLength)
-    {
-        if (! $this->validate->numeric($maxLength))
-            throw new FormException('Invalid value for maxLength: '.$maxLength);
-        else
-            $this->maxLength = $maxLength;
-        
-        return $this;
-    }
-
 }

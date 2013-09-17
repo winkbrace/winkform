@@ -1,6 +1,6 @@
 <?php namespace WinkForm\Input;
 
-class TextAreaInput extends Input
+class TextArea extends Input
 {
     protected $type = 'textarea';
     protected $rows;
@@ -16,7 +16,7 @@ class TextAreaInput extends Input
     {
         // default validity check
         if (! $this->validate->isValid())
-            throw new FormException($this->validate->getMessage('Error rendering '.get_class($this).' object with name '.$this->name));
+            throw new \Exception($this->validate->getMessage('Error rendering '.get_class($this).' object with name '.$this->name));
             
         $output = $this->renderLabel()
                     . '<textarea'

@@ -1,6 +1,6 @@
 <?php namespace WinkForm\Input;
 
-class DateInput extends Input
+class Date extends Input
 {
     /**
      * Contains the options for the jQuery DatePicker widget
@@ -20,7 +20,7 @@ class DateInput extends Input
         
         // default validity check
         if (! $this->validate->isValid())
-            throw new FormException($this->validate->getMessage('Error rendering '.get_class($this).' object with name '.$this->name));
+            throw new \Exception($this->validate->getMessage('Error rendering '.get_class($this).' object with name '.$this->name));
             
         // we will show/hide the container div for the text field and the image and not the text field and the image themselves
         $this->removeStyle('display:none');

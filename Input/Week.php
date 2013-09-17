@@ -1,6 +1,6 @@
 <?php namespace WinkForm\Input;
 
-class WeekInput extends Input
+class Week extends Input
 {
     // the text input fields
     protected $year,
@@ -91,7 +91,7 @@ class WeekInput extends Input
         
         // default validity check
         if (! $this->validate->isValid())
-            throw new FormException($this->validate->getMessage('Error rendering '.get_class($this).' object with name '.$this->name));
+            throw new \Exception($this->validate->getMessage('Error rendering '.get_class($this).' object with name '.$this->name));
         
         // copy the attributes given to WeekInput to the children year and week
         $excludes = array('name','id','value','values','label','labels','selected','posted','required','invalidations', 'width');

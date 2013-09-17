@@ -1027,7 +1027,7 @@ abstract class Input
     {
         // validate validation exists in Validate (teehee)
         if (! method_exists($this->validate, $validation))
-            throw new FormException('The validation '.$validation.' does not exist in class Validate');
+            throw new \Exception('The validation '.$validation.' does not exist in class Validate');
         if (! is_array($parameters))
             $parameters = array($parameters);
         

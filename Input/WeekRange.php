@@ -41,7 +41,7 @@ class WeekRange extends Input
     {
         // default validity check
         if (! $this->validate->isValid())
-            throw new FormException($this->validate->getMessage('Error rendering '.get_class($this).' object with name '.$this->name));
+            throw new \Exception($this->validate->getMessage('Error rendering '.get_class($this).' object with name '.$this->name));
         
         // copy attributes from WeekRange to the WeekInputs
         $excludes = array('name','id','value','values','label','labels','selected','posted','required','invalidations','width');

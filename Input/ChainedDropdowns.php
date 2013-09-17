@@ -20,7 +20,7 @@ class ChainedDropdowns extends Input
     {
         // default validity check
         if (! $this->validate->isValid())
-            throw new FormException($this->validate->getMessage('Error rendering '.get_class($this).' object with name '.$this->name));
+            throw new \Exception($this->validate->getMessage('Error rendering '.get_class($this).' object with name '.$this->name));
             
         $output = "<ul>\n";
         foreach ($this->dropdowns as $dropdown)
@@ -75,7 +75,7 @@ class ChainedDropdowns extends Input
     protected function createDropdowns()
     {
         if (empty($this->result))
-            throw new FormException('Error creating dropdowns, because there are no results to create dropdowns from.');
+            throw new \Exception('Error creating dropdowns, because there are no results to create dropdowns from.');
         
         // the separator we use to glue the values of the different columns together to ensure uniqueness
         $separator = '_';

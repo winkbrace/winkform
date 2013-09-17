@@ -1,6 +1,6 @@
 <?php namespace WinkForm\Input;
 
-class AddressInput extends Input
+class Address extends Input
 {
     
     protected $type = 'address',
@@ -37,7 +37,7 @@ class AddressInput extends Input
     {
         // default validity check
         if (! $this->validate->isValid())
-            throw new FormException($this->validate->getMessage('Error rendering '.get_class($this).' object with name '.$this->name));
+            throw new \Exception($this->validate->getMessage('Error rendering '.get_class($this).' object with name '.$this->name));
 
         // via casting we can pass all attributes that were set on AddressInput down to the DateInput fields
         $excludes = array('type', 'name','id','value','values','label','labels','selected','posted','required','invalidations');

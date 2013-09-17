@@ -1,5 +1,4 @@
-<?php
-namespace WinkForm;
+<?php namespace WinkForm;
 
 /**
  * abstract class Form
@@ -21,7 +20,7 @@ abstract class Form
      */
     public static function address($name, $value = null)
     {
-        return new AddressInput($name, $value);
+        return new Input\Address($name, $value);
     }
     
     /**
@@ -32,7 +31,7 @@ abstract class Form
      */
     public static function button($name, $value = null)
     {
-        return new Button($name, $value);
+        return new Input\Button($name, $value);
     }
     
     /**
@@ -43,7 +42,7 @@ abstract class Form
      */
     public static function chainedDropdowns($name, $value = null)
     {
-        return new ChainedDropdowns($name, $value);
+        return new Input\ChainedDropdowns($name, $value);
     }
     
     /**
@@ -54,7 +53,7 @@ abstract class Form
      */
     public static function checkbox($name, $value = null)
     {
-        return new Checkbox($name, $value);
+        return new Input\Checkbox($name, $value);
     }
     
     /**
@@ -67,7 +66,7 @@ abstract class Form
      */
     public static function custom($type, $name, $value = null)
     {
-        $custom = new CustomInput($name, $value);
+        $custom = new Input\Custom($name, $value);
         $custom->setType($type);
         return $custom;
     }
@@ -80,7 +79,7 @@ abstract class Form
      */
     public static function date($name, $value = null)
     {
-        return new DateInput($name, $value);
+        return new Input\Date($name, $value);
     }
     
     /**
@@ -92,7 +91,7 @@ abstract class Form
      */
     public static function dateRange($name, $from, $to)
     {
-        return new DateRange($name, $from, $to);
+        return new Input\DateRange($name, $from, $to);
     }
     
     /**
@@ -103,7 +102,7 @@ abstract class Form
      */
     public static function dropdown($name, $value = null)
     {
-        return new Dropdown($name, $value);
+        return new Input\Dropdown($name, $value);
     }
     
     /**
@@ -114,7 +113,7 @@ abstract class Form
      */
     public static function file($name, $value = null)
     {
-        return new FileInput($name, $value);
+        return new Input\File($name, $value);
     }
     
     /**
@@ -125,7 +124,7 @@ abstract class Form
      */
     public static function hidden($name, $value = null)
     {
-        return new HiddenInput($name, $value);
+        return new Input\Hidden($name, $value);
     }
     
     /**
@@ -136,7 +135,7 @@ abstract class Form
      */
     public static function image($name, $value = null)
     {
-        return new ImageButton($name, $value);
+        return new Input\Image($name, $value);
     }
     
     /**
@@ -147,7 +146,7 @@ abstract class Form
      */
     public static function month($name, $month = null)
     {
-        return new MonthInput($name, $month);
+        return new Input\Month($name, $month);
     }
     
     /**
@@ -159,7 +158,7 @@ abstract class Form
      */
     public static function monthRange($name, $from = null, $to = null)
     {
-        return new MonthRange($name, $from, $to);
+        return new Input\MonthRange($name, $from, $to);
     }
     
     /**
@@ -170,7 +169,7 @@ abstract class Form
      */
     public static function password($name, $value = null)
     {
-        return new PasswordInput($name, $value);
+        return new Input\Password($name, $value);
     }
     
     /**
@@ -181,7 +180,7 @@ abstract class Form
      */
     public static function radio($name, $value = null)
     {
-        return new RadioInput($name, $value);
+        return new Input\Radio($name, $value);
     }
     
     /**
@@ -192,7 +191,7 @@ abstract class Form
      */
     public static function reset($name, $value = null)
     {
-        return new ResetButton($name, $value);
+        return new Input\Reset($name, $value);
     }
     
     /**
@@ -203,7 +202,7 @@ abstract class Form
      */
     public static function submit($name, $value = null)
     {
-        return new SubmitButton($name, $value);
+        return new Input\Submit($name, $value);
     }
     
     /**
@@ -214,7 +213,7 @@ abstract class Form
      */
     public static function text($name, $value = null)
     {
-        return new TextInput($name, $value);
+        return new Input\Text($name, $value);
     }
     
     /**
@@ -225,7 +224,7 @@ abstract class Form
      */
     public static function textarea($name, $value = null)
     {
-        return new TextAreaInput($name, $value);
+        return new Input\TextArea($name, $value);
     }
     
     /**
@@ -236,7 +235,7 @@ abstract class Form
      */
     public static function week($name, $week = null)
     {
-        return new WeekInput($name, $week);
+        return new Input\Week($name, $week);
     }
     
     /**
@@ -248,7 +247,7 @@ abstract class Form
      */
     public static function weekRange($name, $from = null, $to = null)
     {
-        return new WeekRange($name, $from, $to);
+        return new Input\WeekRange($name, $from, $to);
     }
     
         
@@ -308,7 +307,7 @@ abstract class Form
         // handle validations passed to this form or to the public input fields
         foreach (get_object_vars($this) as $input)
         {
-            if (! $input instanceof Input)
+            if (! $input instanceof Input\Input)
                 continue;
             
             $this->validateInput($input);
@@ -322,7 +321,7 @@ abstract class Form
      * custom validations assigned to the object or to the form
      * @param Input $input
      */
-    protected function validateInput(Input $input)
+    protected function validateInput(Input\Input $input)
     {
         // validate required fields
         if ($input->isRequired() && ! $input->isPosted())
@@ -333,9 +332,9 @@ abstract class Form
             return;
         
         // always validate date inputs
-        if ($input instanceof DateInput)
+        if ($input instanceof Input\Date)
             $this->validator->date($input->getPosted());
-        if ($input instanceof DateRange)
+        if ($input instanceof Input\DateRange)
         {
             $this->validator->date($input->getDateFrom()->getPosted());
             $this->validator->date($input->getDateTo()->getPosted());
@@ -450,16 +449,16 @@ abstract class Form
      */
     public function addValidation($input, $validation, $parameters = array())
     {
-        if ($input instanceof Input)
+        if ($input instanceof Input\Input)
             $inputName = $input->getName();
         elseif (is_string($input))
             $inputName = $input;
         else
-            throw new FormException('Invalid $input given to add validation to Form');
+            throw new \Exception('Invalid $input given to add validation to Form');
     
         // validate validation exists in Validate (teehee)
         if (! method_exists($this->validator, $validation))
-            throw new FormException('The validation '.$validation.' does not exist in class Validate');
+            throw new \Exception('The validation '.$validation.' does not exist in class Validate');
         
         // if developer forgets that parameters have to be in an array (when there is only 1 value for example) then
         // be lenient and put the parameter in an array here
@@ -509,7 +508,7 @@ abstract class Form
     public function setMethod($method)
     {
         if (! in_array($method, array('post', 'get')))
-            throw new FormException('Invalid method for Form');
+            throw new \Exception('Invalid method for Form');
         
         $this->method = $method;
     }
@@ -549,7 +548,7 @@ abstract class Form
         // check the properties
         foreach (get_object_vars($this) as $input)
         {
-            if (is_object($input) && $input instanceof FileInput)
+            if (is_object($input) && $input instanceof Input\FileInput)
             {
                 $this->setEnctype(self::ENCTYPE_FILE);
                 return $this->enctype; // immediately quit searching when a FileInput is found
