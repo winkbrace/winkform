@@ -19,8 +19,8 @@ class Date extends Input
         $output = '';
         
         // default validity check
-        if (! $this->validate->isValid())
-            throw new \Exception($this->validate->getMessage('Error rendering '.get_class($this).' object with name '.$this->name));
+        if (! $this->validator->isValid())
+            throw new \Exception($this->validator->getMessage('Error rendering '.get_class($this).' object with name '.$this->name));
             
         // we will show/hide the container div for the text field and the image and not the text field and the image themselves
         $this->removeStyle('display:none');
@@ -105,7 +105,7 @@ class Date extends Input
      */
     public function setDatePickerOptions(array $options = array())
     {
-        if ($this->validate->isNotEmpty($options) && $this->validate->isArray($options))
+        if ($this->validator->isNotEmpty($options) && $this->validator->isArray($options))
         {
             $this->jsOptions = $options;
         }

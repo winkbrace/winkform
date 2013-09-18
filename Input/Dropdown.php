@@ -16,9 +16,9 @@ class Dropdown extends Input
     public function render()
     {
         // default validity check
-        if (! $this->validate->isValid())
+        if (! $this->validator->isValid())
         {
-            throw new \Exception($this->validate->getMessage('Error rendering '.get_class($this).' object with name '.$this->name, false));
+            throw new \Exception($this->validator->getMessage('Error rendering '.get_class($this).' object with name '.$this->name, false));
         }
             
         // create select tag
@@ -103,7 +103,7 @@ class Dropdown extends Input
      */
     public function setMultiple($multiple = true)
     {
-        if ($this->validate->isBoolean($multiple))
+        if ($this->validator->isBoolean($multiple))
         {
             $this->multiple = $multiple;
         }
@@ -117,7 +117,7 @@ class Dropdown extends Input
      */
     public function setOptionsClasses($optionsClasses)
     {
-        if ($this->validate->isArray($optionsClasses))
+        if ($this->validator->isArray($optionsClasses))
         {
             $this->optionsClasses = $optionsClasses;
         }
@@ -131,7 +131,7 @@ class Dropdown extends Input
      */
     public function setOptionsTitles($optionsTitles)
     {
-        if ($this->validate->isArray($optionsTitles))
+        if ($this->validator->isArray($optionsTitles))
         {
             $this->optionsTitles = $optionsTitles;
         }

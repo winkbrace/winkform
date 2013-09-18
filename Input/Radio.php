@@ -14,8 +14,8 @@ class Radio extends Input
     public function render()
     {
         // default validity check
-        if (! $this->validate->isValid())
-            throw new \Exception($this->validate->getMessage('Error rendering '.get_class($this).' object with name '.$this->name, false));
+        if (! $this->validator->isValid())
+            throw new \Exception($this->validator->getMessage('Error rendering '.get_class($this).' object with name '.$this->name, false));
         
         $output = '';
         
@@ -117,7 +117,7 @@ class Radio extends Input
      */
     public function setRenderInColumns($int)
     {
-        if ($this->validate->numeric($int))
+        if ($this->validator->numeric($int))
         {
             $this->renderInColumns = $int;
         }

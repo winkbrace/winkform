@@ -12,8 +12,8 @@ class Text extends Input
     public function render()
     {
         // default validity check
-        if (! $this->validate->isValid())
-            throw new \Exception($this->validate->getMessage('Error rendering '.get_class($this).' object with name '.$this->name));
+        if (! $this->validator->isValid())
+            throw new \Exception($this->validator->getMessage('Error rendering '.get_class($this).' object with name '.$this->name));
             
         $output = $this->renderLabel()
                 . '<input'
@@ -50,7 +50,7 @@ class Text extends Input
      */
     public function setMaxLength($maxLength)
     {
-        if (! $this->validate->numeric($maxLength))
+        if (! $this->validator->numeric($maxLength))
             throw new \Exception('Invalid value for maxLength: '.$maxLength);
         else
             $this->maxLength = $maxLength;

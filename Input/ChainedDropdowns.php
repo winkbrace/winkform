@@ -19,8 +19,8 @@ class ChainedDropdowns extends Input
     public function render()
     {
         // default validity check
-        if (! $this->validate->isValid())
-            throw new \Exception($this->validate->getMessage('Error rendering '.get_class($this).' object with name '.$this->name));
+        if (! $this->validator->isValid())
+            throw new \Exception($this->validator->getMessage('Error rendering '.get_class($this).' object with name '.$this->name));
             
         $output = "<ul>\n";
         foreach ($this->dropdowns as $dropdown)
@@ -60,7 +60,7 @@ class ChainedDropdowns extends Input
      */
     public function setResultArray($result)
     {
-        if ($this->validate->isArray($result))
+        if ($this->validator->isArray($result))
             $this->result = $result;
         
         $this->createDropdowns();

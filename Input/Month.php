@@ -16,7 +16,7 @@ class Month extends Input
      */
     function __construct($name, $value = null)
     {
-        $this->validate = new Validate();
+        $this->validator = new Validate();
 
         $this->name = $name;
         
@@ -42,8 +42,8 @@ class Month extends Input
     public function render()
     {
         // default validity check
-        if (! $this->validate->isValid())
-            throw new \Exception($this->validate->getMessage('Error rendering '.get_class($this).' object with name '.$this->name));
+        if (! $this->validator->isValid())
+            throw new \Exception($this->validator->getMessage('Error rendering '.get_class($this).' object with name '.$this->name));
 
         // via casting we can pass all attributes that were set on DateRange down to the DateInput fields
         $excludes = array('name','id','value','values','label','labels','selected','posted','required','invalidations');
@@ -78,19 +78,19 @@ class Month extends Input
      */
     public function setSelected($selected, $flag = 0)
     {
-        $this->validate->hasLength($selected, 7);
-        $this->validate->contains($selected, '-');
-        if (! $this->validate->isValid())
-            throw new \Exception($this->validate->getMessage("Invalid string given for setting ".get_class($this)." object as selected: $selected. Has to be YYYY-MM."));
+        $this->validator->hasLength($selected, 7);
+        $this->validator->contains($selected, '-');
+        if (! $this->validator->isValid())
+            throw new \Exception($this->validator->getMessage("Invalid string given for setting ".get_class($this)." object as selected: $selected. Has to be YYYY-MM."));
         
         list($year, $month) = explode('-', $selected);
         
         // validate
-        $this->validate->between($year, 1000, 9999);
-        $this->validate->between($month, 1, 12);
+        $this->validator->between($year, 1000, 9999);
+        $this->validator->between($month, 1, 12);
         
-        if (! $this->validate->isValid())
-            throw new \Exception($this->validate->getMessage('Error setting selected values for '.get_class($this).' object with name '.$this->name));
+        if (! $this->validator->isValid())
+            throw new \Exception($this->validator->getMessage('Error setting selected values for '.get_class($this).' object with name '.$this->name));
         
         // set selected
         $this->month->setSelected($month, $flag);

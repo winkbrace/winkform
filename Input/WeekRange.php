@@ -11,7 +11,7 @@ class WeekRange extends Input
     protected $weekFrom,
               $weekTo;
     
-    protected $validate;
+    protected $validator;
     
     
     /**
@@ -23,7 +23,7 @@ class WeekRange extends Input
      */
     function __construct($name, $from = null, $to = null)
     {
-        $this->validate = new Validate();
+        $this->validator = new Validate();
         
         $this->name = $name;
         
@@ -40,8 +40,8 @@ class WeekRange extends Input
     public function render($echo = false)
     {
         // default validity check
-        if (! $this->validate->isValid())
-            throw new \Exception($this->validate->getMessage('Error rendering '.get_class($this).' object with name '.$this->name));
+        if (! $this->validator->isValid())
+            throw new \Exception($this->validator->getMessage('Error rendering '.get_class($this).' object with name '.$this->name));
         
         // copy attributes from WeekRange to the WeekInputs
         $excludes = array('name','id','value','values','label','labels','selected','posted','required','invalidations','width');

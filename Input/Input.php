@@ -29,19 +29,19 @@ abstract class Input
               $size, // File Input doesn't support style="width" and Dropdown also uses it
               $inReportForm = false,
               $required = false,         // boolean value to tell if the input element is required
-              $validations = array(),    // array of validations. Must be methods of Validate class.
+              $validations = array(),    // array of validations. @see http://laravel.com/docs/validation#available-validation-rules
               $invalidations = array(),  // result of form validations of this input element
               $dataAttributes = array(), // custom data-attributes can be collected in this array
               $autoFocus = false,        // boolean value if the input element should get focus when the page is loaded
               $placeholder;              // specifies a short hint that describes the expected value of an input field
 
-    protected $validate; // Validate object (this validates the object attributes are properly set, not the form validation!)
+    protected $validator; // Validate object (this validates the object attributes are properly set, not the form validation!)
     
     // bitwise flags
     const INPUT_OVERRULE_POST = 1; // make the given selected value overwrite anything that is posted
     const INPUT_SELECTED_INITIALLY_ONLY = 2; // only use an initial "selected" value if nothing has been posted yet
     const INPUT_DONT_ESCAPE_HTML = 4; // used by setLabels() and appendOptions to not escape HTML chars
-    // next const should be 2, then 4, then 8 etc. to have the nth bit set to 1
+    // next const should be 8, then 16 etc. to have the nth bit set to 1
 
     
     /**
@@ -51,7 +51,7 @@ abstract class Input
      */
     function __construct($name, $value = null)
     {
-        $this->validate = new Validate();
+        $this->validator = new \WinkForm\Validate();
         
         $this->setName($name);
         $this->setId($name); // normally you want the id to be the same as the name
@@ -366,7 +366,7 @@ abstract class Input
         // a name can contain [] (or [bla][][][]) but the id not
         $id = str_replace(array('[',']'), '_', $id);
             
-        if ($this->validate->htmlId($id))
+        if ($this->validator->htmlId($id))
         {
             $this->id = $id;
         }
@@ -382,7 +382,7 @@ abstract class Input
         // a name can contain [ and ], but nothing else
         $testName = str_replace(array('[',']'), '_', $name);
         
-        if ($this->validate->htmlId($testName))
+        if ($this->validator->htmlId($testName))
         {
             $this->name = $name;
         }
@@ -395,7 +395,7 @@ abstract class Input
      */
     public function setValue($value)
     {
-        if ($this->validate->isNotArray($value))
+        if ($this->validator->isNotArray($value))
         {
             $this->value = xsschars($value);
         }
@@ -408,7 +408,7 @@ abstract class Input
      */
     public function setValues($values)
     {
-        if ($this->validate->isArray($values))
+        if ($this->validator->isArray($values))
         {
             $values = array_values($values); // enforce numeric array
             array_walk($values, 'xsschars');
@@ -435,7 +435,7 @@ abstract class Input
      */
     public function setLabels($labels, $flag = null)
     {
-        if ($this->validate->isArray($labels))
+        if ($this->validator->isArray($labels))
         {
             $labels = array_values($labels); // enforce numeric array
             
@@ -457,7 +457,7 @@ abstract class Input
      */
     public function setPlaceholder($placeholder)
     {
-        if ($this->validate->inArray($this->type, array('text', 'search', 'url', 'tel', 'email', 'password')))
+        if ($this->validator->inArray($this->type, array('text', 'search', 'url', 'tel', 'email', 'password')))
         {
             $this->placeholder = xsschars($placeholder);
         }
@@ -471,7 +471,7 @@ abstract class Input
      */
     public function setAutoFocus($flag)
     {
-        if ($this->validate->isBoolean($flag))
+        if ($this->validator->isBoolean($flag))
         {
             $this->autoFocus = $flag;
         }
@@ -511,7 +511,7 @@ abstract class Input
      */
     public function appendOptions($options, $flag = null, $category = null)
     {
-        if ($this->validate->isArray($options))
+        if ($this->validator->isArray($options))
         {
             // loop over the options array and add all values to values and labels
             // array_merge or the + operator won't do, because they will remove duplicate keys
@@ -558,7 +558,7 @@ abstract class Input
      */
     public function prependOptions($options, $flag = null, $category = null)
     {
-        if ($this->validate->isArray($options))
+        if ($this->validator->isArray($options))
         {
             // loop over the options array and add all values to values and labels
             // array_merge or the + operator won't do, because they will remove duplicate keys
@@ -583,7 +583,7 @@ abstract class Input
      */
     public function appendOptionsFromQuery(\Query $query, $valueColumn, $labelColumn, $categoryColumn = null, $flag = null)
     {
-        if ($this->validate->isQuery($query)) // validate and execute $query
+        if ($this->validator->isQuery($query)) // validate and execute $query
         {
             $result = $query->fetchAll();
             if (count($result) > 0)
@@ -623,7 +623,7 @@ abstract class Input
      */
     public function setCategories($categories)
     {
-        if ($this->validate->isArray($categories))
+        if ($this->validator->isArray($categories))
         {
             $this->categories = array_values($categories); // enforce numeric array
         }
@@ -636,7 +636,7 @@ abstract class Input
      */
     public function setWidth($width)
     {
-        if ($this->validate->numeric($width))
+        if ($this->validator->numeric($width))
             $this->width = $width;
 
         return $this;
@@ -652,7 +652,7 @@ abstract class Input
         
         foreach ($classes as $class)
         {
-            if ($this->validate->htmlId($class))
+            if ($this->validator->htmlId($class))
             {
                 $this->classes[] = $class;
             }
@@ -669,7 +669,7 @@ abstract class Input
         $classes = explode(' ', $class);
         foreach ($classes as $cls)
         {
-            if ($this->validate->htmlId($cls))
+            if ($this->validator->htmlId($cls))
             {
                 if (! in_array($cls, $this->classes))
                     $this->classes[] = $cls;
@@ -803,7 +803,7 @@ abstract class Input
                 $post = xsschars($post);
             
             // This is a fix for when users manually input dates without using leading 0s
-            if ($this instanceof DateInput)
+            if ($this instanceof Date)
                 $post = $this->getCorrectedPostedDate($post);
             
             $this->posted = $post;
@@ -852,7 +852,7 @@ abstract class Input
      */
     public function setDisabled($disabled)
     {
-        if ($this->validate->inArray($disabled, array('disabled','readonly')))
+        if ($this->validator->inArray($disabled, array('disabled','readonly')))
         {
             $this->disabled = $disabled;
         }
@@ -865,7 +865,7 @@ abstract class Input
      */
     public function setHidden($hidden)
     {
-        if ($this->validate->isBoolean($hidden))
+        if ($this->validator->isBoolean($hidden))
         {
             $this->hidden = $hidden;
             
@@ -891,7 +891,7 @@ abstract class Input
      */
     public function setSize($size)
     {
-        if ($this->validate->numeric($size))
+        if ($this->validator->numeric($size))
         {
             $this->size = $size;
         }
@@ -905,7 +905,7 @@ abstract class Input
      */
     public function setInReportForm($bool)
     {
-        if ($this->validate->isBoolean($bool))
+        if ($this->validator->isBoolean($bool))
         {
             $this->inReportForm = $bool;
         }
@@ -926,7 +926,7 @@ abstract class Input
      */
     public function setRequired($required = true)
     {
-        if ($this->validate->isBoolean($required))
+        if ($this->validator->isBoolean($required))
         {
             $this->required = $required;
             
@@ -987,7 +987,7 @@ abstract class Input
      */
     public function setDataAttributes($dataAttributes)
     {
-        if ($this->validate->isArray($dataAttributes) && ! array_is_numeric($dataAttributes))
+        if ($this->validator->isArray($dataAttributes) && ! array_is_numeric($dataAttributes))
             $this->dataAttributes = $dataAttributes;
         
         return $this;
@@ -1026,7 +1026,7 @@ abstract class Input
     public function addValidation($validation, $parameters = array())
     {
         // validate validation exists in Validate (teehee)
-        if (! method_exists($this->validate, $validation))
+        if (! method_exists($this->validator, $validation))
             throw new \Exception('The validation '.$validation.' does not exist in class Validate');
         if (! is_array($parameters))
             $parameters = array($parameters);

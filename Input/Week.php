@@ -15,7 +15,7 @@ class Week extends Input
      */
     function __construct($name, $week = null)
     {
-        $this->validate = new Validate();
+        $this->validator = new Validate();
     
         $this->setName($name);
         $this->setId($name); // normally you want the id to be the same as the name
@@ -62,14 +62,14 @@ class Week extends Input
         if (empty($this->posted) || $this->isFlagSet($flag, self::INPUT_OVERRULE_POST))
         {
             if (strpos($selected, '-') === false)
-                $this->validate->invalidate($selected, 'Invalid week string given. Needs to be format IYYY-IW.');
+                $this->validator->invalidate($selected, 'Invalid week string given. Needs to be format IYYY-IW.');
             else
             {
                 list($year, $week) = explode('-', $selected);
-                $this->validate->between($week, 1, 53);
-                $this->validate->between($year, 1900, 2200);
+                $this->validator->between($week, 1, 53);
+                $this->validator->between($year, 1900, 2200);
                     
-                if ($this->validate->isValid())
+                if ($this->validator->isValid())
                 {
                     $this->week->setSelected($week);
                     $this->year->setSelected($year);
@@ -90,8 +90,8 @@ class Week extends Input
         $output = '';
         
         // default validity check
-        if (! $this->validate->isValid())
-            throw new \Exception($this->validate->getMessage('Error rendering '.get_class($this).' object with name '.$this->name));
+        if (! $this->validator->isValid())
+            throw new \Exception($this->validator->getMessage('Error rendering '.get_class($this).' object with name '.$this->name));
         
         // copy the attributes given to WeekInput to the children year and week
         $excludes = array('name','id','value','values','label','labels','selected','posted','required','invalidations', 'width');

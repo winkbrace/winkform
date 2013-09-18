@@ -18,9 +18,9 @@ class Checkbox extends Input
         $output = '';
         
         // default validity check
-        if (! $this->validate->isValid())
+        if (! $this->validator->isValid())
         {
-            throw new \Exception($this->validate->getMessage('Error rendering '.get_class($this).' object with name '.$this->name, false));
+            throw new \Exception($this->validator->getMessage('Error rendering '.get_class($this).' object with name '.$this->name, false));
         }
         
         // I will assume style adjustments apply to the container div if there are more
@@ -264,7 +264,7 @@ class Checkbox extends Input
      */
     public function setRenderInColumns($int)
     {
-        if ($this->validate->numeric($int))
+        if ($this->validator->numeric($int))
         {
             $this->renderInColumns = $int;
         }
@@ -278,7 +278,7 @@ class Checkbox extends Input
      */
     public function setOrientation($orientation)
     {
-        if ($this->validate->inArray($orientation, array(static::ORIENTATION_HORIZONTAL, static::ORIENTATION_VERTICAL)))
+        if ($this->validator->inArray($orientation, array(static::ORIENTATION_HORIZONTAL, static::ORIENTATION_VERTICAL)))
         {
             $this->orientation = $orientation;
             $this->setRenderInColumns($orientation);

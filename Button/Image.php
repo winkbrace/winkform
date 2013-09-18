@@ -27,9 +27,9 @@ class Image extends Button
     public function render()
     {
         // default validity check
-        $this->validate->isNotEmpty($this->src);
-        if (! $this->validate->isValid())
-            throw new \Exception($this->validate->getMessage('Error rendering '.get_class($this).' object with name '.$this->name));
+        $this->validator->isNotEmpty($this->src);
+        if (! $this->validator->isValid())
+            throw new \Exception($this->validator->getMessage('Error rendering '.get_class($this).' object with name '.$this->name));
         
         $output = $this->renderLabel()
                 . '<input'
@@ -66,7 +66,7 @@ class Image extends Button
      */
     public function setSrc($src)
     {
-        if ($this->validate->isValidUrl($src))
+        if ($this->validator->isValidUrl($src))
         {
             $this->src = $src;
         }

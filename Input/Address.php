@@ -16,15 +16,15 @@ class Address extends Input
      */
     function __construct($name, $value = null)
     {
-        $this->validate = new Validate();
+        $this->validator = new Validate();
 
         $this->name = $name;
         
         // create the text inputs
         // NOTE: names must be the same as the values for the jquery script
-        $this->postcode = new TextInput('postcode', 'postcode');
-        $this->houseNumber = new TextInput('huisnr', 'huisnr');
-        $this->houseNumberExtension = new TextInput('toevoeging', 'toevoeging');
+        $this->postcode = new Text('postcode', 'postcode');
+        $this->houseNumber = new Text('huisnr', 'huisnr');
+        $this->houseNumberExtension = new Text('toevoeging', 'toevoeging');
         
         // set the global style that will get copied down
         $this->setWidth(150)->addStyle('font-style:italic; color:#888;')->addClass('address');
@@ -36,8 +36,8 @@ class Address extends Input
     public function render()
     {
         // default validity check
-        if (! $this->validate->isValid())
-            throw new \Exception($this->validate->getMessage('Error rendering '.get_class($this).' object with name '.$this->name));
+        if (! $this->validator->isValid())
+            throw new \Exception($this->validator->getMessage('Error rendering '.get_class($this).' object with name '.$this->name));
 
         // via casting we can pass all attributes that were set on AddressInput down to the DateInput fields
         $excludes = array('type', 'name','id','value','values','label','labels','selected','posted','required','invalidations');

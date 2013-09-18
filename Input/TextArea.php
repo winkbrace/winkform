@@ -15,8 +15,8 @@ class TextArea extends Input
     public function render()
     {
         // default validity check
-        if (! $this->validate->isValid())
-            throw new \Exception($this->validate->getMessage('Error rendering '.get_class($this).' object with name '.$this->name));
+        if (! $this->validator->isValid())
+            throw new \Exception($this->validator->getMessage('Error rendering '.get_class($this).' object with name '.$this->name));
             
         $output = $this->renderLabel()
                     . '<textarea'
@@ -152,7 +152,7 @@ class TextArea extends Input
      */
     public function setRows($rows)
     {
-        if ($this->validate->numeric($rows))
+        if ($this->validator->numeric($rows))
         {
             $this->rows = $rows;
         }
@@ -165,7 +165,7 @@ class TextArea extends Input
      */
     public function setCols($cols)
     {
-        if ($this->validate->numeric($cols))
+        if ($this->validator->numeric($cols))
         {
             $this->cols = $cols;
         }
@@ -180,7 +180,7 @@ class TextArea extends Input
     {
         $allowed = array('normal','pre','nowrap','pre-wrap','pre-line','inherit');
         if (! in_array($wrapStyle, $allowed))
-            $this->validate->invalidate('Given textarea wrap-style "'.$wrapStyle.'" is invalid');
+            $this->validator->invalidate('Given textarea wrap-style "'.$wrapStyle.'" is invalid');
         else
         {
             // remove old width style
@@ -220,7 +220,7 @@ class TextArea extends Input
      */
     public function setCounter($counter, array $options = array())
     {
-        if ($this->validate->isBoolean($counter))
+        if ($this->validator->isBoolean($counter))
         {
             $this->jsCounter = $counter;
             
