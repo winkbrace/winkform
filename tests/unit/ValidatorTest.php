@@ -51,14 +51,14 @@ class ValidatorTest extends \Codeception\TestCase\Test
         $this->assertEquals($expected, $this->validator->getValidations(), 'addValidation() adds an input and validation rule to it\'s $validations array.');
         
         $this->validator->addValidation($input, array('alpha_dash', 'between:4,8', 'required'));
-        $this->assertCount(1, $this->validator->getValidations(), 'second call to addValidation on same input should result in 1 entry in the validations array');
+        $this->assertCount(1, $this->validator->getValidations(), 'second call to addValidation() on same input should result in 1 entry in the validations array');
         
         $expected = array('text' => array(
             'data' => null,
             'rules' => array('required', 'min:5', 'alpha_dash', 'between:4,8'),
             'message' => 'This is a message'
             ));
-        $this->assertEquals($expected, $this->validator->getValidations(), 'second call to addValidation on same input should merge rules');
+        $this->assertEquals($expected, $this->validator->getValidations(), 'second call to addValidation() on same input should merge rules');
     }
     
     /**
@@ -69,6 +69,15 @@ class ValidatorTest extends \Codeception\TestCase\Test
     {
         $input = Form::text('text', 'value');
         $this->validator->addValidation($input, 'invalid_rule');
+    }
+    
+    /**
+     * test simple validation
+     */
+    public function testValidate()
+    {
+        $result = $this->validator->validate('test@domain.com', 'email');
+        $this->assertTrue($result, 'validate() should validate correct entry');
     }
 
 }

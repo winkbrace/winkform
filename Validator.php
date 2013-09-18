@@ -87,11 +87,20 @@ class Validator
     }
     
     /**
-     * @return array $validations
+     * validate that $value applies to $rules
+     * @param string $value
+     * @param string|array $rules
+     * @return boolean
      */
-    public function getValidations()
+    public function validate($value, $rules)
     {
-        return $this->validations;
+        if (is_string($rules))
+            $rules = explode('|', $rules);
+        
+        if (! $this->rulesExist($rules))
+            throw new \Exception('Invalid rule "'.implode('|', $rules).'" specified.');
+        
+        // TODO build validating against Validator
     }
     
     /**
@@ -105,12 +114,20 @@ class Validator
         {
             // cut off everything from the colon
             $rule = strpos($rule, ':') !== false ? substr($rule, 0, strpos($rule, ':')) : $rule;
-            
+    
             if (! in_array($rule, $this->allowedRules))
                 return false;
         }
-        
+    
         return true;
+    }
+    
+    /**
+     * @return array $validations
+     */
+    public function getValidations()
+    {
+        return $this->validations;
     }
     
 }
