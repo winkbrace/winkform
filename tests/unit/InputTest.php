@@ -1,13 +1,40 @@
-<?php namespace WinkForm;
-
-require_once 'WinkForm/vendor/phpunit/phpunit/PHPUnit/Framework/TestCase.php';
+<?php
+use Codeception\Util\Stub;
 
 /**
- * test the Input fields
- * @author Bas de Ruiter, Max Nedelcu
+ * test the Input class methods
+ * @author b-deruiter
  *
  */
-class InputTest extends \PHPUnit_Framework_TestCase
+class InputTest extends \Codeception\TestCase\Test
 {
-    
+    /**
+     * @var \CodeGuy
+     */
+    protected $codeGuy;
+
+    /**
+     * (non-PHPdoc)
+     * @see \Codeception\TestCase\Test::_before()
+     */
+    protected function _before()
+    {
+    }
+
+    /**
+     * (non-PHPdoc)
+     * @see \Codeception\TestCase\Test::_after()
+     */
+    protected function _after()
+    {
+    }
+
+    /**
+     *
+     */
+    public function testMe()
+    {
+
+    }
+
 }
