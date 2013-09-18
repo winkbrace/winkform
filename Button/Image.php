@@ -92,4 +92,13 @@ class Image extends Button
         return $this;
     }
     
+    /**
+     * (non-PHPdoc)
+     * @see \WinkForm\Input\Input::isPosted()
+     */
+    public function isPosted()
+    {
+        return ! empty($_POST[$this->name.'_x']);
+    }
+    
 }

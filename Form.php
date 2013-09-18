@@ -106,6 +106,17 @@ abstract class Form
     }
     
     /**
+     * create Email object
+     * @param string $name
+     * @param string $value
+     * @return \WinkForm\Input\Email
+     */
+    public static function email($name, $value = null)
+    {
+        return new Input\Email($name, $value);
+    }
+    
+    /**
      * create FileInput object
      * @param string $name
      * @param string $value

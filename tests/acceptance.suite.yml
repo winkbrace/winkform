@@ -15,4 +15,4 @@ modules:
         - WebHelper
     config:
         PhpBrowser:
-            url: 'http://localhost/winkform/'
+            url: 'http://localhost/winkform/acceptance/'
