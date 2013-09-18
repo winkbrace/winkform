@@ -1,4 +1,4 @@
-<?php namespace WinkForm;
+<?php
 
 use WinkForm\Form;
 
