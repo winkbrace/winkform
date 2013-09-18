@@ -8,7 +8,7 @@
 class Validator
 {
     /**
-     * @var WinkForm\Validator
+     * @var \WinkForm\Validator
      */
     protected static $instance = null;
     
@@ -48,7 +48,7 @@ class Validator
     
     /**
      * add validation for Input element
-     * @param WinkForm\Input\Input $input
+     * @param \WinkForm\Input\Input $input
      * @param string|array $rules
      * @param string $message
      * @throws \Exception
