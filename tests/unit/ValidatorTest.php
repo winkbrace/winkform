@@ -1,8 +1,8 @@
 <?php
 
 use Codeception\Util\Stub;
-use WinkForm\Validator;
-use WinkForm\Form;
+use WinkBrace\WinkForm\Validator;
+use WinkBrace\WinkForm\Form;
 
 class ValidatorTest extends \Codeception\TestCase\Test
 {
@@ -12,7 +12,7 @@ class ValidatorTest extends \Codeception\TestCase\Test
     protected $codeGuy;
 
     /**
-     * @var \WinkForm\Validator
+     * @var \WinkBrace\WinkForm\Validator
      */
     protected $validator;
 
@@ -39,7 +39,7 @@ class ValidatorTest extends \Codeception\TestCase\Test
      */
     public function testCreation()
     {
-        $this->assertInstanceOf('WinkForm\Validator', $this->validator, 'getInstance() returns the Validator object');
+        $this->assertInstanceOf('WinkBrace\WinkForm\Validator', $this->validator, 'getInstance() returns the Validator object');
     }
     
     /**

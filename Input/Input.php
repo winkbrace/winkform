@@ -78,6 +78,7 @@ abstract class Input
     /**
      * convert all characters in $value that are not allowed in a html string to $replace (default a dash -)
      * @param string $value
+     * @return string
      */
     protected function toValidHtmlId($value, $replace = '-')
     {

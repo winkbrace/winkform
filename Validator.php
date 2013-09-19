@@ -17,7 +17,7 @@ class Validator
     protected $locale;
 
     /**
-     * @var \Symfony\Component\Translation\Translator
+     * @var \Illuminate\Translation\Translator
      */
     protected $translator;
 
@@ -62,7 +62,7 @@ class Validator
         $this->isValid = true;
         $this->errors = array();
 
-        // fetched from the documentation on 18-09-2013
+        // fetched from the documentation on 2013-09-18
         $this->allowedRules = array(
             'accepted', 'active_url', 'after', 'alpha', 'alpha_dash',
             'alpha_num', 'before', 'between', 'confirmed', 'date',
@@ -127,7 +127,7 @@ class Validator
         if (! $this->rulesExist($rules))
             throw new \Exception('Invalid rule "' . implode('|', $rules) . '" specified.');
         
-        // The way Validator is built we have to create a new instance for everytime we validate with this function
+        // The way Validator is built we have to create a new instance for every time we validate with this function
         $validator = new \Illuminate\Validation\Validator(
             $this->translator,
             array($value),

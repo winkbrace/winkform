@@ -1,5 +1,4 @@
-<?php
-namespace WinkBrace\WinkForm;
+<?php namespace WinkBrace\WinkForm;
 
 class Validate
 {
