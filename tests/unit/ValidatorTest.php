@@ -10,7 +10,10 @@ class ValidatorTest extends \Codeception\TestCase\Test
      * @var \CodeGuy
      */
     protected $codeGuy;
-    
+
+    /**
+     * @var \WinkForm\Validator
+     */
     protected $validator;
 
     /**
@@ -19,7 +22,7 @@ class ValidatorTest extends \Codeception\TestCase\Test
      */
     protected function _before()
     {
-        $this->validator = Validator::getInstance();
+        $this->validator = new Validator();
     }
 
     /**
@@ -76,6 +79,11 @@ class ValidatorTest extends \Codeception\TestCase\Test
      */
     public function testValidate()
     {
+        $result = $this->validator->validate('this is not numeric', 'numeric');
+        $this->assertFalse($result, 'validate() should invalidate incorrect test');
+
+        // we are not only checking that a correct test passes, but also that the Validator doesn't remember a
+        // negative state from before (we might accidentally build something like that in the future)
         $result = $this->validator->validate('test@domain.com', 'email');
         $this->assertTrue($result, 'validate() should validate correct entry');
     }

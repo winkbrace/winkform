@@ -8,33 +8,37 @@
 class Validator
 {
     /**
-     * @var \WinkForm\Validator
+     * @var string
      */
-    protected static $instance = null;
-    
+    protected $locale;
+
     /**
-     * singleton factory method
+     * @var \Symfony\Component\Translation\Translator
      */
-    public static function getInstance()
-    {
-        if (is_null(static::$instance))
-            static::$instance = new Validator();
-        
-        return static::$instance;
-    }
-    
-    
-    protected $validations,
-              $allowedRules;
+    protected $translator;
+
+    /**
+     * @var array $validations
+     */
+    protected $validations;
+
+    /**
+     * @var array $validations
+     */
+    protected $allowedRules;
     
     
     /**
      * create Validator
      */
-    protected function __construct()
+    public function __construct($locale = 'en')
     {
+        $this->locale = $locale;
+        $this->translator = new \Symfony\Component\Translation\Translator($this->locale);
+
+        // init validations
         $this->validations = array();
-        
+
         // fetched from the documentation on 18-09-2013
         $this->allowedRules = array(
             'accepted', 'active_url', 'after', 'alpha', 'alpha_dash',
@@ -45,12 +49,12 @@ class Validator
             'required_without', 'same', 'size', 'unique', 'url',
             );
     }
-    
+
     /**
      * add validation for Input element
      * @param \WinkForm\Input\Input $input
      * @param string|array $rules
-     * @param string $message
+     * @param string $message custom message to overwrite default
      * @throws \Exception
      */
     public function addValidation(Input\Input $input, $rules, $message = null)
@@ -96,13 +100,71 @@ class Validator
     {
         if (is_string($rules))
             $rules = explode('|', $rules);
-        
+
         if (! $this->rulesExist($rules))
-            throw new \Exception('Invalid rule "'.implode('|', $rules).'" specified.');
+            throw new \Exception('Invalid rule "' . implode('|', $rules) . '" specified.');
         
-        // TODO build validating against Validator
+        // The way Validator is built we have to create a new instance for everytime we validate with this function
+        $validator = new \Illuminate\Validation\Validator(
+            $this->translator,
+            array($value),
+            array($rules)
+        );
+
+        return $validator->passes();
     }
-    
+
+    /**
+     * @return bool
+     */
+    public function passes()
+    {
+        $validator = new \Illuminate\Validation\Validator(
+            $this->translator,
+            $this->getValidationData(),
+            $this->getValidationRules(),
+            $this->getValidationMessages()
+        );
+
+        return $validator->passes();
+    }
+
+    /**
+     * @return array
+     */
+    protected function getValidationData()
+    {
+        $data = array();
+        foreach ($this->validations as $key => $validation)
+            $data[$key] = $validation['data'];
+
+        return $data;
+    }
+
+    /**
+     * @return array
+     */
+    protected function getValidationRules()
+    {
+        $rules = array();
+        foreach ($this->validations as $key => $validation)
+            $rules[$key] = $validation['rules'];
+
+        return $rules;
+    }
+
+    /**
+     * @return array
+     */
+    protected function getValidationMessages()
+    {
+        $messages = array();
+        foreach ($this->validations as $key => $validation)
+            $messages[$key] = $validation['message'];
+
+        return $messages;
+    }
+
     /**
      * check if given rule is known in Laravel Validator
      * @param array $rules
@@ -129,5 +191,5 @@ class Validator
     {
         return $this->validations;
     }
-    
+
 }
