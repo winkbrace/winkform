@@ -119,7 +119,7 @@ class ValidatorTest extends \Codeception\TestCase\Test
     public function testMessages()
     {
         // create failing validation
-        $input = Form::text('text');
+        $input = Form::text('test_text');
         $this->validator->addValidation($input, 'required');
         $this->validator->passes();
 
@@ -127,7 +127,7 @@ class ValidatorTest extends \Codeception\TestCase\Test
         $this->assertArrayHasKey('text', $errors, 'errors array should have input element name as key');
         $error = $errors['text'][0];
 
-        $this->assertEquals("The text field is required.", $error, 'The error message should display from the lang file');
+        $this->assertEquals("The test_text field is required.", $error, 'The error message should display from the lang file');
     }
 
 

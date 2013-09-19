@@ -45,6 +45,9 @@ class Validator
     {
         $this->locale = $locale;
         $this->translator = new \Symfony\Component\Translation\Translator($this->locale);
+        $this->translator->addLoader('php', new \Symfony\Component\Translation\Loader\PhpFileLoader());
+        $this->translator->addResource('php', "lang/{$this->locale}/validation.php", $this->locale);
+        // TODO symfony can't find 'validation.required', Only 'required'. Validation uses a Laravel specific writing method
 
         // init
         $this->validations = array();
