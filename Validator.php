@@ -1,5 +1,9 @@
 <?php namespace WinkForm;
 
+use Illuminate\Filesystem\Filesystem;
+use Illuminate\Translation\FileLoader;
+use Illuminate\Translation\Translator;
+
 /**
  * Validation class that utilizes Laravel Validation
  * @author b-deruiter
@@ -44,10 +48,12 @@ class Validator
     public function __construct($locale = 'en')
     {
         $this->locale = $locale;
-        $this->translator = new \Symfony\Component\Translation\Translator($this->locale);
-        $this->translator->addLoader('php', new \Symfony\Component\Translation\Loader\PhpFileLoader());
-        $this->translator->addResource('php', "lang/{$this->locale}/validation.php", $this->locale);
-        // TODO symfony can't find 'validation.required', Only 'required'. Validation uses a Laravel specific writing method
+
+        // To display the laravel Validator error messages, the Translator is required.
+        // We create a translator object that searches for files in the 'lang' folder
+        // lang/{locale}/{domain}.php
+        // by default: lang/en/validation.php
+        $this->translator = new Translator(new FileLoader(new Filesystem, "lang"), $this->locale);
 
         // init
         $this->validations = array();

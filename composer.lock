@@ -3,21 +3,21 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "afc8cc07b4b7886d2c9f43cb7c5d0ac4",
+    "hash": "fd3b2a25bd4ae6c974638852697b1534",
     "packages": [
         {
             "name": "illuminate/container",
-            "version": "4.0.x-dev",
+            "version": "dev-master",
             "target-dir": "Illuminate/Container",
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/container.git",
-                "reference": "da34bc87ffba84ae1a466cfee78b0b18a9d15a3d"
+                "reference": "0d827306eebba40483c185b56f9996fd0b9e842c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/illuminate/container/zipball/da34bc87ffba84ae1a466cfee78b0b18a9d15a3d",
-                "reference": "da34bc87ffba84ae1a466cfee78b0b18a9d15a3d",
+                "url": "https://api.github.com/repos/illuminate/container/zipball/0d827306eebba40483c185b56f9996fd0b9e842c",
+                "reference": "0d827306eebba40483c185b56f9996fd0b9e842c",
                 "shasum": ""
             },
             "require": {
@@ -29,7 +29,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "4.0-dev"
+                    "dev-master": "4.1-dev"
                 }
             },
             "autoload": {
@@ -49,21 +49,69 @@
                     "role": "Developer"
                 }
             ],
-            "time": "2013-07-31 14:49:48"
+            "time": "2013-08-26 18:53:15"
+        },
+        {
+            "name": "illuminate/filesystem",
+            "version": "dev-master",
+            "target-dir": "Illuminate/Filesystem",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/illuminate/filesystem.git",
+                "reference": "fe9915c329ef869efccbc88334cf3ff89f2ecb03"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/illuminate/filesystem/zipball/fe9915c329ef869efccbc88334cf3ff89f2ecb03",
+                "reference": "fe9915c329ef869efccbc88334cf3ff89f2ecb03",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/support": "4.1.x",
+                "php": ">=5.3.0",
+                "symfony/finder": "2.3.x"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "3.7.*"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "4.1-dev"
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "Illuminate\\Filesystem": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Taylor Otwell",
+                    "email": "taylorotwell@gmail.com",
+                    "homepage": "https://github.com/taylorotwell",
+                    "role": "Developer"
+                }
+            ],
+            "time": "2013-07-02 17:46:50"
         },
         {
             "name": "illuminate/support",
-            "version": "4.0.x-dev",
+            "version": "dev-master",
             "target-dir": "Illuminate/Support",
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/support.git",
-                "reference": "5ba934d9c27b456202f3ae495971e467fb9a3f73"
+                "reference": "9e61ed7335f457521b888fd405f16eda6f7caf02"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/illuminate/support/zipball/5ba934d9c27b456202f3ae495971e467fb9a3f73",
-                "reference": "5ba934d9c27b456202f3ae495971e467fb9a3f73",
+                "url": "https://api.github.com/repos/illuminate/support/zipball/9e61ed7335f457521b888fd405f16eda6f7caf02",
+                "reference": "9e61ed7335f457521b888fd405f16eda6f7caf02",
                 "shasum": ""
             },
             "require": {
@@ -77,7 +125,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "4.0-dev"
+                    "dev-master": "4.1-dev"
                 }
             },
             "autoload": {
@@ -100,39 +148,89 @@
                     "role": "Developer"
                 }
             ],
-            "time": "2013-08-27 16:09:54"
+            "time": "2013-09-06 05:21:45"
         },
         {
-            "name": "illuminate/validation",
-            "version": "4.0.x-dev",
-            "target-dir": "Illuminate/Validation",
+            "name": "illuminate/translation",
+            "version": "dev-master",
+            "target-dir": "Illuminate/Translation",
             "source": {
                 "type": "git",
-                "url": "https://github.com/illuminate/validation.git",
-                "reference": "993dcfa663572691f4959c9dcf981142b5d90c50"
+                "url": "https://github.com/illuminate/translation.git",
+                "reference": "545cc41a8a028129a3ffa63feafa7bb09a0f89a6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/illuminate/validation/zipball/993dcfa663572691f4959c9dcf981142b5d90c50",
-                "reference": "993dcfa663572691f4959c9dcf981142b5d90c50",
+                "url": "https://api.github.com/repos/illuminate/translation/zipball/545cc41a8a028129a3ffa63feafa7bb09a0f89a6",
+                "reference": "545cc41a8a028129a3ffa63feafa7bb09a0f89a6",
                 "shasum": ""
             },
             "require": {
-                "illuminate/container": "4.0.x",
-                "illuminate/support": "4.0.x",
+                "illuminate/filesystem": "4.1.x",
+                "illuminate/support": "4.1.x",
                 "php": ">=5.3.0",
-                "symfony/http-foundation": "2.3.*",
                 "symfony/translation": "2.3.*"
             },
             "require-dev": {
-                "illuminate/database": "4.0.x",
                 "mockery/mockery": "0.7.2",
                 "phpunit/phpunit": "3.7.*"
             },
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "4.0-dev"
+                    "dev-master": "4.1-dev"
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "Illuminate\\Translation": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Taylor Otwell",
+                    "email": "taylorotwell@gmail.com",
+                    "homepage": "https://github.com/taylorotwell",
+                    "role": "Developer"
+                }
+            ],
+            "time": "2013-06-19 21:34:43"
+        },
+        {
+            "name": "illuminate/validation",
+            "version": "dev-master",
+            "target-dir": "Illuminate/Validation",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/illuminate/validation.git",
+                "reference": "387a4132421ca496f7fc740082b4fa64079a4c24"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/illuminate/validation/zipball/387a4132421ca496f7fc740082b4fa64079a4c24",
+                "reference": "387a4132421ca496f7fc740082b4fa64079a4c24",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/container": "4.1.x",
+                "illuminate/support": "4.1.x",
+                "php": ">=5.3.0",
+                "symfony/http-foundation": "2.3.*",
+                "symfony/translation": "2.3.*"
+            },
+            "require-dev": {
+                "illuminate/database": "4.1.x",
+                "mockery/mockery": "0.7.2",
+                "phpunit/phpunit": "3.7.*"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "4.1-dev"
                 }
             },
             "autoload": {
@@ -152,69 +250,21 @@
                     "role": "Developer"
                 }
             ],
-            "time": "2013-07-30 16:01:23"
+            "time": "2013-07-31 14:13:10"
         },
         {
-            "name": "symfony/config",
-            "version": "dev-master",
-            "target-dir": "Symfony/Component/Config",
+            "name": "symfony/finder",
+            "version": "2.3.x-dev",
+            "target-dir": "Symfony/Component/Finder",
             "source": {
                 "type": "git",
-                "url": "https://github.com/symfony/Config.git",
-                "reference": "9a3c831697349cf6e9b5302b7beb0b97e6cdac41"
+                "url": "https://github.com/symfony/Finder.git",
+                "reference": "a175521f680b178e63c5d0ab87c6b046c0990c3f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/Config/zipball/9a3c831697349cf6e9b5302b7beb0b97e6cdac41",
-                "reference": "9a3c831697349cf6e9b5302b7beb0b97e6cdac41",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.3.3",
-                "symfony/filesystem": "~2.3"
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "2.4-dev"
-                }
-            },
-            "autoload": {
-                "psr-0": {
-                    "Symfony\\Component\\Config\\": ""
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Fabien Potencier",
-                    "email": "fabien@symfony.com"
-                },
-                {
-                    "name": "Symfony Community",
-                    "homepage": "http://symfony.com/contributors"
-                }
-            ],
-            "description": "Symfony Config Component",
-            "homepage": "http://symfony.com",
-            "time": "2013-09-19 09:47:34"
-        },
-        {
-            "name": "symfony/filesystem",
-            "version": "dev-master",
-            "target-dir": "Symfony/Component/Filesystem",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/symfony/Filesystem.git",
-                "reference": "da0dcf60b7307f68667fecef8ccbb2b070bda7cf"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/symfony/Filesystem/zipball/da0dcf60b7307f68667fecef8ccbb2b070bda7cf",
-                "reference": "da0dcf60b7307f68667fecef8ccbb2b070bda7cf",
+                "url": "https://api.github.com/repos/symfony/Finder/zipball/a175521f680b178e63c5d0ab87c6b046c0990c3f",
+                "reference": "a175521f680b178e63c5d0ab87c6b046c0990c3f",
                 "shasum": ""
             },
             "require": {
@@ -223,12 +273,12 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "2.4-dev"
+                    "dev-master": "2.3-dev"
                 }
             },
             "autoload": {
                 "psr-0": {
-                    "Symfony\\Component\\Filesystem\\": ""
+                    "Symfony\\Component\\Finder\\": ""
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -245,9 +295,9 @@
                     "homepage": "http://symfony.com/contributors"
                 }
             ],
-            "description": "Symfony Filesystem Component",
+            "description": "Symfony Finder Component",
             "homepage": "http://symfony.com",
-            "time": "2013-08-09 07:26:54"
+            "time": "2013-09-19 09:45:20"
         },
         {
             "name": "symfony/http-foundation",
@@ -1838,12 +1888,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/DomCrawler.git",
-                "reference": "6ed800284d21293cd921644d599d9e28a90e91a0"
+                "reference": "92c3f36ab40bb7d28f560fba8e4fab612b042e7c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/DomCrawler/zipball/6ed800284d21293cd921644d599d9e28a90e91a0",
-                "reference": "6ed800284d21293cd921644d599d9e28a90e91a0",
+                "url": "https://api.github.com/repos/symfony/DomCrawler/zipball/92c3f36ab40bb7d28f560fba8e4fab612b042e7c",
+                "reference": "92c3f36ab40bb7d28f560fba8e4fab612b042e7c",
                 "shasum": ""
             },
             "require": {
@@ -1882,7 +1932,7 @@
             ],
             "description": "Symfony DomCrawler Component",
             "homepage": "http://symfony.com",
-            "time": "2013-09-18 07:05:46"
+            "time": "2013-09-19 09:47:34"
         },
         {
             "name": "symfony/event-dispatcher",
@@ -1891,12 +1941,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/EventDispatcher.git",
-                "reference": "f86ac04039d0f529ef5ad572b9014453975bc3ad"
+                "reference": "9b4fe5757870682eb2251e283228a66d938265a8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/EventDispatcher/zipball/f86ac04039d0f529ef5ad572b9014453975bc3ad",
-                "reference": "f86ac04039d0f529ef5ad572b9014453975bc3ad",
+                "url": "https://api.github.com/repos/symfony/EventDispatcher/zipball/9b4fe5757870682eb2251e283228a66d938265a8",
+                "reference": "9b4fe5757870682eb2251e283228a66d938265a8",
                 "shasum": ""
             },
             "require": {
@@ -1935,53 +1985,6 @@
                 }
             ],
             "description": "Symfony EventDispatcher Component",
-            "homepage": "http://symfony.com",
-            "time": "2013-09-13 15:15:57"
-        },
-        {
-            "name": "symfony/finder",
-            "version": "dev-master",
-            "target-dir": "Symfony/Component/Finder",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/symfony/Finder.git",
-                "reference": "e2ce3164ab58b4d54612e630571f158035ee8603"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/symfony/Finder/zipball/e2ce3164ab58b4d54612e630571f158035ee8603",
-                "reference": "e2ce3164ab58b4d54612e630571f158035ee8603",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.3.3"
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "2.4-dev"
-                }
-            },
-            "autoload": {
-                "psr-0": {
-                    "Symfony\\Component\\Finder\\": ""
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Fabien Potencier",
-                    "email": "fabien@symfony.com"
-                },
-                {
-                    "name": "Symfony Community",
-                    "homepage": "http://symfony.com/contributors"
-                }
-            ],
-            "description": "Symfony Finder Component",
             "homepage": "http://symfony.com",
             "time": "2013-09-19 09:47:34"
         },
