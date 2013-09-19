@@ -1,4 +1,4 @@
-<?php namespace WinkForm\Input;
+<?php namespace WinkBrace\WinkForm\Input;
 
 class Radio extends Input
 {
@@ -14,7 +14,7 @@ class Radio extends Input
     public function render()
     {
         // default validity check
-        if (! $this->validator->isValid())
+        if (! $this->validator->passes())
             throw new \Exception($this->validator->getMessage('Error rendering '.get_class($this).' object with name '.$this->name, false));
         
         $output = '';
@@ -65,7 +65,7 @@ class Radio extends Input
                 }
                 elseif (! empty($this->renderInColumns))
                 {
-                    $columns[floor($i / $rowsPerColumn)][] = $radio;
+                    $columns[(int) floor($i / $rowsPerColumn)][] = $radio;
                 }
                 else
                 {
@@ -117,7 +117,7 @@ class Radio extends Input
      */
     public function setRenderInColumns($int)
     {
-        if ($this->validator->numeric($int))
+        if ($this->validator->validate($int, 'numeric'))
         {
             $this->renderInColumns = $int;
         }
@@ -127,7 +127,7 @@ class Radio extends Input
     
     /**
      * add given html code at the end of each radio line
-     * @param html $lineEnd
+     * @param string $lineEnd
      */
     public function setLineEnd($lineEnd)
     {

@@ -1,4 +1,4 @@
-<?php namespace WinkForm\Input;
+<?php namespace WinkBrace\WinkForm\Input;
 
 /**
  * Abstract class for input classes
@@ -47,11 +47,11 @@ abstract class Input
     /**
      * construct Input
      * @param string $name
-     * @param mixed optional $value
+     * @param mixed $value
      */
     function __construct($name, $value = null)
     {
-        $this->validator = new \WinkForm\Validate();
+        $this->validator = new \WinkBrace\WinkForm\Validator();
         
         $this->setName($name);
         $this->setId($name); // normally you want the id to be the same as the name
@@ -70,7 +70,7 @@ abstract class Input
     
     /**
      * render html
-     * @return html
+     * @return string
      */
     abstract public function render();
     
@@ -119,7 +119,7 @@ abstract class Input
     }
     
     /**
-     * @return html type="$type"
+     * @return string type="$type"
      */
     public function renderType()
     {
@@ -359,14 +359,14 @@ abstract class Input
     }
     
     /**
-     * @param element id $id
+     * @param string $id
      */
     public function setId($id)
     {
         // a name can contain [] (or [bla][][][]) but the id not
         $id = str_replace(array('[',']'), '_', $id);
             
-        if ($this->validator->htmlId($id))
+        if ($this->validator->validate($id, 'alpha_dash'))
         {
             $this->id = $id;
         }
@@ -375,14 +375,14 @@ abstract class Input
     }
 
     /**
-     * @param element name $name
+     * @param string $name
      */
     protected function setName($name)
     {
         // a name can contain [ and ], but nothing else
         $testName = str_replace(array('[',']'), '_', $name);
         
-        if ($this->validator->htmlId($testName))
+        if ($this->validator->validate($testName, 'alpha_dash'))
         {
             $this->name = $name;
         }
@@ -457,7 +457,7 @@ abstract class Input
      */
     public function setPlaceholder($placeholder)
     {
-        if ($this->validator->inArray($this->type, array('text', 'search', 'url', 'tel', 'email', 'password')))
+        if ($this->validator->validate($this->type, 'in:text,search,url,tel,email,password'))
         {
             $this->placeholder = xsschars($placeholder);
         }
@@ -662,7 +662,8 @@ abstract class Input
     }
 
     /**
-     * @param add classname(s)
+     * add a class or a list of classes separated by a space, just like in html
+     * @param string $class
      */
     public function addClass($class)
     {
@@ -680,7 +681,7 @@ abstract class Input
     }
     
     /**
-     * remove a classname from the class
+     * remove a class from the classes
      * @param string $class
      */
     public function removeClass($class)
@@ -963,7 +964,7 @@ abstract class Input
     
     /**
      * render the custom data attributes
-     * @return html $output
+     * @return string $output
      */
     public function renderDataAttributes()
     {
@@ -1078,7 +1079,7 @@ abstract class Input
     
     /**
      * when an Input object is echo'd, return the render()
-     * @return html
+     * @return string
      */
     public function __toString()
     {

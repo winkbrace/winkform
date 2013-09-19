@@ -1,4 +1,4 @@
-<?php namespace WinkForm\Input;
+<?php namespace WinkBrace\WinkForm\Input;
 
 class Week extends Input
 {
@@ -11,11 +11,11 @@ class Week extends Input
     /**
      * construct Input
      * @param string $name
-     * @param string optional $week
+     * @param string $week
      */
     function __construct($name, $week = null)
     {
-        $this->validator = new Validate();
+        $this->validator = new \WinkBrace\WinkForm\Validator();
     
         $this->setName($name);
         $this->setId($name); // normally you want the id to be the same as the name
@@ -69,7 +69,7 @@ class Week extends Input
                 $this->validator->between($week, 1, 53);
                 $this->validator->between($year, 1900, 2200);
                     
-                if ($this->validator->isValid())
+                if ($this->validator->passes())
                 {
                     $this->week->setSelected($week);
                     $this->year->setSelected($year);
@@ -90,7 +90,7 @@ class Week extends Input
         $output = '';
         
         // default validity check
-        if (! $this->validator->isValid())
+        if (! $this->validator->passes())
             throw new \Exception($this->validator->getMessage('Error rendering '.get_class($this).' object with name '.$this->name));
         
         // copy the attributes given to WeekInput to the children year and week

@@ -1,4 +1,4 @@
-<?php namespace WinkForm;
+<?php namespace WinkBrace\WinkForm;
 
 use Illuminate\Filesystem\Filesystem;
 use Illuminate\Translation\FileLoader;
@@ -53,6 +53,8 @@ class Validator
         // We create a translator object that searches for files in the 'lang' folder
         // lang/{locale}/{domain}.php
         // by default: lang/en/validation.php
+        // you can download the default validation.php in your language at
+        // @see https://github.com/caouecs/Laravel4-lang
         $this->translator = new Translator(new FileLoader(new Filesystem, "lang"), $this->locale);
 
         // init
@@ -73,7 +75,7 @@ class Validator
 
     /**
      * add validation for Input element
-     * @param \WinkForm\Input\Input $input
+     * @param \WinkBrace\WinkForm\Input\Input $input
      * @param string|array $rules
      * @param string $message custom message to overwrite default
      * @throws \Exception

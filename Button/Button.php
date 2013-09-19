@@ -1,6 +1,6 @@
-<?php namespace WinkForm\Button;
+<?php namespace WinkBrace\WinkForm\Button;
 
-class Button extends \WinkForm\Input\Input
+class Button extends \WinkBrace\WinkForm\Input\Input
 {
     protected $type = 'button';
     
@@ -8,7 +8,7 @@ class Button extends \WinkForm\Input\Input
     /**
      * construct Button
      * @param string $name
-     * @param mixed optional $value
+     * @param mixed $value
      */
     function __construct($name, $value = null)
     {
@@ -24,7 +24,7 @@ class Button extends \WinkForm\Input\Input
     public function render()
     {
         // default validity check
-        if (! $this->validator->isValid())
+        if (! $this->validator->passes())
             throw new \Exception($this->validator->getMessage('Error rendering '.get_class($this).' object with name '.$this->name));
             
         $output = $this->renderLabel()

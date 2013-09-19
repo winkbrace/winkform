@@ -1,4 +1,4 @@
-<?php namespace WinkForm\Input;
+<?php namespace WinkBrace\WinkForm\Input;
 
 class Text extends Input
 {
@@ -12,7 +12,7 @@ class Text extends Input
     public function render()
     {
         // default validity check
-        if (! $this->validator->isValid())
+        if (! $this->validator->passes())
             throw new \Exception($this->validator->getMessage('Error rendering '.get_class($this).' object with name '.$this->name));
             
         $output = $this->renderLabel()
@@ -38,7 +38,7 @@ class Text extends Input
     }
     
     /**
-     * @return the $maxLength
+     * @return int $maxLength
      */
     public function renderMaxLength()
     {
@@ -50,7 +50,7 @@ class Text extends Input
      */
     public function setMaxLength($maxLength)
     {
-        if (! $this->validator->numeric($maxLength))
+        if (! $this->validator->validate($maxLength, 'numeric'))
             throw new \Exception('Invalid value for maxLength: '.$maxLength);
         else
             $this->maxLength = $maxLength;

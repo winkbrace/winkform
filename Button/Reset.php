@@ -1,4 +1,4 @@
-<?php namespace WinkForm\Button;
+<?php namespace WinkBrace\WinkForm\Button;
 
 class Reset extends Button
 {

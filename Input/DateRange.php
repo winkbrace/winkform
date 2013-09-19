@@ -1,4 +1,4 @@
-<?php namespace WinkForm\Input;
+<?php namespace WinkBrace\WinkForm\Input;
 
 /**
  * Create 2 date input fields for selecting a date range
@@ -21,7 +21,7 @@ class DateRange extends Input
      */
     function __construct($name, $from, $to)
     {
-        $this->validator = new Validate();
+        $this->validator = new \WinkBrace\WinkForm\Validator();
         
         $this->name = $name;
         
@@ -30,7 +30,7 @@ class DateRange extends Input
         if (! empty($to))
             $this->validator->date($to);
         
-        if (! $this->validator->isValid())
+        if (! $this->validator->passes())
             throw new \Exception($this->validator->getMessage('Error creating '.get_class($this).' object with name '.$this->name));
         
         // create the two date input fields
@@ -47,7 +47,7 @@ class DateRange extends Input
     public function render()
     {
         // default validity check
-        if (! $this->validator->isValid())
+        if (! $this->validator->passes())
             throw new \Exception($this->validator->getMessage('Error rendering '.get_class($this).' object with name '.$this->name));
         
         // via casting we can pass all attributes that were set on DateRane down to the DateInput fields

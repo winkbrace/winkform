@@ -1,4 +1,4 @@
-<?php namespace WinkForm\Input;
+<?php namespace WinkBrace\WinkForm\Input;
 
 class Dropdown extends Input
 {
@@ -16,7 +16,7 @@ class Dropdown extends Input
     public function render()
     {
         // default validity check
-        if (! $this->validator->isValid())
+        if (! $this->validator->passes())
         {
             throw new \Exception($this->validator->getMessage('Error rendering '.get_class($this).' object with name '.$this->name, false));
         }
@@ -91,7 +91,7 @@ class Dropdown extends Input
     }
     
     /**
-     * @return html multiple="multiple"
+     * @return string multiple="multiple"
      */
     public function renderMultiple()
     {
@@ -164,7 +164,7 @@ class Dropdown extends Input
     /**
      * get class of the option
      * @param int $i
-     * @return html $class
+     * @return string $class
      */
     protected function renderOptionClass($i)
     {
@@ -173,7 +173,7 @@ class Dropdown extends Input
     
     /**
      * @param int $i
-     * @return html $title
+     * @return string $title
      */
     protected function renderOptionTitle($i)
     {

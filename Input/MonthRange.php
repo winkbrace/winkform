@@ -1,4 +1,4 @@
-<?php namespace WinkForm\Input;
+<?php namespace WinkBrace\WinkForm\Input;
 
 /**
  * Create 2 month input fields for selecting a month range
@@ -23,7 +23,7 @@ class MonthRange extends Input
      */
     function __construct($name, $from = null, $to = null)
     {
-        $this->validator = new Validate();
+        $this->validator = new \WinkBrace\WinkForm\Validator();
         
         $this->name = $name;
         
@@ -40,7 +40,7 @@ class MonthRange extends Input
     public function render()
     {
         // default validity check
-        if (! $this->validator->isValid())
+        if (! $this->validator->passes())
             throw new \Exception($this->validator->getMessage('Error rendering '.get_class($this).' object with name '.$this->name));
         
         // copy attributes from MonthRange to the MonthInputs

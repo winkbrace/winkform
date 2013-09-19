@@ -1,4 +1,4 @@
-<?php namespace WinkForm\Button;
+<?php namespace WinkBrace\WinkForm\Button;
 
 class Image extends Button
 {
@@ -11,7 +11,7 @@ class Image extends Button
     /**
      * construct Button
      * @param string $name
-     * @param mixed optional $value
+     * @param mixed $value
      */
     function __construct($name, $value = null)
     {
@@ -28,7 +28,7 @@ class Image extends Button
     {
         // default validity check
         $this->validator->isNotEmpty($this->src);
-        if (! $this->validator->isValid())
+        if (! $this->validator->passes())
             throw new \Exception($this->validator->getMessage('Error rendering '.get_class($this).' object with name '.$this->name));
         
         $output = $this->renderLabel()
@@ -66,7 +66,7 @@ class Image extends Button
      */
     public function setSrc($src)
     {
-        if ($this->validator->isValidUrl($src))
+        if ($this->validator->passesUrl($src))
         {
             $this->src = $src;
         }
@@ -94,7 +94,7 @@ class Image extends Button
     
     /**
      * (non-PHPdoc)
-     * @see \WinkForm\Input\Input::isPosted()
+     * @see \WinkBrace\WinkForm\Input\Input::isPosted()
      */
     public function isPosted()
     {

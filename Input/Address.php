@@ -1,4 +1,4 @@
-<?php namespace WinkForm\Input;
+<?php namespace WinkBrace\WinkForm\Input;
 
 class Address extends Input
 {
@@ -16,7 +16,7 @@ class Address extends Input
      */
     function __construct($name, $value = null)
     {
-        $this->validator = new Validate();
+        $this->validator = new \WinkBrace\WinkForm\Validator();
 
         $this->name = $name;
         
@@ -36,7 +36,7 @@ class Address extends Input
     public function render()
     {
         // default validity check
-        if (! $this->validator->isValid())
+        if (! $this->validator->passes())
             throw new \Exception($this->validator->getMessage('Error rendering '.get_class($this).' object with name '.$this->name));
 
         // via casting we can pass all attributes that were set on AddressInput down to the DateInput fields
@@ -124,7 +124,7 @@ class Address extends Input
     
     /**
      * (non-PHPdoc)
-     * @see \WinkForm\Input::isPosted()
+     * @see \WinkBrace\WinkForm\Input::isPosted()
      */
     public function isPosted()
     {

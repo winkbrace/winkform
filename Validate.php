@@ -1,5 +1,5 @@
 <?php
-namespace WinkForm;
+namespace WinkBrace\WinkForm;
 
 class Validate
 {
@@ -54,7 +54,7 @@ class Validate
      * Checks if the given date is greater than the minimum date
      *
      * @param string $value
-     * @param int|string|DateTime $minDate
+     * @param int|string|\DateTime $minDate
      * @return boolean
      */
     public function minDate($value, $minDate = null)
@@ -433,8 +433,8 @@ class Validate
     
     /**
      * check that $var is objects of $class
-     * @param object or array of objects $var
-     * @param classname $class
+     * @param object | array of objects $var
+     * @param string $class
      */
     public function isInstanceOf($var, $class)
     {
@@ -559,7 +559,7 @@ class Validate
                 
                 $this->$validation($value);
             }
-            catch (FormException $e)
+            catch (\Exception $e)
             {
                 echo error($e->getMessage());
             }
