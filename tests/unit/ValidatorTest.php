@@ -62,6 +62,7 @@ class ValidatorTest extends \Codeception\TestCase\Test
             'message' => 'This is a message'
             ));
         $this->assertEquals($expected, $this->validator->getValidations(), 'second call to addValidation() on same input should merge rules');
+
     }
     
     /**
@@ -87,5 +88,47 @@ class ValidatorTest extends \Codeception\TestCase\Test
         $result = $this->validator->validate('test@domain.com', 'email');
         $this->assertTrue($result, 'validate() should validate correct entry');
     }
+
+    /**
+     * test passes() and getErrors()
+     */
+    public function testPasses()
+    {
+        // setup input to test
+        $_POST['text'] = 'value';  // first create the POST value, because Input->$posted is set on construction.
+        $input = Form::text('text');
+        $this->validator->addValidation($input, 'required|min:5|between:4,8', 'This is a message');
+
+        $result = $this->validator->passes();
+        $this->assertTrue($result, 'passes() should return true when all rules will validate');
+
+        $errors = $this->validator->getErrors();
+        $this->assertEmpty($errors, 'errors() should return empty array when all rules validated');
+
+        // now add validations that will fail
+        $this->validator->addValidation($input, 'numeric|date');
+        $this->assertFalse($this->validator->passes(), 'passes() should return false when not all rules validate');
+
+        $errors = $this->validator->getErrors();
+        $this->assertCount(2, $errors['text'], 'errors should contain 2 errors because 2 validations failed');
+    }
+
+    /**
+     * test that error messages fetch the language file
+     */
+    public function testMessages()
+    {
+        // create failing validation
+        $input = Form::text('text');
+        $this->validator->addValidation($input, 'required');
+        $this->validator->passes();
+
+        $errors = $this->validator->getErrors();
+        $this->assertArrayHasKey('text', $errors, 'errors array should have input element name as key');
+        $error = $errors['text'][0];
+
+        $this->assertEquals("The text field is required.", $error, 'The error message should display from the lang file');
+    }
+
 
 }

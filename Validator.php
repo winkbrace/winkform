@@ -18,15 +18,25 @@ class Validator
     protected $translator;
 
     /**
-     * @var array $validations
+     * @var array
      */
     protected $validations;
 
     /**
-     * @var array $validations
+     * @var array
      */
     protected $allowedRules;
-    
+
+    /**
+     * @var bool
+     */
+    protected $isValid;
+
+    /**
+     * @var array
+     */
+    protected $errors;
+
     
     /**
      * create Validator
@@ -36,8 +46,10 @@ class Validator
         $this->locale = $locale;
         $this->translator = new \Symfony\Component\Translation\Translator($this->locale);
 
-        // init validations
+        // init
         $this->validations = array();
+        $this->isValid = true;
+        $this->errors = array();
 
         // fetched from the documentation on 18-09-2013
         $this->allowedRules = array(
@@ -126,7 +138,10 @@ class Validator
             $this->getValidationMessages()
         );
 
-        return $validator->passes();
+        $this->isValid = $validator->passes();
+        $this->errors = $validator->getMessageBag()->getMessages();
+
+        return $this->isValid;
     }
 
     /**
@@ -163,6 +178,14 @@ class Validator
             $messages[$key] = $validation['message'];
 
         return $messages;
+    }
+
+    /**
+     * @return array
+     */
+    public function getErrors()
+    {
+        return $this->errors;
     }
 
     /**
