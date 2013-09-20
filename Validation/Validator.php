@@ -1,4 +1,4 @@
-<?php namespace WinkBrace\WinkForm;
+<?php namespace WinkBrace\WinkForm\Validation;
 
 use Illuminate\Filesystem\Filesystem;
 use Illuminate\Translation\FileLoader;
@@ -64,12 +64,15 @@ class Validator
 
         // fetched from the documentation on 2013-09-18
         $this->allowedRules = array(
+            // default
             'accepted', 'active_url', 'after', 'alpha', 'alpha_dash',
-            'alpha_num', 'before', 'between', 'confirmed', 'date',
+            'alpha_num', 'array', 'before', 'between', 'confirmed', 'date',
             'date_format', 'different', 'email', 'exists', 'image',
             'in', 'integer', 'ip', 'max', 'mimes', 'min', 'not_in',
             'numeric', 'regex', 'required', 'required_if', 'required_with',
             'required_without', 'same', 'size', 'unique', 'url',
+            // custom
+            'not_array', 'boolean', 'numeric_array', 'assoc_array',
             );
     }
 
@@ -80,7 +83,7 @@ class Validator
      * @param string $message custom message to overwrite default
      * @throws \Exception
      */
-    public function addValidation(Input\Input $input, $rules, $message = null)
+    public function addValidation(\WinkBrace\WinkForm\Input\Input $input, $rules, $message = null)
     {
         if (is_string($rules))
             $rules = explode('|', $rules);
@@ -128,13 +131,14 @@ class Validator
             throw new \Exception('Invalid rule "' . implode('|', $rules) . '" specified.');
         
         // The way Validator is built we have to create a new instance for every time we validate with this function
-        $validator = new \Illuminate\Validation\Validator(
-            $this->translator,
-            array($value),
-            array($rules)
-        );
+        $validator = new ExtendedValidator($this->translator, array($value), array($rules));
 
-        return $validator->passes();
+        // Note that this acts differently from addValidation() method in the way we add errors to $this->errors instead of $this->errors['name'].
+        // Time will tell if this is indeed more intuitive or simply confusing
+        $result = $validator->passes();
+        $this->errors += $validator->getMessageBag()->all();
+        
+        return $result;
     }
 
     /**
@@ -142,7 +146,7 @@ class Validator
      */
     public function passes()
     {
-        $validator = new \Illuminate\Validation\Validator(
+        $validator = new ExtendedValidator(
             $this->translator,
             $this->getValidationData(),
             $this->getValidationRules(),
@@ -204,7 +208,7 @@ class Validator
      * @param array $rules
      * @return boolean
      */
-    protected function rulesExist(array $rules)
+    public function rulesExist(array $rules)
     {
         foreach ($rules as $rule)
         {

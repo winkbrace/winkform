@@ -51,7 +51,7 @@ abstract class Input
      */
     function __construct($name, $value = null)
     {
-        $this->validator = new \WinkBrace\WinkForm\Validator();
+        $this->validator = new \WinkBrace\WinkForm\Validation\Validator();
         
         $this->setName($name);
         $this->setId($name); // normally you want the id to be the same as the name
@@ -396,7 +396,7 @@ abstract class Input
      */
     public function setValue($value)
     {
-        if ($this->validator->isNotArray($value))
+        if ($this->validator->validate($value, 'not_array'))
         {
             $this->value = xsschars($value);
         }
@@ -409,7 +409,7 @@ abstract class Input
      */
     public function setValues($values)
     {
-        if ($this->validator->isArray($values))
+        if ($this->validator->validate($values, 'array'))
         {
             $values = array_values($values); // enforce numeric array
             array_walk($values, 'xsschars');
@@ -436,7 +436,7 @@ abstract class Input
      */
     public function setLabels($labels, $flag = null)
     {
-        if ($this->validator->isArray($labels))
+        if ($this->validator->validate($labels, 'array'))
         {
             $labels = array_values($labels); // enforce numeric array
             
@@ -472,7 +472,7 @@ abstract class Input
      */
     public function setAutoFocus($flag)
     {
-        if ($this->validator->isBoolean($flag))
+        if ($this->validator->validate($flag, 'boolean'))
         {
             $this->autoFocus = $flag;
         }
@@ -512,7 +512,7 @@ abstract class Input
      */
     public function appendOptions($options, $flag = null, $category = null)
     {
-        if ($this->validator->isArray($options))
+        if ($this->validator->validate($options, 'array'))
         {
             // loop over the options array and add all values to values and labels
             // array_merge or the + operator won't do, because they will remove duplicate keys
@@ -559,7 +559,7 @@ abstract class Input
      */
     public function prependOptions($options, $flag = null, $category = null)
     {
-        if ($this->validator->isArray($options))
+        if ($this->validator->validate($options, 'array'))
         {
             // loop over the options array and add all values to values and labels
             // array_merge or the + operator won't do, because they will remove duplicate keys
@@ -568,36 +568,6 @@ abstract class Input
             foreach ($options as $value => $label)
             {
                 $this->prependOption($value, $label, $category, $flag);
-            }
-        }
-        
-        return $this;
-    }
-    
-    /**
-     * use $query object to populate options list
-     * @param Query $query
-     * @param string $valueColumn
-     * @param string $labelColumn
-     * @param string $categoryColumn
-     * @param optional int $flag
-     */
-    public function appendOptionsFromQuery(\Query $query, $valueColumn, $labelColumn, $categoryColumn = null, $flag = null)
-    {
-        if ($this->validator->isQuery($query)) // validate and execute $query
-        {
-            $result = $query->fetchAll();
-            if (count($result) > 0)
-            {
-                foreach ($result as $row)
-                {
-                    $this->appendOption(
-                                    $row[$valueColumn],
-                                    $row[$labelColumn],
-                                    (! empty($categoryColumn) && isset($row[$categoryColumn])) ? $row[$categoryColumn] : null,
-                                    $flag
-                                    );
-                }
             }
         }
         
@@ -624,7 +594,7 @@ abstract class Input
      */
     public function setCategories($categories)
     {
-        if ($this->validator->isArray($categories))
+        if ($this->validator->validate($categories, 'array'))
         {
             $this->categories = array_values($categories); // enforce numeric array
         }
@@ -637,8 +607,10 @@ abstract class Input
      */
     public function setWidth($width)
     {
-        if ($this->validator->numeric($width))
+        if ($this->validator->validate($width, 'numeric'))
+        {
             $this->width = $width;
+        }
 
         return $this;
     }
@@ -653,7 +625,7 @@ abstract class Input
         
         foreach ($classes as $class)
         {
-            if ($this->validator->htmlId($class))
+            if ($this->validator->validate($class, 'alpha_dash'))
             {
                 $this->classes[] = $class;
             }
@@ -671,7 +643,7 @@ abstract class Input
         $classes = explode(' ', $class);
         foreach ($classes as $cls)
         {
-            if ($this->validator->htmlId($cls))
+            if ($this->validator->validate($cls, 'alpha_dash'))
             {
                 if (! in_array($cls, $this->classes))
                     $this->classes[] = $cls;
@@ -854,7 +826,7 @@ abstract class Input
      */
     public function setDisabled($disabled)
     {
-        if ($this->validator->inArray($disabled, array('disabled','readonly')))
+        if ($this->validator->validate($disabled, 'in:disabled,readonly'))
         {
             $this->disabled = $disabled;
         }
@@ -867,7 +839,7 @@ abstract class Input
      */
     public function setHidden($hidden)
     {
-        if ($this->validator->isBoolean($hidden))
+        if ($this->validator->validate($hidden, 'boolean'))
         {
             $this->hidden = $hidden;
             
@@ -893,7 +865,7 @@ abstract class Input
      */
     public function setSize($size)
     {
-        if ($this->validator->numeric($size))
+        if ($this->validator->validate($size, 'numeric'))
         {
             $this->size = $size;
         }
@@ -907,7 +879,7 @@ abstract class Input
      */
     public function setInReportForm($bool)
     {
-        if ($this->validator->isBoolean($bool))
+        if ($this->validator->validate($bool, 'boolean'))
         {
             $this->inReportForm = $bool;
         }
@@ -928,7 +900,7 @@ abstract class Input
      */
     public function setRequired($required = true)
     {
-        if ($this->validator->isBoolean($required))
+        if ($this->validator->validate($required, 'boolean'))
         {
             $this->required = $required;
             
@@ -989,8 +961,10 @@ abstract class Input
      */
     public function setDataAttributes($dataAttributes)
     {
-        if ($this->validator->isArray($dataAttributes) && ! array_is_numeric($dataAttributes))
+        if ($this->validator->validate($dataAttributes, 'array') && $this->validator->validate($dataAttributes, 'numeric_array'))
+        {
             $this->dataAttributes = $dataAttributes;
+        }
         
         return $this;
     }
@@ -1021,19 +995,18 @@ abstract class Input
     
     /**
      * Add validation for input field. This validation must be executed by a form->validate() or in a script after posting.
-     * Example: $input->add_validation('between', array(20, 30))  or  $input->add_validation('numeric')
-     * @param string $validation (must be method of Validate class!)
-     * @param array $parameters (the parameters of the Validate method after the first parameter)
+     * @see http://laravel.com/docs/validation#available-validation-rules
+     * The rules must exist in the \WinkBrace\WinkForm\Validation\ExtendedValidator class
+     * @param string|array $rules
      */
-    public function addValidation($validation, $parameters = array())
+    public function addValidation($rules)
     {
-        // validate validation exists in Validate (teehee)
-        if (! method_exists($this->validator, $validation))
-            throw new \Exception('The validation '.$validation.' does not exist in class Validate');
-        if (! is_array($parameters))
-            $parameters = array($parameters);
-        
-        $this->validations[] = array('validation' => $validation, 'parameters' => $parameters);
+        $rules = (is_string($rules)) ? explode('|', $rules) : $rules;
+        foreach ($rules as $rule)
+        {
+            if (! in_array($rule, $this->validations))
+                $this->validations[] = $rule;
+        }
         
         return $this;
     }

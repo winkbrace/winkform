@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "fd3b2a25bd4ae6c974638852697b1534",
+    "hash": "8fd5e8f0bad84ca0826f3a7f4efa4dad",
     "packages": [
         {
             "name": "illuminate/container",
@@ -782,12 +782,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Codeception/Codeception.git",
-                "reference": "b510b9b44e89ac8dddb0577632914e813ddf68d9"
+                "reference": "51ce90eff5ccc4dc1ad787f3031de6ce972d6e2d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Codeception/Codeception/zipball/b510b9b44e89ac8dddb0577632914e813ddf68d9",
-                "reference": "b510b9b44e89ac8dddb0577632914e813ddf68d9",
+                "url": "https://api.github.com/repos/Codeception/Codeception/zipball/51ce90eff5ccc4dc1ad787f3031de6ce972d6e2d",
+                "reference": "51ce90eff5ccc4dc1ad787f3031de6ce972d6e2d",
                 "shasum": ""
             },
             "require": {
@@ -835,7 +835,7 @@
                 "functional testing",
                 "unit testing"
             ],
-            "time": "2013-09-15 08:45:52"
+            "time": "2013-09-19 19:08:19"
         },
         {
             "name": "fabpot/goutte",

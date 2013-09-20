@@ -1,7 +1,7 @@
 <?php
 
 use Codeception\Util\Stub;
-use WinkBrace\WinkForm\Validator;
+use WinkBrace\WinkForm\Validation\Validator;
 use WinkBrace\WinkForm\Form;
 
 class ValidatorTest extends \Codeception\TestCase\Test
@@ -39,7 +39,7 @@ class ValidatorTest extends \Codeception\TestCase\Test
      */
     public function testCreation()
     {
-        $this->assertInstanceOf('WinkBrace\WinkForm\Validator', $this->validator, 'getInstance() returns the Validator object');
+        $this->assertInstanceOf('WinkBrace\WinkForm\Validation\Validator', $this->validator, 'getInstance() returns the Validator object');
     }
     
     /**
@@ -80,13 +80,16 @@ class ValidatorTest extends \Codeception\TestCase\Test
      */
     public function testValidate()
     {
-        $result = $this->validator->validate('this is not numeric', 'numeric');
+        $result = $this->validator->validate('this is not numeric', 'numeric|email');
         $this->assertFalse($result, 'validate() should invalidate incorrect test');
 
         // we are not only checking that a correct test passes, but also that the Validator doesn't remember a
         // negative state from before (we might accidentally build something like that in the future)
         $result = $this->validator->validate('test@domain.com', 'email');
         $this->assertTrue($result, 'validate() should validate correct entry');
+        
+        // however, the Validator class should still keep track of all the validate errors
+        $this->assertCount(2, $this->validator->getErrors(), 'the Validator class should remember all errors');
     }
 
     /**
@@ -129,6 +132,5 @@ class ValidatorTest extends \Codeception\TestCase\Test
 
         $this->assertEquals("The my name field is required.", $error, 'The error message should display from the lang file');
     }
-
 
 }
