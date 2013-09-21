@@ -19,7 +19,7 @@ class ExtendedValidatorTest extends \Codeception\TestCase\Test
     protected $codeGuy;
     
     /**
-     * @var \WinkBrace\WinkForm\Validator
+     * @var \WinkBrace\WinkForm\Validation\Validator
      */
     protected $translator;
     

@@ -21,7 +21,7 @@ class DateRange extends Input
      */
     function __construct($name, $from, $to)
     {
-        $this->validator = new \WinkBrace\WinkForm\Validator();
+        $this->validator = new \WinkBrace\WinkForm\Validation\Validator();
         
         $this->name = $name;
         

@@ -16,7 +16,7 @@ class Address extends Input
      */
     function __construct($name, $value = null)
     {
-        $this->validator = new \WinkBrace\WinkForm\Validator();
+        $this->validator = new \WinkBrace\WinkForm\Validation\Validator();
 
         $this->name = $name;
         

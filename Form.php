@@ -281,7 +281,7 @@ abstract class Form
      */
     public function __construct()
     {
-        $this->validator = new \WinkBrace\WinkForm\Validator();
+        $this->validator = new \WinkBrace\WinkForm\Validation\Validator();
     }
     
     /**

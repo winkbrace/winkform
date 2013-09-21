@@ -15,7 +15,7 @@ class Week extends Input
      */
     function __construct($name, $week = null)
     {
-        $this->validator = new \WinkBrace\WinkForm\Validator();
+        $this->validator = new \WinkBrace\WinkForm\Validation\Validator();
     
         $this->setName($name);
         $this->setId($name); // normally you want the id to be the same as the name
