@@ -10,9 +10,8 @@ class Hidden extends Input
      */
     public function render()
     {
-        // default validity check
-        if (! $this->validator->passes())
-            throw new \Exception($this->validator->getMessage('Error rendering '.get_class($this).' object with name '.$this->name));
+        // check result of validity checks of parameters passed to this Input element
+        $this->checkValidity();
 
         $output = '<input'
                 . $this->renderType()

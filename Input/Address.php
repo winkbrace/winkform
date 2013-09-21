@@ -35,9 +35,8 @@ class Address extends Input
      */
     public function render()
     {
-        // default validity check
-        if (! $this->validator->passes())
-            throw new \Exception($this->validator->getMessage('Error rendering '.get_class($this).' object with name '.$this->name));
+        // check result of validity checks of parameters passed to this Input element
+        $this->checkValidity();
 
         // via casting we can pass all attributes that were set on AddressInput down to the DateInput fields
         $excludes = array('type', 'name','id','value','values','label','labels','selected','posted','required','invalidations');

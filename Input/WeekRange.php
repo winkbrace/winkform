@@ -39,10 +39,9 @@ class WeekRange extends Input
      */
     public function render($echo = false)
     {
-        // default validity check
-        if (! $this->validator->passes())
-            throw new \Exception($this->validator->getMessage('Error rendering '.get_class($this).' object with name '.$this->name));
-        
+        // check result of validity checks of parameters passed to this Input element
+        $this->checkValidity();
+
         // copy attributes from WeekRange to the WeekInputs
         $excludes = array('name','id','value','values','label','labels','selected','posted','required','invalidations','width');
         copySharedAttributes($this->weekFrom, $this, $excludes);

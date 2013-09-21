@@ -15,12 +15,9 @@ class Dropdown extends Input
      */
     public function render()
     {
-        // default validity check
-        if (! $this->validator->passes())
-        {
-            throw new \Exception($this->validator->getMessage('Error rendering '.get_class($this).' object with name '.$this->name, false));
-        }
-            
+        // check result of validity checks of parameters passed to this Input element
+        $this->checkValidity();
+
         // create select tag
         $output = $this->renderLabel();
             

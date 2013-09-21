@@ -9,6 +9,45 @@ class Date extends Input
     protected $jsOptions = array();
     
     protected $type = 'text'; // 'date' will only accept yyyy-mm-dd, which is not the format we use :'(
+
+    /**
+     * Override setPosted, to
+     * @return $this|void
+     */
+    protected function setPosted()
+    {
+        if (! empty($_POST[$this->name]))
+        {
+            $post = xsschars($_POST[$this->name]);
+
+            // This is a fix for when users manually input dates without using leading 0s
+            $post = $this->getCorrectedPostedDate($post);
+
+            $this->posted = $post;
+            $this->selected = $post;  // so we can always retrieve the selected fields with getSelected()
+        }
+
+        return $this;
+    }
+
+    /**
+     * This is a fix for when users manually input dates without using leading 0s
+     * We can think of a lot more checks, but let's keep it as fast as possible. Real validation is in the validate() functions
+     * @param string $post
+     */
+    protected function getCorrectedPostedDate($post)
+    {
+        if (strlen($post) == 10)  // when dates are dd-mm-yyyy, they are good
+            return $post;
+
+        $elements = explode('-', $post);
+        array_walk($elements, function(&$var) {
+            $var = str_pad($var, 2, '0', STR_PAD_LEFT); // str_pad will ignore strings longer than given 2
+        });
+        $post = implode('-', $elements);
+
+        return $post;
+    }
     
 
     /**
@@ -16,12 +55,9 @@ class Date extends Input
      */
     public function render()
     {
-        $output = '';
-        
-        // default validity check
-        if (! $this->validator->passes())
-            throw new \Exception($this->validator->getMessage('Error rendering '.get_class($this).' object with name '.$this->name));
-            
+        // check result of validity checks of parameters passed to this Input element
+        $this->checkValidity();
+
         // we will show/hide the container div for the text field and the image and not the text field and the image themselves
         $this->removeStyle('display:none');
         $hidden = $this->getHidden() === true ? ' style="display:none;"' : '';

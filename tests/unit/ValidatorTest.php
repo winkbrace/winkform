@@ -12,7 +12,7 @@ class ValidatorTest extends \Codeception\TestCase\Test
     protected $codeGuy;
 
     /**
-     * @var \WinkBrace\WinkForm\Validator
+     * @var \WinkBrace\WinkForm\Validation\Validator
      */
     protected $validator;
 
@@ -89,7 +89,8 @@ class ValidatorTest extends \Codeception\TestCase\Test
         $this->assertTrue($result, 'validate() should validate correct entry');
         
         // however, the Validator class should still keep track of all the validate errors
-        $this->assertCount(2, $this->validator->getErrors(), 'the Validator class should remember all errors');
+        $errors = $this->validator->getErrors();
+        $this->assertCount(2, $errors[0], 'the Validator class should remember all errors');
     }
 
     /**

@@ -133,7 +133,7 @@ if (! function_exists('array_join'))
      * @param array $array
      * @param array $array2
      * @param mixed $fields array of fields (or single value) to join the arrays on
-     * @return joined array
+     * @return array
      */
     function array_join($array, $array2, $fields)
     {
@@ -148,7 +148,7 @@ if (! function_exists('array_join'))
             
         foreach ($array as $nr => $row)
         {
-            foreach($array2 as $nr2 => $row2)
+            foreach($array2 as $row2)
             {
                 // check all join fields
                 $c = $count;
@@ -238,7 +238,7 @@ if (! function_exists('error'))
     /**
      * encapsulate message with error div
      * @param string $msg
-     * @return html div error message
+     * @return string html div error message
      */
     function error($msg)
     {
@@ -248,7 +248,7 @@ if (! function_exists('error'))
         if (strstr($msg, $div))
         {
             // loop through all error divs
-            while (($pos = strrpos($msg, $div)) !== false) // get last occurence of error div
+            while (($pos = strrpos($msg, $div)) !== false) // get last occurrence of error div
             {
                 // cut out error div
                 $start = substr($msg, 0, $pos);
@@ -272,11 +272,11 @@ if (! function_exists('success'))
     /**
      * encapsulate message with success div
      * @param string $msg
-     * @return html div error message
+     * @return string html div error message
      */
     function success($msg)
     {
-        return '<div class="succes">'.$msg."</div>\n";
+        return '<div class="success">'.$msg."</div>\n";
     }
 }
 
@@ -285,7 +285,7 @@ if (! function_exists('info'))
     /**
      * encapsulate message with blue 'info' div
      * @param string $msg
-     * @return html div info message
+     * @return string html div info message
      */
     function info($msg)
     {
@@ -317,6 +317,7 @@ if (! function_exists('initcap'))
     /**
      * copy Oracle's initcap function. php doesn't lowercase the rest by default with ucfirst.
      * @param string $string
+     * @return string
      */
     function initcap($string)
     {
@@ -344,8 +345,8 @@ if (! function_exists('getFiles'))
                 if (is_dir($dir . '/' . $entry))
                 {
                     // get subdir recursively and add to end of $files array
-                    foreach (getFiles($dir . '/' . $entry, $extension) as $entry)
-                        $files[] = $entry;
+                    foreach (getFiles($dir . '/' . $entry, $extension) as $subEntries)
+                        $files[] = $subEntries;
                 }
                 elseif (empty($extension) || substr($entry, -strlen($extension)) == $extension)
                 {

@@ -73,11 +73,22 @@ abstract class Input
      * @return string
      */
     abstract public function render();
-    
-    
+
+    /**
+     * This should always be called at the start of render()
+     * check result of validity checks of parameters passed to this Input element
+     * @throws \Exception
+     */
+    protected function checkValidity()
+    {
+        if (! $this->validator->passes())
+            throw new \Exception($this->renderValidationErrors('Error rendering '.get_class($this).' object with name '.$this->name));
+    }
+
     /**
      * convert all characters in $value that are not allowed in a html string to $replace (default a dash -)
      * @param string $value
+     * @param string $replace
      * @return string
      */
     protected function toValidHtmlId($value, $replace = '-')
@@ -361,6 +372,7 @@ abstract class Input
     
     /**
      * @param string $id
+     * @return $this
      */
     public function setId($id)
     {
@@ -377,6 +389,7 @@ abstract class Input
 
     /**
      * @param string $name
+     * @return $this
      */
     protected function setName($name)
     {
@@ -393,6 +406,7 @@ abstract class Input
 
     /**
      * @param string $value
+     * @return $this
      */
     public function setValue($value)
     {
@@ -406,6 +420,7 @@ abstract class Input
 
     /**
      * @param array $values
+     * @return $this
      */
     public function setValues($values)
     {
@@ -422,6 +437,7 @@ abstract class Input
 
     /**
      * @param string $label
+     * @return $this
      */
     public function setLabel($label)
     {
@@ -433,6 +449,7 @@ abstract class Input
     /**
      * @param array $labels
      * @param optional int $flag
+     * @return $this
      */
     public function setLabels($labels, $flag = null)
     {
@@ -455,6 +472,7 @@ abstract class Input
      * text, search, url, tel, email, and password.
      *
      * @param string $placeholder
+     * @return $this
      */
     public function setPlaceholder($placeholder)
     {
@@ -462,6 +480,8 @@ abstract class Input
         {
             $this->placeholder = xsschars($placeholder);
         }
+
+        return $this;
     }
     
     /**
@@ -469,6 +489,7 @@ abstract class Input
      * get focus when the page loads
      *
      * @param boolean $flag
+     * @return $this
      */
     public function setAutoFocus($flag)
     {
@@ -476,6 +497,8 @@ abstract class Input
         {
             $this->autoFocus = $flag;
         }
+
+        return $this;
     }
     
     /**
@@ -484,6 +507,7 @@ abstract class Input
      * @param string $label
      * @param optional string $category
      * @param optional int $flag
+     * @return $this
      */
     public function appendOption($value, $label, $category = null, $flag = null)
     {
@@ -509,6 +533,7 @@ abstract class Input
      * @param $options
      * @param optional int $flag
      * @param string $category    - You can optionally specify one category for all options in the array
+     * @return $this
      */
     public function appendOptions($options, $flag = null, $category = null)
     {
@@ -530,6 +555,7 @@ abstract class Input
      * @param string $label
      * @param optional string $category
      * @param optional int $flag
+     * @return $this
      */
     public function prependOption($value, $label, $category = null, $flag = null)
     {
@@ -556,6 +582,7 @@ abstract class Input
      * @param $options
      * @param optional int $flag
      * @param string $category    - You can optionally specify one category for all options in the array
+     * @return $this
      */
     public function prependOptions($options, $flag = null, $category = null)
     {
@@ -577,6 +604,7 @@ abstract class Input
     /**
      * remove an option (= value and label) by providing the value of that option
      * @param string $value
+     * @return $this
      */
     public function removeOption($value)
     {
@@ -586,11 +614,14 @@ abstract class Input
             unset($this->values[$i]);
             unset($this->labels[$i]);
         }
+
+        return $this;
     }
     
     /**
      * set categories for dropdowns and checkboxes
      * @param array $categories
+     * @return $this
      */
     public function setCategories($categories)
     {
@@ -604,6 +635,7 @@ abstract class Input
 
     /**
      * @param int $width (in pixels)
+     * @return $this
      */
     public function setWidth($width)
     {
@@ -616,7 +648,8 @@ abstract class Input
     }
 
     /**
-     * @param array $class
+     * @param array $classes
+     * @return $this
      */
     public function setClass($classes)
     {
@@ -637,6 +670,7 @@ abstract class Input
     /**
      * add a class or a list of classes separated by a space, just like in html
      * @param string $class
+     * @return $this
      */
     public function addClass($class)
     {
@@ -656,6 +690,7 @@ abstract class Input
     /**
      * remove a class from the classes
      * @param string $class
+     * @return $this
      */
     public function removeClass($class)
     {
@@ -672,6 +707,7 @@ abstract class Input
      * Resets the inline style and adds the new one
      *
      * @param string|array $styles
+     * @return $this
      */
     public function setStyle($styles)
     {
@@ -685,8 +721,9 @@ abstract class Input
     /**
      * Adds additional attributes to the inline style of the input element
      *
-     * @param string|array $style either a string (e.g. 'color:red; padding: 8px'),
-     * or an array (e.g. array('color' => 'red', 'padding' => '8px'));
+     * @param string|array $style  either a string (e.g. 'color:red; padding: 8px'),
+     *                             or an array (e.g. array('color' => 'red', 'padding' => '8px'));
+     * @return $this
      */
     public function addStyle($style)
     {
@@ -703,8 +740,9 @@ abstract class Input
     /**
      * Removes attributes from the inline style of the input element
      *
-     * @param string|array $style either a string (e.g. 'color:red; padding: 8px'),
-     * or an array (e.g. array('color' => 'red', 'padding' => '8px'));
+     * @param string|array $style   either a string (e.g. 'color:red; padding: 8px'),
+     *                              or an array (e.g. array('color' => 'red', 'padding' => '8px'));
+     * @return $this
      */
     public function removeStyle($style)
     {
@@ -747,6 +785,7 @@ abstract class Input
      * Set an initial value for the input field
      * @param string $selected
      * @param int $flag
+     * @return $this
      */
     public function setSelected($selected, $flag = 0)
     {
@@ -764,7 +803,6 @@ abstract class Input
     
     /**
      * store posted values
-     * @param $posted
      */
     protected function setPosted()
     {
@@ -775,11 +813,7 @@ abstract class Input
                 array_walk($post, 'xsschars');
             else
                 $post = xsschars($post);
-            
-            // This is a fix for when users manually input dates without using leading 0s
-            if ($this instanceof Date)
-                $post = $this->getCorrectedPostedDate($post);
-            
+
             $this->posted = $post;
             $this->selected = $post;  // so we can always retrieve the selected fields with getSelected()
         }
@@ -788,27 +822,6 @@ abstract class Input
             $this->posted = $_FILES[$this->name]['tmp_name'];
             $this->selected = $_FILES[$this->name]['tmp_name'];
         }
-        
-        return $this;
-    }
-    
-    /**
-     * This is a fix for when users manually input dates without using leading 0s
-     * We can think of a lot more checks, but let's keep it as fast as possible. Main validation is in the validate() functions
-     * @param date_string $post
-     */
-    protected function getCorrectedPostedDate($post)
-    {
-        if (strlen($post) == 10)  // when dates are dd-mm-yyyy, they are good
-            return $post;
-        
-        $elements = explode('-', $post);
-        array_walk($elements, function(&$var) {
-            $var = str_pad($var, 2, '0', STR_PAD_LEFT); // str_pad will ignore strings longer than given 2
-        });
-        $post = implode('-', $elements);
-        
-        return $post;
     }
     
     /**
@@ -823,6 +836,7 @@ abstract class Input
     /**
      * set $disabled
      * @param string $disabled
+     * @return $this
      */
     public function setDisabled($disabled)
     {
@@ -836,6 +850,7 @@ abstract class Input
     
     /**
      * @param boolean $hidden
+     * @return $this
      */
     public function setHidden($hidden)
     {
@@ -852,6 +867,7 @@ abstract class Input
     
     /**
      * @param string $title
+     * @return $this
      */
     public function setTitle($title)
     {
@@ -862,6 +878,7 @@ abstract class Input
     
     /**
      * @param int $size
+     * @return $this
      */
     public function setSize($size)
     {
@@ -876,6 +893,7 @@ abstract class Input
     /**
      * indicator to let Input know if it's in the ReportForm class or not (needed to display labels or not)
      * @param bool $bool
+     * @return $this
      */
     public function setInReportForm($bool)
     {
@@ -897,6 +915,7 @@ abstract class Input
 
     /**
      * @param boolean $required
+     * @return $this
      */
     public function setRequired($required = true)
     {
@@ -923,6 +942,7 @@ abstract class Input
 
     /**
      * @param string $invalidation
+     * @return $this
      */
     public function addInvalidation($invalidation)
     {
@@ -958,6 +978,7 @@ abstract class Input
      * set all custom data attributes
      * Note: this will overwrite any previously set or added data attributes
      * @param array $dataAttributes
+     * @return $this
      */
     public function setDataAttributes($dataAttributes)
     {
@@ -973,6 +994,7 @@ abstract class Input
      * add a custom data attribute (Example: <input ... data-answer_to_life="42">)
      * @param string $name
      * @param string $value
+     * @return $this
      */
     public function addDataAttribute($name, $value)
     {
@@ -984,6 +1006,7 @@ abstract class Input
     /**
      * remove a custom data attribute
      * @param string $name
+     * @return $this
      */
     public function removeDataAttribute($name)
     {
@@ -998,6 +1021,7 @@ abstract class Input
      * @see http://laravel.com/docs/validation#available-validation-rules
      * The rules must exist in the \WinkBrace\WinkForm\Validation\ExtendedValidator class
      * @param string|array $rules
+     * @return $this
      */
     public function addValidation($rules)
     {
@@ -1040,7 +1064,7 @@ abstract class Input
 
     /**
      * render the invalidations
-     * @return NULL|string
+     * @return string
      */
     protected function renderInvalidations()
     {
@@ -1049,8 +1073,32 @@ abstract class Input
         
         return '<div class="invalidations">'.implode("<br/>\n", $this->invalidations)."</div>\n";
     }
-    
-    
+
+    /**
+     * return the found error messages optionally prefixed with given message and optionally formatted in error div
+     * @param null $message
+     * @param bool $inErrorDiv
+     * @return string
+     */
+    public function renderValidationErrors($message = null, $inErrorDiv = true)
+    {
+        $errors = $this->validator->getErrors();
+
+        if (empty($errors[0]))
+            return null;
+
+        $errorString = implode("<br/>\n", $errors[0]);
+
+        $message = ! empty($message) ? '<p>'.$message."</p>\n" : "";
+
+        if ($inErrorDiv === true)
+            $message = '<div class="error">' . $message . "<p>" . $errorString . "</p></div>\n";
+        else
+            $message = $message.$errorString;
+
+        return $message;
+    }
+
     /**
      * when an Input object is echo'd, return the render()
      * @return string

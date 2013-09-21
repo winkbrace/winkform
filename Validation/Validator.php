@@ -37,6 +37,8 @@ class Validator
     protected $isValid;
 
     /**
+     * all validation errors are stored with the name of the Input object as key
+     * Error messages from loose validations (using the validate() method) are stored under $errors[0]
      * @var array
      */
     protected $errors;
@@ -60,7 +62,7 @@ class Validator
         // init
         $this->validations = array();
         $this->isValid = true;
-        $this->errors = array();
+        $this->errors = array(0 => array());
 
         // fetched from the documentation on 2013-09-18
         $this->allowedRules = array(
@@ -133,10 +135,12 @@ class Validator
         // The way Validator is built we have to create a new instance for every time we validate with this function
         $validator = new ExtendedValidator($this->translator, array($value), array($rules));
 
-        // Note that this acts differently from addValidation() method in the way we add errors to $this->errors instead of $this->errors['name'].
-        // Time will tell if this is indeed more intuitive or simply confusing
+        // execute validation and store result to return
         $result = $validator->passes();
-        $this->errors += $validator->getMessageBag()->all();
+
+        // addValidation() stores errors with Input name as key. This stores all errors at index 0.
+        foreach ($validator->getMessageBag()->all() as $error)
+            $this->errors[0][] = $error;
         
         return $result;
     }
@@ -203,6 +207,12 @@ class Validator
         return $this->errors;
     }
 
+
+    public function getErrorsString()
+    {
+
+    }
+
     /**
      * check if given rule is known in Laravel Validator
      * @param array $rules
@@ -223,11 +233,12 @@ class Validator
     }
     
     /**
-     * @return array $validations
+     * @return array
      */
     public function getValidations()
     {
         return $this->validations;
     }
+
 
 }
