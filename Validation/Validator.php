@@ -207,12 +207,6 @@ class Validator
         return $this->errors;
     }
 
-
-    public function getErrorsString()
-    {
-
-    }
-
     /**
      * check if given rule is known in Laravel Validator
      * @param array $rules
@@ -239,6 +233,5 @@ class Validator
     {
         return $this->validations;
     }
-
 
 }

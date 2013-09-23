@@ -33,9 +33,12 @@ spl_autoload_register(function($class) {
     // library Button classes
     elseif (file_exists(WINKFORM_PATH . 'Button/' . $file))
         require_once WINKFORM_PATH . 'Button/' . $file;
-    // library Button classes
+    // library Validation classes
     elseif (file_exists(WINKFORM_PATH . 'Validation/' . $file))
         require_once WINKFORM_PATH . 'Validation/' . $file;
     
     // else not found. Maybe another autoloader will find the class
 });
+
+// composer autoloader
+require_once 'vendor/autoload.php';

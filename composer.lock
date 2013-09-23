@@ -782,12 +782,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Codeception/Codeception.git",
-                "reference": "51ce90eff5ccc4dc1ad787f3031de6ce972d6e2d"
+                "reference": "71907ae93140ed17b47d64570a81eda38362a796"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Codeception/Codeception/zipball/51ce90eff5ccc4dc1ad787f3031de6ce972d6e2d",
-                "reference": "51ce90eff5ccc4dc1ad787f3031de6ce972d6e2d",
+                "url": "https://api.github.com/repos/Codeception/Codeception/zipball/71907ae93140ed17b47d64570a81eda38362a796",
+                "reference": "71907ae93140ed17b47d64570a81eda38362a796",
                 "shasum": ""
             },
             "require": {
@@ -835,7 +835,7 @@
                 "functional testing",
                 "unit testing"
             ],
-            "time": "2013-09-19 19:08:19"
+            "time": "2013-09-20 20:34:43"
         },
         {
             "name": "fabpot/goutte",
@@ -1784,12 +1784,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/Console.git",
-                "reference": "20057d4202148ac7524144c20aeb5ed7e83acd56"
+                "reference": "2b9e91a60b4cac3edae1aaef23b9cb25b37fb627"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/Console/zipball/20057d4202148ac7524144c20aeb5ed7e83acd56",
-                "reference": "20057d4202148ac7524144c20aeb5ed7e83acd56",
+                "url": "https://api.github.com/repos/symfony/Console/zipball/2b9e91a60b4cac3edae1aaef23b9cb25b37fb627",
+                "reference": "2b9e91a60b4cac3edae1aaef23b9cb25b37fb627",
                 "shasum": ""
             },
             "require": {
@@ -1828,7 +1828,7 @@
             ],
             "description": "Symfony Console Component",
             "homepage": "http://symfony.com",
-            "time": "2013-09-19 09:47:34"
+            "time": "2013-09-22 18:04:51"
         },
         {
             "name": "symfony/css-selector",
@@ -1888,12 +1888,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/DomCrawler.git",
-                "reference": "92c3f36ab40bb7d28f560fba8e4fab612b042e7c"
+                "reference": "5219c96558c298940c9d57fd6fdb4c12dbedf53c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/DomCrawler/zipball/92c3f36ab40bb7d28f560fba8e4fab612b042e7c",
-                "reference": "92c3f36ab40bb7d28f560fba8e4fab612b042e7c",
+                "url": "https://api.github.com/repos/symfony/DomCrawler/zipball/5219c96558c298940c9d57fd6fdb4c12dbedf53c",
+                "reference": "5219c96558c298940c9d57fd6fdb4c12dbedf53c",
                 "shasum": ""
             },
             "require": {
@@ -1932,7 +1932,7 @@
             ],
             "description": "Symfony DomCrawler Component",
             "homepage": "http://symfony.com",
-            "time": "2013-09-19 09:47:34"
+            "time": "2013-09-22 18:04:51"
         },
         {
             "name": "symfony/event-dispatcher",
@@ -2042,12 +2042,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/Yaml.git",
-                "reference": "d39a0808db5ae9eb81f462753f5d84baf7eecaa3"
+                "reference": "ef4878bcca171ebe7466be0505b85a710818d788"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/Yaml/zipball/d39a0808db5ae9eb81f462753f5d84baf7eecaa3",
-                "reference": "d39a0808db5ae9eb81f462753f5d84baf7eecaa3",
+                "url": "https://api.github.com/repos/symfony/Yaml/zipball/ef4878bcca171ebe7466be0505b85a710818d788",
+                "reference": "ef4878bcca171ebe7466be0505b85a710818d788",
                 "shasum": ""
             },
             "require": {
@@ -2080,7 +2080,7 @@
             ],
             "description": "Symfony Yaml Component",
             "homepage": "http://symfony.com",
-            "time": "2013-09-19 09:47:34"
+            "time": "2013-09-22 18:04:51"
         },
         {
             "name": "videlalvaro/php-amqplib",
