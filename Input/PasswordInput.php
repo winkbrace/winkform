@@ -1,13 +1,14 @@
 <?php namespace WinkBrace\WinkForm\Input;
 
-class Text extends Input
+class PasswordInput extends Input
 {
-    
-    protected $type = 'text',
+
+    protected $type = 'password',
               $maxLength;
 
+    
     /**
-     * render the text input element
+     * render the hidden input element
      */
     public function render()
     {
@@ -20,7 +21,7 @@ class Text extends Input
                 . $this->renderId()
                 . $this->renderClass()
                 . $this->renderName()
-                . $this->renderValue()
+                . ' value=""'
                 . $this->renderStyle()
                 . $this->renderDisabled()
                 . $this->renderMaxLength()
@@ -37,7 +38,7 @@ class Text extends Input
     }
     
     /**
-     * @return int $maxLength
+     * @return string maxlength="$maxLength"
      */
     public function renderMaxLength()
     {

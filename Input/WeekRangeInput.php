@@ -5,7 +5,7 @@
  *
  * @author b-deruiter
  */
-class WeekRange extends Input
+class WeekRangeInput extends Input
 {
     // the 2 week objects
     protected $weekFrom,

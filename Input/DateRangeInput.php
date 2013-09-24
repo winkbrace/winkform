@@ -5,7 +5,7 @@
  *
  * @author b-deruiter
  */
-class DateRange extends Input
+class DateRangeInput extends Input
 {
     // the 2 date objects
     protected $dateFrom,

@@ -1,6 +1,6 @@
 <?php namespace WinkBrace\WinkForm\Input;
 
-class Month extends Input
+class MonthInput extends Input
 {
     
     protected $month,
@@ -101,7 +101,7 @@ class Month extends Input
     
     /**
      * (non-PHPdoc)
-     * @see Input::getSelected()
+     * @see \WinkBrace\WinkForm\Input\Input::getSelected()
      */
     public function getSelected()
     {
@@ -110,7 +110,7 @@ class Month extends Input
     
     /**
      * (non-PHPdoc)
-     * @see \WinkBrace\WinkForm\Input::getPosted()
+     * @see \WinkBrace\WinkForm\Input\Input::getPosted()
      */
     public function getPosted()
     {

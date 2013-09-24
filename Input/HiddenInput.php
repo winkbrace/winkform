@@ -1,20 +1,19 @@
 <?php namespace WinkBrace\WinkForm\Input;
 
-class Email extends Input
+class HiddenInput extends Input
 {
-    protected $type = 'email';
+    protected $type = 'hidden';
     
 
     /**
-     * render the text input element
+     * render the hidden input element
      */
     public function render()
     {
         // check result of validity checks of parameters passed to this Input element
         $this->checkValidity();
 
-        $output = $this->renderLabel()
-                . '<input'
+        $output = '<input'
                 . $this->renderType()
                 . $this->renderId()
                 . $this->renderClass()
@@ -22,16 +21,13 @@ class Email extends Input
                 . $this->renderValue()
                 . $this->renderStyle()
                 . $this->renderDisabled()
-                . $this->renderMaxLength()
                 . $this->renderTitle()
                 . $this->renderDataAttributes()
                 . $this->renderRequired()
-                . $this->renderPlaceholder()
                 .' />'."\n";
         
         $output .= $this->renderInvalidations();
         
         return $output;
     }
-    
 }

@@ -1,6 +1,6 @@
 <?php
 use Codeception\Util\Stub;
-use \WinkBrace\WinkForm\Input\Text;
+use WinkBrace\WinkForm\Input\TextInput;
 
 /**
  * test the Input class methods
@@ -35,14 +35,14 @@ class InputTest extends \Codeception\TestCase\Test
      */
     public function testRenderValidationErrors()
     {
-        $input = new Text('foo', 'value');
+        $input = new TextInput('foo', 'value');
         $input->setValue(array('one', 'two')); // setValue doesn't accept array
         $input->addClass('$@#$%^&'); // no special chars allowed in class name
         $errors = $input->renderValidationErrors('my custom message');
         $this->assertContains('div class="error"', $errors);
         $this->assertContains('my custom message', $errors);
 
-        $input = new Text('foo', 'value');
+        $input = new TextInput('foo', 'value');
         $errors = $input->renderValidationErrors();
         $this->assertEmpty($errors);
     }

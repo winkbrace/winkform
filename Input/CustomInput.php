@@ -1,6 +1,6 @@
 <?php namespace WinkBrace\WinkForm\Input;
 
-class Custom extends Input
+class CustomInput extends Input
 {
 
     /**
@@ -56,26 +56,26 @@ class Custom extends Input
             'button'         => array('Button.php'),
             'checkbox'       => array('Checkbox.php'),
             'color'          => null,
-            'date'           => array('DateTinput.php', 'DateRange.php'),
-            'datetime'       => array('DateTinput.php', 'DateRange.php'),
-            'datetime-local' => array('DateTinput.php', 'DateRange.php'),
-            'email'          => null,
+            'date'           => array('DateInput.php', 'DateRangeInput.php'),
+            'datetime'       => array('DateInput.php', 'DateRangeInput.php'),
+            'datetime-local' => array('DateInput.php', 'DateRangeInput.php'),
+            'email'          => array('EmailInput.php'),
             'file'           => array('FileInput.php'),
             'hidden'         => array('HiddenInput.php'),
-            'image'          => null,
-            'month'          => array('MonthInput.php', 'MonthRange.php'),
+            'image'          => array('ImageButton.php'),
+            'month'          => array('MonthInput.php', 'MonthRangeInput.php'),
             'number'         => null,
             'password'       => array('PasswordInput.php'),
             'radio'          => array('RadioInput.php'),
             'range'          => null,
-            'reset'          => null,
+            'reset'          => array('ResetButton.php'),
             'search'         => null,
             'submit'         => array('SubmitButton.php'),
             'tel'            => null,
             'text'           => array('TextInput.php'),
-            'time'           => array('DateTinput.php', 'DateRange.php'),
+            'time'           => array('DateInput.php', 'DateRangeInput.php'),
             'url'            => null,
-            'week'           => array('WeekInput.php', 'WeekRange.php'),
+            'week'           => array('WeekInput.php', 'WeekRangeInput.php'),
         );
         
         // Check if he selected an input type that exists

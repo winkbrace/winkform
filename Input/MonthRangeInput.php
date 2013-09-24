@@ -5,7 +5,7 @@
  *
  * @author b-deruiter
  */
-class MonthRange extends Input
+class MonthRangeInput extends Input
 {
     // the 2 month objects
     protected $monthFrom,

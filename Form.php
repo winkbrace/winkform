@@ -16,11 +16,11 @@ abstract class Form
      * create AddressInput object
      * @param string $name
      * @param string $value
-     * @return \WinkBrace\WinkForm\Input\Address
+     * @return \WinkBrace\WinkForm\Input\AddressInput
      */
     public static function address($name, $value = null)
     {
-        return new Input\Address($name, $value);
+        return new Input\AddressInput($name, $value);
     }
     
     /**
@@ -62,11 +62,11 @@ abstract class Form
      * @param string $type
      * @param string $name
      * @param string $value
-     * @return \WinkBrace\WinkForm\Input\Custom
+     * @return \WinkBrace\WinkForm\Input\CustomInput
      */
     public static function custom($type, $name, $value = null)
     {
-        $custom = new Input\Custom($name, $value);
+        $custom = new Input\CustomInput($name, $value);
         $custom->setType($type);
         return $custom;
     }
@@ -75,11 +75,11 @@ abstract class Form
      * create DateInput object
      * @param string $name
      * @param string $value
-     * @return \WinkBrace\WinkForm\Input\Date
+     * @return \WinkBrace\WinkForm\Input\DateInput
      */
     public static function date($name, $value = null)
     {
-        return new Input\Date($name, $value);
+        return new Input\DateInput($name, $value);
     }
     
     /**
@@ -87,11 +87,11 @@ abstract class Form
      * @param string $name
      * @param dd-mm-yyyy $from
      * @param dd-mm-yyyy $to
-     * @return \WinkBrace\WinkForm\Input\DateRange
+     * @return \WinkBrace\WinkForm\Input\DateRangeInput
      */
     public static function dateRange($name, $from, $to)
     {
-        return new Input\DateRange($name, $from, $to);
+        return new Input\DateRangeInput($name, $from, $to);
     }
     
     /**
@@ -109,55 +109,55 @@ abstract class Form
      * create Email object
      * @param string $name
      * @param string $value
-     * @return \WinkBrace\WinkForm\Input\Email
+     * @return \WinkBrace\WinkForm\Input\EmailInput
      */
     public static function email($name, $value = null)
     {
-        return new Input\Email($name, $value);
+        return new Input\EmailInput($name, $value);
     }
     
     /**
      * create FileInput object
      * @param string $name
      * @param string $value
-     * @return \WinkBrace\WinkForm\Input\File
+     * @return \WinkBrace\WinkForm\Input\FileInput
      */
     public static function file($name, $value = null)
     {
-        return new Input\File($name, $value);
+        return new Input\FileInput($name, $value);
     }
     
     /**
      * create HiddenInput object
      * @param string $name
      * @param string $value
-     * @return \WinkBrace\WinkForm\Input\Hidden
+     * @return \WinkBrace\WinkForm\Input\HiddenInput
      */
     public static function hidden($name, $value = null)
     {
-        return new Input\Hidden($name, $value);
+        return new Input\HiddenInput($name, $value);
     }
     
     /**
      * create ImageButton object
      * @param string $name
      * @param string $value
-     * @return \WinkBrace\WinkForm\Button\Image
+     * @return \WinkBrace\WinkForm\Button\ImageButton
      */
     public static function image($name, $value = null)
     {
-        return new Button\Image($name, $value);
+        return new Button\ImageButton($name, $value);
     }
     
     /**
      * create MonthInput object
      * @param string $name
      * @param yyyy-mm $month
-     * @return \WinkBrace\WinkForm\Input\Month
+     * @return \WinkBrace\WinkForm\Input\MonthInput
      */
     public static function month($name, $month = null)
     {
-        return new Input\Month($name, $month);
+        return new Input\MonthInput($name, $month);
     }
     
     /**
@@ -165,88 +165,88 @@ abstract class Form
      * @param string $name
      * @param yyyy-mm $from
      * @param yyyy-mm $to
-     * @return \WinkBrace\WinkForm\Input\MonthRange
+     * @return \WinkBrace\WinkForm\Input\MonthRangeInput
      */
     public static function monthRange($name, $from = null, $to = null)
     {
-        return new Input\MonthRange($name, $from, $to);
+        return new Input\MonthRangeInput($name, $from, $to);
     }
     
     /**
      * create PasswordInput object
      * @param string $name
      * @param string $value
-     * @return \WinkBrace\WinkForm\Input\Password
+     * @return \WinkBrace\WinkForm\Input\PasswordInput
      */
     public static function password($name, $value = null)
     {
-        return new Input\Password($name, $value);
+        return new Input\PasswordInput($name, $value);
     }
     
     /**
      * create RadioInput object
      * @param string $name
      * @param string $value
-     * @return \WinkBrace\WinkForm\Input\Radio
+     * @return \WinkBrace\WinkForm\Input\RadioInput
      */
     public static function radio($name, $value = null)
     {
-        return new Input\Radio($name, $value);
+        return new Input\RadioInput($name, $value);
     }
     
     /**
      * create reset button
      * @param string $name
      * @param string $value
-     * @return \WinkBrace\WinkForm\Button\Reset
+     * @return \WinkBrace\WinkForm\Button\ResetButton
      */
     public static function reset($name, $value = null)
     {
-        return new Button\Reset($name, $value);
+        return new Button\ResetButton($name, $value);
     }
     
     /**
      * create SubmitButton object
      * @param string $name
      * @param string $value
-     * @return \WinkBrace\WinkForm\Button\Submit
+     * @return \WinkBrace\WinkForm\Button\SubmitButton
      */
     public static function submit($name, $value = null)
     {
-        return new Button\Submit($name, $value);
+        return new Button\SubmitButton($name, $value);
     }
     
     /**
      * create TextInput object
      * @param string $name
      * @param string $value
-     * @return \WinkBrace\WinkForm\Input\Text
+     * @return \WinkBrace\WinkForm\Input\TextInput
      */
     public static function text($name, $value = null)
     {
-        return new Input\Text($name, $value);
+        return new Input\TextInput($name, $value);
     }
     
     /**
      * create TextAreaInput object
      * @param string $name
      * @param string $value
-     * @return \WinkBrace\WinkForm\Input\TextArea
+     * @return \WinkBrace\WinkForm\Input\TextAreaInput
      */
     public static function textarea($name, $value = null)
     {
-        return new Input\TextArea($name, $value);
+        return new Input\TextAreaInput($name, $value);
     }
     
     /**
      * create WeekInput object
      * @param string $name
      * @param iyyy-iw $week
-     * @return \WinkBrace\WinkForm\Input\Week
+     * @return \WinkBrace\WinkForm\Input\WeekInput
      */
     public static function week($name, $week = null)
     {
-        return new Input\Week($name, $week);
+        return new Input\WeekInput($name, $week);
     }
     
     /**
@@ -254,11 +254,11 @@ abstract class Form
      * @param string $name
      * @param iyyy-iw $from
      * @param iyyy-iw $to
-     * @return \WinkBrace\WinkForm\Input\WeekRange
+     * @return \WinkBrace\WinkForm\Input\WeekRangeInput
      */
     public static function weekRange($name, $from = null, $to = null)
     {
-        return new Input\WeekRange($name, $from, $to);
+        return new Input\WeekRangeInput($name, $from, $to);
     }
     
         
@@ -343,10 +343,10 @@ abstract class Form
             return;
         
         // always validate date inputs
-        if ($input instanceof Input\Date)
+        if ($input instanceof Input\DateInput)
             $this->validator->date($input->getPosted());
         
-        if ($input instanceof Input\DateRange)
+        if ($input instanceof Input\DateRangeInput)
         {
             $this->validator->date($input->getDateFrom()->getPosted());
             $this->validator->date($input->getDateTo()->getPosted());
@@ -560,7 +560,7 @@ abstract class Form
         // check the properties
         foreach (get_object_vars($this) as $input)
         {
-            if (is_object($input) && $input instanceof Input\File)
+            if (is_object($input) && $input instanceof Input\FileInput)
             {
                 $this->setEnctype(self::ENCTYPE_FILE);
                 return $this->enctype; // immediately quit searching when a FileInput is found

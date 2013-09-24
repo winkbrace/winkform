@@ -1,6 +1,6 @@
 <?php namespace WinkBrace\WinkForm\Input;
 
-class TextArea extends Input
+class TextAreaInput extends Input
 {
     protected $type = 'textarea';
     protected $rows;

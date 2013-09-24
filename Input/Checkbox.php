@@ -35,7 +35,6 @@ class Checkbox extends Input
         
         // when posting, also send a hidden field so that if none of the options are selected
         // we still know that the checkbox has been posted
-        require_once 'HiddenInput.php';
         $hidden = new HiddenInput($this->name.'-isPosted', 1);
         $output .= $hidden->render();
         

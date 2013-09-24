@@ -1,6 +1,6 @@
 <?php namespace WinkBrace\WinkForm\Input;
 
-class Radio extends Input
+class RadioInput extends Input
 {
     
     protected $type = 'radio',

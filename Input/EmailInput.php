@@ -1,14 +1,12 @@
 <?php namespace WinkBrace\WinkForm\Input;
 
-class Password extends Input
+class EmailInput extends Input
 {
-
-    protected $type = 'password',
-              $maxLength;
-
+    protected $type = 'email';
     
+
     /**
-     * render the hidden input element
+     * render the text input element
      */
     public function render()
     {
@@ -21,7 +19,7 @@ class Password extends Input
                 . $this->renderId()
                 . $this->renderClass()
                 . $this->renderName()
-                . ' value=""'
+                . $this->renderValue()
                 . $this->renderStyle()
                 . $this->renderDisabled()
                 . $this->renderMaxLength()
@@ -29,7 +27,6 @@ class Password extends Input
                 . $this->renderDataAttributes()
                 . $this->renderRequired()
                 . $this->renderPlaceholder()
-                . $this->renderAutoFocus()
                 .' />'."\n";
         
         $output .= $this->renderInvalidations();
@@ -37,25 +34,4 @@ class Password extends Input
         return $output;
     }
     
-    /**
-     * @return string maxlength="$maxLength"
-     */
-    public function renderMaxLength()
-    {
-        return ! empty($this->maxLength) ? ' maxlength="'.$this->maxLength.'"' : '';
-    }
-
-    /**
-     * @param int $maxLength
-     */
-    public function setMaxLength($maxLength)
-    {
-        if (! $this->validator->validate($maxLength, 'numeric'))
-            throw new \Exception('Invalid value for maxLength: '.$maxLength);
-        else
-            $this->maxLength = $maxLength;
-        
-        return $this;
-    }
-
 }

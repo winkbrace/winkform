@@ -1,6 +1,6 @@
 <?php namespace WinkBrace\WinkForm\Input;
 
-class Week extends Input
+class WeekInput extends Input
 {
     // the text input fields
     protected $year,

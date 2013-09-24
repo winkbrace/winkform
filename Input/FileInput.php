@@ -6,7 +6,7 @@
  * enctype="multipart/form-data"
  *
  */
-class File extends Input
+class FileInput extends Input
 {
     protected $type = 'file';
     

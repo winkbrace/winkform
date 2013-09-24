@@ -1,6 +1,6 @@
 <?php namespace WinkBrace\WinkForm\Input;
 
-class Date extends Input
+class DateInput extends Input
 {
     /**
      * Contains the options for the jQuery DatePicker widget
@@ -63,7 +63,7 @@ class Date extends Input
         $hidden = $this->getHidden() === true ? ' style="display:none;"' : '';
         
         // create TextInput object with all same properties as this DateInput object
-        $text = new Text($this->name);
+        $text = new TextInput($this->name);
         copySharedAttributes($text, $this);
         
         // set default width if none was given

@@ -1,6 +1,6 @@
 <?php namespace WinkBrace\WinkForm\Button;
 
-class Image extends Button
+class ImageButton extends Button
 {
     
     protected $type = 'image',

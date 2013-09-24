@@ -1,8 +1,8 @@
 <?php namespace WinkBrace\WinkForm\Button;
 
-class Submit extends Button
+class ResetButton extends Button
 {
-    protected $type = 'submit';
+    protected $type = 'reset';
 
     // renders exactly the same as normal button
 }

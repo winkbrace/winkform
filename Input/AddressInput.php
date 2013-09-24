@@ -1,6 +1,6 @@
 <?php namespace WinkBrace\WinkForm\Input;
 
-class Address extends Input
+class AddressInput extends Input
 {
     
     protected $type = 'address',
@@ -22,9 +22,9 @@ class Address extends Input
         
         // create the text inputs
         // NOTE: names must be the same as the values for the jquery script
-        $this->postcode = new Text('postcode', 'postcode');
-        $this->houseNumber = new Text('huisnr', 'huisnr');
-        $this->houseNumberExtension = new Text('toevoeging', 'toevoeging');
+        $this->postcode = new TextInput('postcode', 'postcode');
+        $this->houseNumber = new TextInput('huisnr', 'huisnr');
+        $this->houseNumberExtension = new TextInput('toevoeging', 'toevoeging');
         
         // set the global style that will get copied down
         $this->setWidth(150)->addStyle('font-style:italic; color:#888;')->addClass('address');
@@ -123,7 +123,7 @@ class Address extends Input
     
     /**
      * (non-PHPdoc)
-     * @see \WinkBrace\WinkForm\Input::isPosted()
+     * @see \WinkBrace\WinkForm\Input\Input::isPosted()
      */
     public function isPosted()
     {
