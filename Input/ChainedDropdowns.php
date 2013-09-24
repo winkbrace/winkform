@@ -31,8 +31,10 @@ class ChainedDropdowns extends Input
         // create the javascript like: $("#series").chainedTo("#mark"); \n $("#model").chainedTo("#series");
         $output .= '<script>'.PHP_EOL;
         $output .= '$(document).ready(function() {'.PHP_EOL;
+        
         for ($i = 1; $i < count($this->dropdowns); $i++)
             $output .= '    $("#'.$this->dropdowns[$i]->getId().'").chainedTo("#'.$this->dropdowns[$i - 1]->getId().'");'.PHP_EOL;
+        
         $output .= '});'.PHP_EOL;
         $output .= '</script>'.PHP_EOL;
         
@@ -59,7 +61,7 @@ class ChainedDropdowns extends Input
      */
     public function setResultArray($result)
     {
-        if ($this->validator->isArray($result))
+        if ($this->validator->validate($result, 'array'))
             $this->result = $result;
         
         $this->createDropdowns();

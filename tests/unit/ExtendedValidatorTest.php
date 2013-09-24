@@ -135,4 +135,37 @@ class ExtendedValidatorTest extends \Codeception\TestCase\Test
         $validator = new ExtendedValidator($this->translator, array($value), array($rule));
         $this->assertTrue($validator->passes(), 'empty array should validate as assoc array');
     }
+    
+    /**
+     * test not empty
+     */
+    public function testNotEmpty()
+    {
+        $rule = 'not_empty';
+        
+        $value = 1;
+        $validator = new ExtendedValidator($this->translator, array($value), array($rule));
+        $this->assertTrue($validator->passes(), 'value 1 should validate as not empty');
+        
+        $value = array();
+        $validator = new ExtendedValidator($this->translator, array($value), array($rule));
+        $this->assertFalse($validator->passes(), 'empty array should not validate as not empty');
+    }
+    
+    /**
+     * test empty
+     */
+    public function testEmpty()
+    {
+        $rule = 'empty';
+    
+        $value = 1;
+        $validator = new ExtendedValidator($this->translator, array($value), array($rule));
+        $this->assertFalse($validator->passes(), 'value 1 should not validate as empty');
+    
+        $value = array();
+        $validator = new ExtendedValidator($this->translator, array($value), array($rule));
+        $this->assertTrue($validator->passes(), 'empty array should validate as empty');
+    }
+    
 }

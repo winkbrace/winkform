@@ -16,8 +16,8 @@ class DateRangeInput extends Input
      * construct DateRange object
      *
      * @param string $name
-     * @param date-string $from
-     * @param date-string $to
+     * @param string $from  date in d-m-Y format
+     * @param string $to    date in d-m-Y format
      */
     function __construct($name, $from, $to)
     {
@@ -25,13 +25,13 @@ class DateRangeInput extends Input
         
         $this->name = $name;
         
+        // validate creation
         if (! empty($from))
-            $this->validator->date($from);
+            $this->validator->validate($from, 'date_format:d-m-Y');
         if (! empty($to))
-            $this->validator->date($to);
+            $this->validator->validate($to, 'date_format:d-m-Y');
         
-        if (! $this->validator->passes())
-            throw new \Exception($this->validator->getMessage('Error creating '.get_class($this).' object with name '.$this->name));
+        $this->checkValidity();
         
         // create the two date input fields
         $this->setDateFrom(new DateInput($this->name.'-from', $from));

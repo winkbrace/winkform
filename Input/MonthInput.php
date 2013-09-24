@@ -77,19 +77,17 @@ class MonthInput extends Input
      */
     public function setSelected($selected, $flag = 0)
     {
-        $this->validator->hasLength($selected, 7);
-        $this->validator->contains($selected, '-');
-        if (! $this->validator->passes())
-            throw new \Exception($this->validator->getMessage("Invalid string given for setting ".get_class($this)." object as selected: $selected. Has to be YYYY-MM."));
+        // validate
+        if (! $this->validator->validate($selected, 'size:7|date_format:Y-m'))
+            throw new \Exception($this->renderValidationErrors("Invalid string given for setting ".get_class($this)." object as selected: $selected. Has to be YYYY-MM."));
         
         list($year, $month) = explode('-', $selected);
         
-        // validate
-        $this->validator->between($year, 1000, 9999);
-        $this->validator->between($month, 1, 12);
+        $this->validator->validate($year, 'between:1000,9999');
+        $this->validator->validate($month, 'between:1,12');
         
         if (! $this->validator->passes())
-            throw new \Exception($this->validator->getMessage('Error setting selected values for '.get_class($this).' object with name '.$this->name));
+            throw new \Exception($this->renderValidationErrors('Error setting selected values for '.get_class($this).' object with name '.$this->name));
         
         // set selected
         $this->month->setSelected($month, $flag);

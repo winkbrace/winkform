@@ -141,7 +141,7 @@ class DateInput extends Input
      */
     public function setDatePickerOptions(array $options = array())
     {
-        if ($this->validator->isNotEmpty($options) && $this->validator->isArray($options))
+        if ($this->validator->validate($options, 'not_empty|array'))
         {
             $this->jsOptions = $options;
         }

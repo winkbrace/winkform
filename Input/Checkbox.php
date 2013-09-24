@@ -260,7 +260,7 @@ class Checkbox extends Input
      */
     public function setRenderInColumns($int)
     {
-        if ($this->validator->numeric($int))
+        if ($this->validator->validate($int, 'numeric'))
         {
             $this->renderInColumns = $int;
         }
@@ -274,7 +274,8 @@ class Checkbox extends Input
      */
     public function setOrientation($orientation)
     {
-        if ($this->validator->inArray($orientation, array(static::ORIENTATION_HORIZONTAL, static::ORIENTATION_VERTICAL)))
+        $rule = 'in:'.static::ORIENTATION_HORIZONTAL.','.static::ORIENTATION_VERTICAL;
+        if ($this->validator->validate($orientation, $rule))
         {
             $this->orientation = $orientation;
             $this->setRenderInColumns($orientation);

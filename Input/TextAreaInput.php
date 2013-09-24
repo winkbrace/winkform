@@ -151,7 +151,7 @@ class TextAreaInput extends Input
      */
     public function setRows($rows)
     {
-        if ($this->validator->numeric($rows))
+        if ($this->validator->validate($rows, 'numeric'))
         {
             $this->rows = $rows;
         }
@@ -164,7 +164,7 @@ class TextAreaInput extends Input
      */
     public function setCols($cols)
     {
-        if ($this->validator->numeric($cols))
+        if ($this->validator->validate($cols, 'numeric'))
         {
             $this->cols = $cols;
         }
@@ -179,7 +179,10 @@ class TextAreaInput extends Input
     {
         $allowed = array('normal','pre','nowrap','pre-wrap','pre-line','inherit');
         if (! in_array($wrapStyle, $allowed))
+        {
+            // TODO build solution for this
             $this->validator->invalidate('Given textarea wrap-style "'.$wrapStyle.'" is invalid');
+        }
         else
         {
             // remove old width style

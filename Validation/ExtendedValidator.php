@@ -86,4 +86,26 @@ class ExtendedValidator extends \Illuminate\Validation\Validator
         return true;
     }
     
+    /**
+     * validate that value is not empty
+     * @param string $attribute
+     * @param mixed $value
+     * @return boolean
+     */
+    protected function validateNotEmpty($attribute, $value)
+    {
+        return ! empty($value);
+    }
+    
+    /**
+     * validate that value is empty
+     * @param string $attribute
+     * @param mixed $value
+     * @return boolean
+     */
+    protected function validateEmpty($attribute, $value)
+    {
+        return empty($value);
+    }
+    
 }

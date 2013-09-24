@@ -18,8 +18,8 @@ class WeekRangeInput extends Input
      * construct WeekRange object
      *
      * @param string $name
-     * @param iyyy-iw $from
-     * @param iyyy-iw $to
+     * @param string $from  week in iyyy-iw format
+     * @param string $to    week in iyyy-iw format
      */
     function __construct($name, $from = null, $to = null)
     {

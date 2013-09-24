@@ -133,5 +133,17 @@ class ValidatorTest extends \Codeception\TestCase\Test
 
         $this->assertEquals("The my name field is required.", $error, 'The error message should display from the lang file');
     }
+    
+    /**
+     * test that I use the date_format check right
+     */
+    public function testDateFormat()
+    {
+        $this->validator->validate('28-02-2013', 'date_format:d-m-Y');
+        $this->assertTrue($this->validator->passes(), 'date format should be the european date format');
+        
+        $this->validator->validate('8-2-2013', 'date_format:d-m-Y');
+        $this->assertTrue($this->validator->passes(), 'date format is indifferent about leading zeroes');
+    }
 
 }

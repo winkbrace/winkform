@@ -61,13 +61,17 @@ class WeekInput extends Input
     {
         if (empty($this->posted) || $this->isFlagSet($flag, self::INPUT_OVERRULE_POST))
         {
+            // TODO use date_format: rule
             if (strpos($selected, '-') === false)
+            {
+                // TODO invalidate...
                 $this->validator->invalidate($selected, 'Invalid week string given. Needs to be format IYYY-IW.');
+            }
             else
             {
                 list($year, $week) = explode('-', $selected);
-                $this->validator->between($week, 1, 53);
-                $this->validator->between($year, 1900, 2200);
+                $this->validator->validate($week, 'between:1,53');
+                $this->validator->validate($year, 'between:1900,2200');
                     
                 if ($this->validator->passes())
                 {

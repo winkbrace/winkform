@@ -100,7 +100,7 @@ class Dropdown extends Input
      */
     public function setMultiple($multiple = true)
     {
-        if ($this->validator->isBoolean($multiple))
+        if ($this->validator->validate($multiple, 'boolean'))
         {
             $this->multiple = $multiple;
         }
@@ -114,7 +114,7 @@ class Dropdown extends Input
      */
     public function setOptionsClasses($optionsClasses)
     {
-        if ($this->validator->isArray($optionsClasses))
+        if ($this->validator->validate($optionsClasses, 'array'))
         {
             $this->optionsClasses = $optionsClasses;
         }
@@ -128,7 +128,7 @@ class Dropdown extends Input
      */
     public function setOptionsTitles($optionsTitles)
     {
-        if ($this->validator->isArray($optionsTitles))
+        if ($this->validator->validate($optionsTitles, 'array'))
         {
             $this->optionsTitles = $optionsTitles;
         }
