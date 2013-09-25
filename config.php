@@ -9,9 +9,9 @@
 return array(
     
     // error message language
-    'lang' => 'en',
-    // path to lang files
-    'lang_location' => 'lang',
+    'locale' => 'en',
+    // path to language files
+    'lang_location' => WINKFORM_PATH . 'lang',
     
     // date format
     'date_format' => 'd-m-Y',

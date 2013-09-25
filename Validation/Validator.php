@@ -46,9 +46,11 @@ class Validator
     /**
      * create Validator
      */
-    public function __construct($locale = 'en')
+    public function __construct()
     {
-        $this->locale = $locale;
+        $config = require WINKFORM_PATH.'config.php';
+        
+        $this->locale = $config['locale'];
 
         // To display the laravel Validator error messages, the Translator is required.
         // We create a translator object that searches for files in the 'lang' folder
@@ -56,7 +58,7 @@ class Validator
         // by default: lang/en/validation.php
         // you can download the default validation.php in your language at
         // @see https://github.com/caouecs/Laravel4-lang
-        $this->translator = new Translator(new FileLoader(new Filesystem, "lang"), $this->locale);
+        $this->translator = new Translator(new FileLoader(new Filesystem, $config['lang_location']), $this->locale);
 
         // fetch the allowed rules by reading the Validator validate methods
         $this->fetchRules();
