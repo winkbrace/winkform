@@ -345,13 +345,13 @@ abstract class Form
         // always validate date inputs
         if ($input instanceof Input\DateInput)
         {
-            $this->validator->addValidation($input, 'date_form:d-m-Y');
+            $this->validator->addValidation($input, 'date_format:d-m-Y');
         }
         
         if ($input instanceof Input\DateRangeInput)
         {
-            $this->validator->addValidation($input->getDateFrom(), 'date_form:d-m-Y');
-            $this->validator->addValidation($input->getDateTo(), 'date_form:d-m-Y');
+            $this->validator->addValidation($input->getDateFrom(), 'date_format:d-m-Y');
+            $this->validator->addValidation($input->getDateTo(), 'date_format:d-m-Y');
         }
         
         // always validate that posted value(s) of checkbox, radio or dropdown are in the array of values of the Input element
@@ -421,36 +421,6 @@ abstract class Form
     {
         return $this->isValid;
     }
-    
-    /**
-     * add validation for public input fields
-     * Example: $form->addValidation('arpu', 'between', array(20, 30))
-     * @param string|Input\Input $input  input name or Input object
-     * @param string $validation (must be method of Validate class!)
-     * @param array $parameters
-     */
-    public function addValidation($input, $validation, $parameters = array())
-    {
-        if ($input instanceof Input\Input)
-            $inputName = $input->getName();
-        elseif (is_string($input))
-            $inputName = $input;
-        else
-            throw new \Exception('Invalid $input given to add validation to Form');
-    
-        // validate validation exists in Validate (teehee)
-        if (! method_exists($this->validator, $validation))
-            throw new \Exception('The validation '.$validation.' does not exist in class Validate');
-        
-        // if developer forgets that parameters have to be in an array (when there is only 1 value for example) then
-        // be lenient and put the parameter in an array here
-        if (! is_array($parameters))
-            $parameters = array($parameters);
-    
-        $this->validations[$inputName][] = array('validation' => $validation, 'parameters' => $parameters);
-    }
-    
-    
     
     /**
      * @return string $method
