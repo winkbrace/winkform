@@ -917,10 +917,16 @@ abstract class Input
         {
             $this->required = $required;
             
-            if ($required)
+            if ($required === true)
+            {
                 $this->addClass('required');
+                $this->addValidation('required');
+            }
             else
+            {
                 $this->removeClass('required');
+                $this->removeValidation('required');
+            }
         }
         
         return $this;

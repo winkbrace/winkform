@@ -9,7 +9,8 @@ class DateInput extends Input
     protected $jsOptions = array();
     
     protected $type = 'text', // 'date' will only accept yyyy-mm-dd, which is not the format we use :'(
-              $dateFormat = 'd-m-Y';
+              $dateFormat,
+              $dateFormatDelimiter;
     
     
     /**
@@ -21,12 +22,14 @@ class DateInput extends Input
     {
         parent::__construct($name, $value);
         
-        $this->addValidation('date_format:'.$this->dateFormat);
+        // set date format
+        $config = require WINKFORM_PATH.'config.php';
+        $this->setDateFormat($config['date_format']);
     }
 
     /**
-     * Override setPosted, to
-     * @return $this|void
+     * Override setPosted, to correct manually entered data that is lacking leading zeroes
+     * @return $this
      */
     protected function setPosted()
     {
@@ -53,16 +56,23 @@ class DateInput extends Input
     {
         if (strlen($post) == 10)  // when dates are dd-mm-yyyy, they are good
             return $post;
+        
+        // if j or n are in the date format, leading 0s are not required
+        if (strpos($this->dateFormat, 'j') !== false || strpos($this->dateFormat, 'n') !== false)
+            return $post;
+        
+        // if there is no delimiter in the date format, don't try to help users for now
+        if ($this->dateFormatDelimiter == '')
+            return $post;
 
-        $elements = explode('-', $post);
+        $elements = explode($this->dateFormatDelimiter, $post);
         array_walk($elements, function(&$var) {
             $var = str_pad($var, 2, '0', STR_PAD_LEFT); // str_pad will ignore strings longer than given 2
         });
-        $post = implode('-', $elements);
+        $post = implode($this->dateFormatDelimiter, $elements);
 
         return $post;
     }
-    
 
     /**
      * render the date input element
@@ -161,6 +171,8 @@ class DateInput extends Input
         {
             $this->jsOptions = $options;
         }
+        
+        return $this;
     }
     
     /**
@@ -173,8 +185,35 @@ class DateInput extends Input
         // Almost all letter characters are allowed anyway: string(37) "dDjlNSwzWFmMntLoYyaABgGhHisueIOPTZcrU"
         $this->dateFormat = $format;
         
+        // set the delimiter
+        $this->setDateFormatDelimiter();
+        
         // change the date format validation to the new format
         $this->replaceValidation('date_format:'.$this->dateFormat);
+        
+        // reset posted, (but not selected) because we correct posted dates that are missing leading zeroes
+        if ($this->isPosted())
+            $this->posted = $this->getCorrectedPostedDate($_POST[$this->name]);
+        
+        return $this;
+    }
+    
+    /**
+     * set date format delimiter
+     * @return string
+     */
+    protected function setDateFormatDelimiter()
+    {
+        foreach (array('-', '/', '.', ' ') as $delimiter)
+        {
+            if (strpos($this->dateFormat, $delimiter) !== false)
+            {
+                $this->dateFormatDelimiter = $delimiter;
+                return;
+            }
+        }
+        
+        $this->dateFormatDelimiter = '';
     }
     
 }

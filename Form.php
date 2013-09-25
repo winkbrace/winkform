@@ -272,8 +272,7 @@ abstract class Form
               $enctype = self::ENCTYPE_DEFAULT,
               $name,
               $isValid = true,
-              $validator,   // Validate class
-              $validations = array(); // array of custom validations on the input fields
+              $validator;   // Validate class to perform the POST validation
     
     
     /**
@@ -310,7 +309,7 @@ abstract class Form
     }
     
     /**
-     * validate all form input fields
+     * validate all posted values for the form input fields
      * @return boolean
      */
     public function validate()
@@ -330,16 +329,12 @@ abstract class Form
     /**
      * validate a single input object using default validations or
      * custom validations assigned to the object or to the form
-     * @param Input\Input $input
+     * @param \WinkForm\Input\Input $input
      */
-    protected function validateInput(Input\Input $input)
+    protected function validateInput(\WinkForm\Input\Input $input)
     {
-        // validate required fields
-        if ($input->isRequired() && $input->isPosted())
-            $this->validator->addValidation($input, 'required');
-        
         // skip non-required fields that are not posted
-        if (! $input->isPosted())
+        if (! $input->isPosted() && ! $input->isRequired())
             return;
         
         // always validate that posted value(s) of checkbox, radio or dropdown are in the array of values of the Input element
@@ -355,15 +350,11 @@ abstract class Form
             $this->validator->addValidation($input, $input->getValidations());
         }
         
-        // custom validations added to this Form
-        if (array_key_exists($input->getName(), $this->validations))
-        {
-            $this->validator->addValidation($input, $this->validations[$input->getName()]);
-        }
-        
         // place found invalidations after the input element
         if (! $this->validator->passes())
+        {
             $this->invalidate($input, implode("<br/>\n", $this->validator->getAttributeErrors($input->getName())));
+        }
         
         // clear the validator for the next input
         $this->validator->reset();
