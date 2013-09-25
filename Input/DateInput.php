@@ -8,7 +8,21 @@ class DateInput extends Input
      */
     protected $jsOptions = array();
     
-    protected $type = 'text'; // 'date' will only accept yyyy-mm-dd, which is not the format we use :'(
+    protected $type = 'text', // 'date' will only accept yyyy-mm-dd, which is not the format we use :'(
+              $dateFormat = 'd-m-Y';
+    
+    
+    /**
+     * construct DateInput
+     * @param string $name
+     * @param mixed $value
+     */
+    function __construct($name, $value = null)
+    {
+        parent::__construct($name, $value);
+        
+        $this->addValidation('date_format:'.$this->dateFormat);
+    }
 
     /**
      * Override setPosted, to
@@ -116,6 +130,8 @@ class DateInput extends Input
         //there will be no validation here, it's assumed the user has knowledge
         // of the possible arguments. Only some defaults will be provided
         
+        // TODO build date format translation based on $this->dateFormat
+        
         // Merge in defaults.
         $options += array(
             'dateFormat'      => 'dd-mm-yy',
@@ -145,6 +161,20 @@ class DateInput extends Input
         {
             $this->jsOptions = $options;
         }
+    }
+    
+    /**
+     * set a date format
+     * @param string $format
+     */
+    public function setDateFormat($format)
+    {
+        // I assume that when someone uses this method, they know how to write their format.
+        // Almost all letter characters are allowed anyway: string(37) "dDjlNSwzWFmMntLoYyaABgGhHisueIOPTZcrU"
+        $this->dateFormat = $format;
+        
+        // change the date format validation to the new format
+        $this->replaceValidation('date_format:'.$this->dateFormat);
     }
     
 }

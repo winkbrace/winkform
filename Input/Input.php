@@ -1030,6 +1030,50 @@ abstract class Input
     }
     
     /**
+     * remove validation for Input element
+     * @param string|array $rules
+     */
+    public function removeValidation($rules)
+    {
+        $rules = (is_string($rules)) ? explode('|', $rules) : $rules;
+        
+        foreach ($rules as $rule)
+        {
+            // cut off everthing from the colon
+            $rule = $this->getRawRuleName($rule);
+            
+            foreach ($this->validations as $i => $validation)
+            {
+                if ($this->getRawRuleName($validation) == $rule)
+                    unset($this->validations[$i]);
+            }
+        }
+        
+        // reset validations keys to be incrementing again
+        $this->validations = array_values($this->validations);
+    }
+    
+    /**
+     * replace validation for Input element
+     * @param string|array $rules
+     */
+    public function replaceValidation($rules)
+    {
+        $this->removeValidation($rules);
+        $this->addValidation($rules);
+    }
+    
+    /**
+     * get the raw rule name, omitting everything from the colon
+     * @param string $rule
+     * @return string
+     */
+    protected function getRawRuleName($rule)
+    {
+        return strpos($rule, ':') !== false ? substr($rule, 0, strpos($rule, ':')) : $rule;
+    }
+    
+    /**
      * get array of validations. Each as array('validation' => '', 'parameters' => array())
      * @return array $validations
      */

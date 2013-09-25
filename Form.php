@@ -342,18 +342,6 @@ abstract class Form
         if (! $input->isPosted())
             return;
         
-        // always validate date inputs
-        if ($input instanceof Input\DateInput)
-        {
-            $this->validator->addValidation($input, 'date_format:d-m-Y');
-        }
-        
-        if ($input instanceof Input\DateRangeInput)
-        {
-            $this->validator->addValidation($input->getDateFrom(), 'date_format:d-m-Y');
-            $this->validator->addValidation($input->getDateTo(), 'date_format:d-m-Y');
-        }
-        
         // always validate that posted value(s) of checkbox, radio or dropdown are in the array of values of the Input element
         $values = $input->getValues();
         if (! empty($values))
@@ -509,5 +497,5 @@ abstract class Form
         
         return $this->enctype;
     }
-
+    
 }
