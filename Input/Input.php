@@ -816,11 +816,6 @@ abstract class Input
             $this->posted = $post;
             $this->selected = $post;  // so we can always retrieve the selected fields with getSelected()
         }
-        elseif (! empty($_FILES[$this->name]))
-        {
-            $this->posted = $_FILES[$this->name]['tmp_name'];
-            $this->selected = $_FILES[$this->name]['tmp_name'];
-        }
     }
     
     /**
@@ -829,7 +824,7 @@ abstract class Input
      */
     public function isPosted()
     {
-        return (! empty($_POST[$this->name]) or ! empty($_FILES[$this->name]['tmp_name']));
+        return ! empty($_POST[$this->name]);
     }
     
     /**

@@ -43,6 +43,28 @@ class FileInput extends Input
     }
     
     /**
+     * (non-PHPdoc)
+     * @see \WinkForm\Input\Input::isPosted()
+     */
+    public function isPosted()
+    {
+        return ! empty($_FILES[$this->name]['tmp_name']);
+    }
+    
+    /**
+     * (non-PHPdoc)
+     * @see \WinkForm\Input\Input::setPosted()
+     */
+    protected function setPosted()
+    {
+        if (! empty($_FILES[$this->name]))
+        {
+            $this->posted = $_FILES[$this->name]['tmp_name'];
+            $this->selected = $_FILES[$this->name]['tmp_name'];
+        }
+    }
+    
+    /**
      * get contents of uploaded file
      * @return boolean|string $contents
      */
