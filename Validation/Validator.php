@@ -216,7 +216,10 @@ class Validator
      */
     public function getAttributeErrors($name)
     {
-        return $this->errors[$name];
+        if (array_key_exists($name, $this->errors))
+            return $this->errors[$name];
+        else
+            return array();
     }
 
     /**
