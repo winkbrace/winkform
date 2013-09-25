@@ -1,4 +1,4 @@
-<?php namespace WinkBrace\WinkForm\Input;
+<?php namespace WinkForm\Input;
 
 /**
  * class to create a <input type="file">

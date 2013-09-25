@@ -1,4 +1,4 @@
-<?php namespace WinkBrace\WinkForm\Input;
+<?php namespace WinkForm\Input;
 
 /**
  * Create 2 week input fields for selecting a week range
@@ -23,7 +23,7 @@ class WeekRangeInput extends Input
      */
     function __construct($name, $from = null, $to = null)
     {
-        $this->validator = new \WinkBrace\WinkForm\Validation\Validator();
+        $this->validator = new \WinkForm\Validation\Validator();
         
         $this->name = $name;
         

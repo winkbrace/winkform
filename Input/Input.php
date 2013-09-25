@@ -1,4 +1,4 @@
-<?php namespace WinkBrace\WinkForm\Input;
+<?php namespace WinkForm\Input;
 
 /**
  * Abstract class for input classes
@@ -51,7 +51,7 @@ abstract class Input
      */
     function __construct($name, $value = null)
     {
-        $this->validator = new \WinkBrace\WinkForm\Validation\Validator();
+        $this->validator = new \WinkForm\Validation\Validator();
         
         $this->setName($name);
         $this->setId($name); // normally you want the id to be the same as the name
@@ -379,7 +379,7 @@ abstract class Input
         // a name can contain [] (or [bla][][][]) but the id not
         $id = str_replace(array('[',']'), '_', $id);
             
-        if ($this->validator->validate($id, 'alpha_dash'))
+        if ($this->validate($id, 'alpha_dash'))
         {
             $this->id = $id;
         }
@@ -395,8 +395,7 @@ abstract class Input
     {
         // a name can contain [ and ], but nothing else
         $testName = str_replace(array('[',']'), '_', $name);
-        
-        if ($this->validator->validate($testName, 'alpha_dash'))
+        if ($this->validate($testName, 'alpha_dash'))
         {
             $this->name = $name;
         }
@@ -410,7 +409,7 @@ abstract class Input
      */
     public function setValue($value)
     {
-        if ($this->validator->validate($value, 'not_array'))
+        if ($this->validate($value, 'not_array'))
         {
             $this->value = xsschars($value);
         }
@@ -424,7 +423,7 @@ abstract class Input
      */
     public function setValues($values)
     {
-        if ($this->validator->validate($values, 'array'))
+        if ($this->validate($values, 'array'))
         {
             $values = array_values($values); // enforce numeric array
             array_walk($values, 'xsschars');
@@ -453,7 +452,7 @@ abstract class Input
      */
     public function setLabels($labels, $flag = null)
     {
-        if ($this->validator->validate($labels, 'array'))
+        if ($this->validate($labels, 'array'))
         {
             $labels = array_values($labels); // enforce numeric array
             
@@ -476,7 +475,7 @@ abstract class Input
      */
     public function setPlaceholder($placeholder)
     {
-        if ($this->validator->validate($this->type, 'in:text,search,url,tel,email,password'))
+        if ($this->validate($this->type, 'in:text,search,url,tel,email,password'))
         {
             $this->placeholder = xsschars($placeholder);
         }
@@ -493,7 +492,7 @@ abstract class Input
      */
     public function setAutoFocus($flag)
     {
-        if ($this->validator->validate($flag, 'boolean'))
+        if ($this->validate($flag, 'boolean'))
         {
             $this->autoFocus = $flag;
         }
@@ -537,7 +536,7 @@ abstract class Input
      */
     public function appendOptions($options, $flag = null, $category = null)
     {
-        if ($this->validator->validate($options, 'array'))
+        if ($this->validate($options, 'array'))
         {
             // loop over the options array and add all values to values and labels
             // array_merge or the + operator won't do, because they will remove duplicate keys
@@ -586,7 +585,7 @@ abstract class Input
      */
     public function prependOptions($options, $flag = null, $category = null)
     {
-        if ($this->validator->validate($options, 'array'))
+        if ($this->validate($options, 'array'))
         {
             // loop over the options array and add all values to values and labels
             // array_merge or the + operator won't do, because they will remove duplicate keys
@@ -625,7 +624,7 @@ abstract class Input
      */
     public function setCategories($categories)
     {
-        if ($this->validator->validate($categories, 'array'))
+        if ($this->validate($categories, 'array'))
         {
             $this->categories = array_values($categories); // enforce numeric array
         }
@@ -639,7 +638,7 @@ abstract class Input
      */
     public function setWidth($width)
     {
-        if ($this->validator->validate($width, 'numeric'))
+        if ($this->validate($width, 'numeric'))
         {
             $this->width = $width;
         }
@@ -658,7 +657,7 @@ abstract class Input
         
         foreach ($classes as $class)
         {
-            if ($this->validator->validate($class, 'alpha_dash'))
+            if ($this->validate($class, 'alpha_dash'))
             {
                 $this->classes[] = $class;
             }
@@ -677,7 +676,7 @@ abstract class Input
         $classes = explode(' ', $class);
         foreach ($classes as $cls)
         {
-            if ($this->validator->validate($cls, 'alpha_dash'))
+            if ($this->validate($cls, 'alpha_dash'))
             {
                 if (! in_array($cls, $this->classes))
                     $this->classes[] = $cls;
@@ -840,7 +839,7 @@ abstract class Input
      */
     public function setDisabled($disabled)
     {
-        if ($this->validator->validate($disabled, 'in:disabled,readonly'))
+        if ($this->validate($disabled, 'in:disabled,readonly'))
         {
             $this->disabled = $disabled;
         }
@@ -854,7 +853,7 @@ abstract class Input
      */
     public function setHidden($hidden)
     {
-        if ($this->validator->validate($hidden, 'boolean'))
+        if ($this->validate($hidden, 'boolean'))
         {
             $this->hidden = $hidden;
             
@@ -882,7 +881,7 @@ abstract class Input
      */
     public function setSize($size)
     {
-        if ($this->validator->validate($size, 'numeric'))
+        if ($this->validate($size, 'numeric'))
         {
             $this->size = $size;
         }
@@ -897,7 +896,7 @@ abstract class Input
      */
     public function setInReportForm($bool)
     {
-        if ($this->validator->validate($bool, 'boolean'))
+        if ($this->validate($bool, 'boolean'))
         {
             $this->inReportForm = $bool;
         }
@@ -919,7 +918,7 @@ abstract class Input
      */
     public function setRequired($required = true)
     {
-        if ($this->validator->validate($required, 'boolean'))
+        if ($this->validate($required, 'boolean'))
         {
             $this->required = $required;
             
@@ -982,7 +981,7 @@ abstract class Input
      */
     public function setDataAttributes($dataAttributes)
     {
-        if ($this->validator->validate($dataAttributes, 'array') && $this->validator->validate($dataAttributes, 'numeric_array'))
+        if ($this->validate($dataAttributes, 'array') && $this->validate($dataAttributes, 'numeric_array'))
         {
             $this->dataAttributes = $dataAttributes;
         }
@@ -1019,7 +1018,7 @@ abstract class Input
     /**
      * Add validation for input field. This validation must be executed by a form->validate() or in a script after posting.
      * @see http://laravel.com/docs/validation#available-validation-rules
-     * The rules must exist in the \WinkBrace\WinkForm\Validation\ExtendedValidator class
+     * The rules must exist in the \WinkForm\Validation\ExtendedValidator class
      * @param string|array $rules
      * @return $this
      */
@@ -1075,19 +1074,32 @@ abstract class Input
     }
 
     /**
-     * return the found error messages optionally prefixed with given message and optionally formatted in error div
+     * calls $this->validator and provides Input name
+     * This method must only be used to validate the parameters of the Input object and NOT the posted values.
+     * @param string $value        the value to test
+     * @param string|array $rules  the rules to test against
+     * @param string $message      custom error message
+     */
+    protected function validate($value, $rules, $message = null)
+    {
+        return $this->validator->validate($this->name, $value, $rules, $message);
+    }
+    
+    /**
+     * return the found error messages using $this->validate()
+     * optionally prefixed with given message and optionally formatted in error div
      * @param null $message
      * @param bool $inErrorDiv
      * @return string
      */
     public function renderValidationErrors($message = null, $inErrorDiv = true)
     {
-        $errors = $this->validator->getErrors();
+        $errors = $this->validator->getAttributeErrors($this->name);
 
-        if (empty($errors[0]))
+        if (empty($errors))
             return null;
 
-        $errorString = implode("<br/>\n", $errors[0]);
+        $errorString = implode("<br/>\n", $errors);
 
         $message = ! empty($message) ? '<p>'.$message."</p>\n" : "";
 

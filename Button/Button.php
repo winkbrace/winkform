@@ -1,6 +1,6 @@
-<?php namespace WinkBrace\WinkForm\Button;
+<?php namespace WinkForm\Button;
 
-class Button extends \WinkBrace\WinkForm\Input\Input
+class Button extends \WinkForm\Input\Input
 {
     protected $type = 'button';
     

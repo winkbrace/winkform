@@ -1,4 +1,4 @@
-<?php namespace WinkBrace\WinkForm;
+<?php namespace WinkForm;
 
 /**
  * file containing the required setup

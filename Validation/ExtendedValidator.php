@@ -1,4 +1,4 @@
-<?php namespace WinkBrace\WinkForm\Validation;
+<?php namespace WinkForm\Validation;
 
 /**
  *

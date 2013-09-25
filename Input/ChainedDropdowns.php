@@ -1,4 +1,4 @@
-<?php namespace WinkBrace\WinkForm\Input;
+<?php namespace WinkForm\Input;
 
 /**
  * class to create chained dropdowns <select>
@@ -61,7 +61,7 @@ class ChainedDropdowns extends Input
      */
     public function setResultArray($result)
     {
-        if ($this->validator->validate($result, 'array'))
+        if ($this->validate($result, 'array'))
             $this->result = $result;
         
         $this->createDropdowns();

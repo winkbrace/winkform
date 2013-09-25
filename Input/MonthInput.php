@@ -1,4 +1,4 @@
-<?php namespace WinkBrace\WinkForm\Input;
+<?php namespace WinkForm\Input;
 
 class MonthInput extends Input
 {
@@ -16,7 +16,7 @@ class MonthInput extends Input
      */
     function __construct($name, $value = null)
     {
-        $this->validator = new \WinkBrace\WinkForm\Validation\Validator();
+        $this->validator = new \WinkForm\Validation\Validator();
 
         $this->name = $name;
         
@@ -78,13 +78,13 @@ class MonthInput extends Input
     public function setSelected($selected, $flag = 0)
     {
         // validate
-        if (! $this->validator->validate($selected, 'size:7|date_format:Y-m'))
+        if (! $this->validate($selected, 'size:7|date_format:Y-m'))
             throw new \Exception($this->renderValidationErrors("Invalid string given for setting ".get_class($this)." object as selected: $selected. Has to be YYYY-MM."));
         
         list($year, $month) = explode('-', $selected);
         
-        $this->validator->validate($year, 'between:1000,9999');
-        $this->validator->validate($month, 'between:1,12');
+        $this->validate($year, 'between:1000,9999');
+        $this->validate($month, 'between:1,12');
         
         if (! $this->validator->passes())
             throw new \Exception($this->renderValidationErrors('Error setting selected values for '.get_class($this).' object with name '.$this->name));
@@ -99,7 +99,7 @@ class MonthInput extends Input
     
     /**
      * (non-PHPdoc)
-     * @see \WinkBrace\WinkForm\Input\Input::getSelected()
+     * @see \WinkForm\Input\Input::getSelected()
      */
     public function getSelected()
     {
@@ -108,7 +108,7 @@ class MonthInput extends Input
     
     /**
      * (non-PHPdoc)
-     * @see \WinkBrace\WinkForm\Input\Input::getPosted()
+     * @see \WinkForm\Input\Input::getPosted()
      */
     public function getPosted()
     {

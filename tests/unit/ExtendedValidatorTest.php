@@ -1,7 +1,7 @@
 <?php
 
 use Codeception\Util\Stub;
-use WinkBrace\WinkForm\Validation\ExtendedValidator;
+use WinkForm\Validation\ExtendedValidator;
 use Illuminate\Filesystem\Filesystem;
 use Illuminate\Translation\FileLoader;
 use Illuminate\Translation\Translator;
@@ -19,7 +19,7 @@ class ExtendedValidatorTest extends \Codeception\TestCase\Test
     protected $codeGuy;
     
     /**
-     * @var \WinkBrace\WinkForm\Validation\Validator
+     * @var \WinkForm\Validation\Validator
      */
     protected $translator;
     

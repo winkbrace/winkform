@@ -1,4 +1,4 @@
-<?php namespace WinkBrace\WinkForm\Input;
+<?php namespace WinkForm\Input;
 
 class AddressInput extends Input
 {
@@ -16,7 +16,7 @@ class AddressInput extends Input
      */
     function __construct($name, $value = null)
     {
-        $this->validator = new \WinkBrace\WinkForm\Validation\Validator();
+        $this->validator = new \WinkForm\Validation\Validator();
 
         $this->name = $name;
         
@@ -123,7 +123,7 @@ class AddressInput extends Input
     
     /**
      * (non-PHPdoc)
-     * @see \WinkBrace\WinkForm\Input\Input::isPosted()
+     * @see \WinkForm\Input\Input::isPosted()
      */
     public function isPosted()
     {

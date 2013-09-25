@@ -1,4 +1,4 @@
-<?php namespace WinkBrace\WinkForm\Input;
+<?php namespace WinkForm\Input;
 
 class TextAreaInput extends Input
 {
@@ -151,7 +151,7 @@ class TextAreaInput extends Input
      */
     public function setRows($rows)
     {
-        if ($this->validator->validate($rows, 'numeric'))
+        if ($this->validate($rows, 'numeric'))
         {
             $this->rows = $rows;
         }
@@ -164,7 +164,7 @@ class TextAreaInput extends Input
      */
     public function setCols($cols)
     {
-        if ($this->validator->validate($cols, 'numeric'))
+        if ($this->validate($cols, 'numeric'))
         {
             $this->cols = $cols;
         }

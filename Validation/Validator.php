@@ -1,4 +1,4 @@
-<?php namespace WinkBrace\WinkForm\Validation;
+<?php namespace WinkForm\Validation;
 
 use Illuminate\Filesystem\Filesystem;
 use Illuminate\Translation\FileLoader;
@@ -38,7 +38,6 @@ class Validator
 
     /**
      * all validation errors are stored with the name of the Input object as key
-     * Error messages from loose validations (using the validate() method) are stored under $errors[0]
      * @var array
      */
     protected $errors;
@@ -62,7 +61,7 @@ class Validator
         // init
         $this->validations = array();
         $this->isValid = true;
-        $this->errors = array(0 => array());
+        $this->errors = array();
 
         // fetched from the documentation on 2013-09-18
         $this->allowedRules = array(
@@ -80,12 +79,12 @@ class Validator
 
     /**
      * add validation for Input element
-     * @param \WinkBrace\WinkForm\Input\Input $input
+     * @param \WinkForm\Input\Input $input
      * @param string|array $rules
      * @param string $message custom message to overwrite default
      * @throws \Exception
      */
-    public function addValidation(\WinkBrace\WinkForm\Input\Input $input, $rules, $message = null)
+    public function addValidation(\WinkForm\Input\Input $input, $rules, $message = null)
     {
         if (is_string($rules))
             $rules = explode('|', $rules);
@@ -94,7 +93,7 @@ class Validator
             throw new \Exception('Invalid rule "'.implode('|', $rules).'" specified.');
         
         // create entry in validations array for the input if it doesn't yet exist
-        if (empty($this->validations[$input->getName()]))
+        if (! array_key_exists($input->getName(), $this->validations))
         {
             $this->validations[$input->getName()] = array(
                 'data' => $input->getPosted(),
@@ -120,11 +119,13 @@ class Validator
     
     /**
      * validate that $value applies to $rules
-     * @param string $value
-     * @param string|array $rules
+     * @param string $attribute    name to display in error message
+     * @param string $value        the value to test
+     * @param string|array $rules  the rules to test against
+     * @param string $message      custom error message
      * @return boolean
      */
-    public function validate($value, $rules)
+    public function validate($attribute, $value, $rules, $message = null)
     {
         if (is_string($rules))
             $rules = explode('|', $rules);
@@ -133,19 +134,20 @@ class Validator
             throw new \Exception('Invalid rule "' . implode('|', $rules) . '" specified.');
         
         // The way Validator is built we have to create a new instance for every time we validate with this function
-        $validator = new ExtendedValidator($this->translator, array($value), array($rules));
+        $validator = new ExtendedValidator($this->translator, array($attribute => $value), array($attribute => $rules), array($attribute => $message));
 
         // execute validation and store result to return
         $result = $validator->passes();
 
         // addValidation() stores errors with Input name as key. This stores all errors at index 0.
         foreach ($validator->getMessageBag()->all() as $error)
-            $this->errors[0][] = $error;
+            $this->errors[$attribute][] = $error;
         
         return $result;
     }
 
     /**
+     * execute the validations and return the result
      * @return bool
      */
     public function passes()
@@ -205,6 +207,16 @@ class Validator
     public function getErrors()
     {
         return $this->errors;
+    }
+    
+    /**
+     * get the errors of given attribute only
+     * @param string $name
+     * @return array
+     */
+    public function getAttributeErrors($name)
+    {
+        return $this->errors[$name];
     }
 
     /**

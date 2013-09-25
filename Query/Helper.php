@@ -1,4 +1,4 @@
-<?php namespace WinkBrace\WinkForm\Query;
+<?php namespace WinkForm\Query;
 
 /**
  * Helper class for integration with the Query class

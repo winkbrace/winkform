@@ -1,8 +1,8 @@
 <?php
 
 use Codeception\Util\Stub;
-use WinkBrace\WinkForm\Validation\Validator;
-use WinkBrace\WinkForm\Form;
+use WinkForm\Validation\Validator;
+use WinkForm\Form;
 
 class ValidatorTest extends \Codeception\TestCase\Test
 {
@@ -12,7 +12,7 @@ class ValidatorTest extends \Codeception\TestCase\Test
     protected $codeGuy;
 
     /**
-     * @var \WinkBrace\WinkForm\Validation\Validator
+     * @var \WinkForm\Validation\Validator
      */
     protected $validator;
 
@@ -39,7 +39,7 @@ class ValidatorTest extends \Codeception\TestCase\Test
      */
     public function testCreation()
     {
-        $this->assertInstanceOf('WinkBrace\WinkForm\Validation\Validator', $this->validator, 'getInstance() returns the Validator object');
+        $this->assertInstanceOf('WinkForm\Validation\Validator', $this->validator, 'getInstance() returns the Validator object');
     }
     
     /**
@@ -80,12 +80,12 @@ class ValidatorTest extends \Codeception\TestCase\Test
      */
     public function testValidate()
     {
-        $result = $this->validator->validate('this is not numeric', 'numeric|email');
+        $result = $this->validator->validate('test', 'this is not numeric', 'numeric|email');
         $this->assertFalse($result, 'validate() should invalidate incorrect test');
 
         // we are not only checking that a correct test passes, but also that the Validator doesn't remember a
         // negative state from before (we might accidentally build something like that in the future)
-        $result = $this->validator->validate('test@domain.com', 'email');
+        $result = $this->validator->validate('test', 'test@domain.com', 'email');
         $this->assertTrue($result, 'validate() should validate correct entry');
         
         // however, the Validator class should still keep track of all the validate errors
@@ -131,7 +131,21 @@ class ValidatorTest extends \Codeception\TestCase\Test
         $this->assertArrayHasKey('my_name', $errors, 'errors array should have input element name as key');
         $error = $errors['my_name'][0];
 
-        $this->assertEquals("The my name field is required.", $error, 'The error message should display from the lang file');
+        $this->assertEquals("The my name field is required.", $error, 'The error message should display from the lang file and use the attribute name');
+    }
+    
+    /**
+     * test that a custom message is returned when given
+     */
+    public function xtestCustomMessage()
+    {
+        $input = Form::text('my_name');
+        $this->validator->addValidation($input, 'required', ':attribute is required.');
+        $this->validator->passes();
+        
+        $errors = $this->validator->getErrors();
+        $error = $errors['my_name'][0];
+        $this->assertEquals("my_name is required.", $error, 'The error message should display the custom error message');
     }
     
     /**
@@ -139,10 +153,10 @@ class ValidatorTest extends \Codeception\TestCase\Test
      */
     public function testDateFormat()
     {
-        $this->validator->validate('28-02-2013', 'date_format:d-m-Y');
+        $this->validator->validate('test', '28-02-2013', 'date_format:d-m-Y');
         $this->assertTrue($this->validator->passes(), 'date format should be the european date format');
         
-        $this->validator->validate('8-2-2013', 'date_format:d-m-Y');
+        $this->validator->validate('test', '8-2-2013', 'date_format:d-m-Y');
         $this->assertTrue($this->validator->passes(), 'date format is indifferent about leading zeroes');
     }
 

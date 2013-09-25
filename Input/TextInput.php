@@ -1,4 +1,4 @@
-<?php namespace WinkBrace\WinkForm\Input;
+<?php namespace WinkForm\Input;
 
 class TextInput extends Input
 {
@@ -49,7 +49,7 @@ class TextInput extends Input
      */
     public function setMaxLength($maxLength)
     {
-        if (! $this->validator->validate($maxLength, 'numeric'))
+        if (! $this->validate($maxLength, 'numeric'))
             throw new \Exception('Invalid value for maxLength: '.$maxLength);
         else
             $this->maxLength = $maxLength;

@@ -1,4 +1,4 @@
-<?php namespace WinkBrace\WinkForm\Input;
+<?php namespace WinkForm\Input;
 
 class WeekInput extends Input
 {
@@ -15,7 +15,7 @@ class WeekInput extends Input
      */
     function __construct($name, $week = null)
     {
-        $this->validator = new \WinkBrace\WinkForm\Validation\Validator();
+        $this->validator = new \WinkForm\Validation\Validator();
     
         $this->setName($name);
         $this->setId($name); // normally you want the id to be the same as the name
@@ -70,8 +70,8 @@ class WeekInput extends Input
             else
             {
                 list($year, $week) = explode('-', $selected);
-                $this->validator->validate($week, 'between:1,53');
-                $this->validator->validate($year, 'between:1900,2200');
+                $this->validate($week, 'between:1,53');
+                $this->validate($year, 'between:1900,2200');
                     
                 if ($this->validator->passes())
                 {

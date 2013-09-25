@@ -1,6 +1,6 @@
 <?php
 use Codeception\Util\Stub;
-use WinkBrace\WinkForm\Input\TextInput;
+use WinkForm\Input\TextInput;
 
 /**
  * test the Input class methods

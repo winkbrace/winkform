@@ -1,4 +1,4 @@
-<?php namespace WinkBrace\WinkForm\Input;
+<?php namespace WinkForm\Input;
 
 /**
  * Create 2 date input fields for selecting a date range
@@ -21,15 +21,15 @@ class DateRangeInput extends Input
      */
     function __construct($name, $from, $to)
     {
-        $this->validator = new \WinkBrace\WinkForm\Validation\Validator();
+        $this->validator = new \WinkForm\Validation\Validator();
         
         $this->name = $name;
         
         // validate creation
         if (! empty($from))
-            $this->validator->validate($from, 'date_format:d-m-Y');
+            $this->validate($from, 'date_format:d-m-Y');
         if (! empty($to))
-            $this->validator->validate($to, 'date_format:d-m-Y');
+            $this->validate($to, 'date_format:d-m-Y');
         
         $this->checkValidity();
         

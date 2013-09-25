@@ -1,4 +1,4 @@
-<?php namespace WinkBrace\WinkForm\Button;
+<?php namespace WinkForm\Button;
 
 class ImageButton extends Button
 {
@@ -94,7 +94,7 @@ class ImageButton extends Button
     
     /**
      * (non-PHPdoc)
-     * @see \WinkBrace\WinkForm\Input\Input::isPosted()
+     * @see \WinkForm\Input\Input::isPosted()
      */
     public function isPosted()
     {

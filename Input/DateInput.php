@@ -1,4 +1,4 @@
-<?php namespace WinkBrace\WinkForm\Input;
+<?php namespace WinkForm\Input;
 
 class DateInput extends Input
 {
@@ -141,7 +141,7 @@ class DateInput extends Input
      */
     public function setDatePickerOptions(array $options = array())
     {
-        if ($this->validator->validate($options, 'not_empty|array'))
+        if ($this->validate($options, 'not_empty|array'))
         {
             $this->jsOptions = $options;
         }

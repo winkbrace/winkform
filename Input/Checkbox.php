@@ -1,4 +1,4 @@
-<?php namespace WinkBrace\WinkForm\Input;
+<?php namespace WinkForm\Input;
 
 class Checkbox extends Input
 {
@@ -260,7 +260,7 @@ class Checkbox extends Input
      */
     public function setRenderInColumns($int)
     {
-        if ($this->validator->validate($int, 'numeric'))
+        if ($this->validate($int, 'numeric'))
         {
             $this->renderInColumns = $int;
         }
@@ -275,7 +275,7 @@ class Checkbox extends Input
     public function setOrientation($orientation)
     {
         $rule = 'in:'.static::ORIENTATION_HORIZONTAL.','.static::ORIENTATION_VERTICAL;
-        if ($this->validator->validate($orientation, $rule))
+        if ($this->validate($orientation, $rule))
         {
             $this->orientation = $orientation;
             $this->setRenderInColumns($orientation);

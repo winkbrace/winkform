@@ -1,6 +1,6 @@
 <?php
 
-use WinkBrace\WinkForm\Form;
+use WinkForm\Form;
 
 /**
  * @author b-deruiter
@@ -75,7 +75,7 @@ class TestForm extends Form
     
     /**
      * (non-PHPdoc)
-     * @see \WinkBrace\WinkForm\Form::render()
+     * @see \WinkForm\Form::render()
      */
     public function render()
     {
@@ -113,7 +113,7 @@ class TestForm extends Form
 
     /**
      * (non-PHPdoc)
-     * @see \WinkBrace\WinkForm\Form::isPosted()
+     * @see \WinkForm\Form::isPosted()
      */
     public function isPosted()
     {

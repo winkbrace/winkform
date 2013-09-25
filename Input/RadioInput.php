@@ -1,4 +1,4 @@
-<?php namespace WinkBrace\WinkForm\Input;
+<?php namespace WinkForm\Input;
 
 class RadioInput extends Input
 {
@@ -116,7 +116,7 @@ class RadioInput extends Input
      */
     public function setRenderInColumns($int)
     {
-        if ($this->validator->validate($int, 'numeric'))
+        if ($this->validate($int, 'numeric'))
         {
             $this->renderInColumns = $int;
         }

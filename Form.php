@@ -1,4 +1,4 @@
-<?php namespace WinkBrace\WinkForm;
+<?php namespace WinkForm;
 
 /**
  * abstract class Form
@@ -16,7 +16,7 @@ abstract class Form
      * create AddressInput object
      * @param string $name
      * @param string $value
-     * @return \WinkBrace\WinkForm\Input\AddressInput
+     * @return \WinkForm\Input\AddressInput
      */
     public static function address($name, $value = null)
     {
@@ -27,7 +27,7 @@ abstract class Form
      * create Button object
      * @param string $name
      * @param string $value
-     * @return \WinkBrace\WinkForm\Button\Button
+     * @return \WinkForm\Button\Button
      */
     public static function button($name, $value = null)
     {
@@ -38,7 +38,7 @@ abstract class Form
      * create ChainedDropdowns object
      * @param string $name
      * @param string $value
-     * @return \WinkBrace\WinkForm\Input\ChainedDropdowns
+     * @return \WinkForm\Input\ChainedDropdowns
      */
     public static function chainedDropdowns($name, $value = null)
     {
@@ -49,7 +49,7 @@ abstract class Form
      * create Checkbox object
      * @param string $name
      * @param string $value
-     * @return \WinkBrace\WinkForm\Input\Checkbox
+     * @return \WinkForm\Input\Checkbox
      */
     public static function checkbox($name, $value = null)
     {
@@ -62,7 +62,7 @@ abstract class Form
      * @param string $type
      * @param string $name
      * @param string $value
-     * @return \WinkBrace\WinkForm\Input\CustomInput
+     * @return \WinkForm\Input\CustomInput
      */
     public static function custom($type, $name, $value = null)
     {
@@ -75,7 +75,7 @@ abstract class Form
      * create DateInput object
      * @param string $name
      * @param string $value
-     * @return \WinkBrace\WinkForm\Input\DateInput
+     * @return \WinkForm\Input\DateInput
      */
     public static function date($name, $value = null)
     {
@@ -87,7 +87,7 @@ abstract class Form
      * @param string $name
      * @param dd-mm-yyyy $from
      * @param dd-mm-yyyy $to
-     * @return \WinkBrace\WinkForm\Input\DateRangeInput
+     * @return \WinkForm\Input\DateRangeInput
      */
     public static function dateRange($name, $from, $to)
     {
@@ -98,7 +98,7 @@ abstract class Form
      * create Dropdown object
      * @param string $name
      * @param string $value
-     * @return \WinkBrace\WinkForm\Input\Dropdown
+     * @return \WinkForm\Input\Dropdown
      */
     public static function dropdown($name, $value = null)
     {
@@ -109,7 +109,7 @@ abstract class Form
      * create Email object
      * @param string $name
      * @param string $value
-     * @return \WinkBrace\WinkForm\Input\EmailInput
+     * @return \WinkForm\Input\EmailInput
      */
     public static function email($name, $value = null)
     {
@@ -120,7 +120,7 @@ abstract class Form
      * create FileInput object
      * @param string $name
      * @param string $value
-     * @return \WinkBrace\WinkForm\Input\FileInput
+     * @return \WinkForm\Input\FileInput
      */
     public static function file($name, $value = null)
     {
@@ -131,7 +131,7 @@ abstract class Form
      * create HiddenInput object
      * @param string $name
      * @param string $value
-     * @return \WinkBrace\WinkForm\Input\HiddenInput
+     * @return \WinkForm\Input\HiddenInput
      */
     public static function hidden($name, $value = null)
     {
@@ -142,7 +142,7 @@ abstract class Form
      * create ImageButton object
      * @param string $name
      * @param string $value
-     * @return \WinkBrace\WinkForm\Button\ImageButton
+     * @return \WinkForm\Button\ImageButton
      */
     public static function image($name, $value = null)
     {
@@ -153,7 +153,7 @@ abstract class Form
      * create MonthInput object
      * @param string $name
      * @param yyyy-mm $month
-     * @return \WinkBrace\WinkForm\Input\MonthInput
+     * @return \WinkForm\Input\MonthInput
      */
     public static function month($name, $month = null)
     {
@@ -165,7 +165,7 @@ abstract class Form
      * @param string $name
      * @param yyyy-mm $from
      * @param yyyy-mm $to
-     * @return \WinkBrace\WinkForm\Input\MonthRangeInput
+     * @return \WinkForm\Input\MonthRangeInput
      */
     public static function monthRange($name, $from = null, $to = null)
     {
@@ -176,7 +176,7 @@ abstract class Form
      * create PasswordInput object
      * @param string $name
      * @param string $value
-     * @return \WinkBrace\WinkForm\Input\PasswordInput
+     * @return \WinkForm\Input\PasswordInput
      */
     public static function password($name, $value = null)
     {
@@ -187,7 +187,7 @@ abstract class Form
      * create RadioInput object
      * @param string $name
      * @param string $value
-     * @return \WinkBrace\WinkForm\Input\RadioInput
+     * @return \WinkForm\Input\RadioInput
      */
     public static function radio($name, $value = null)
     {
@@ -198,7 +198,7 @@ abstract class Form
      * create reset button
      * @param string $name
      * @param string $value
-     * @return \WinkBrace\WinkForm\Button\ResetButton
+     * @return \WinkForm\Button\ResetButton
      */
     public static function reset($name, $value = null)
     {
@@ -209,7 +209,7 @@ abstract class Form
      * create SubmitButton object
      * @param string $name
      * @param string $value
-     * @return \WinkBrace\WinkForm\Button\SubmitButton
+     * @return \WinkForm\Button\SubmitButton
      */
     public static function submit($name, $value = null)
     {
@@ -220,7 +220,7 @@ abstract class Form
      * create TextInput object
      * @param string $name
      * @param string $value
-     * @return \WinkBrace\WinkForm\Input\TextInput
+     * @return \WinkForm\Input\TextInput
      */
     public static function text($name, $value = null)
     {
@@ -231,7 +231,7 @@ abstract class Form
      * create TextAreaInput object
      * @param string $name
      * @param string $value
-     * @return \WinkBrace\WinkForm\Input\TextAreaInput
+     * @return \WinkForm\Input\TextAreaInput
      */
     public static function textarea($name, $value = null)
     {
@@ -242,7 +242,7 @@ abstract class Form
      * create WeekInput object
      * @param string $name
      * @param iyyy-iw $week
-     * @return \WinkBrace\WinkForm\Input\WeekInput
+     * @return \WinkForm\Input\WeekInput
      */
     public static function week($name, $week = null)
     {
@@ -254,7 +254,7 @@ abstract class Form
      * @param string $name
      * @param iyyy-iw $from
      * @param iyyy-iw $to
-     * @return \WinkBrace\WinkForm\Input\WeekRangeInput
+     * @return \WinkForm\Input\WeekRangeInput
      */
     public static function weekRange($name, $from = null, $to = null)
     {
@@ -281,7 +281,7 @@ abstract class Form
      */
     public function __construct()
     {
-        $this->validator = new \WinkBrace\WinkForm\Validation\Validator();
+        $this->validator = new \WinkForm\Validation\Validator();
     }
     
     /**

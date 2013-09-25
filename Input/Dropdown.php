@@ -1,4 +1,4 @@
-<?php namespace WinkBrace\WinkForm\Input;
+<?php namespace WinkForm\Input;
 
 class Dropdown extends Input
 {
@@ -100,7 +100,7 @@ class Dropdown extends Input
      */
     public function setMultiple($multiple = true)
     {
-        if ($this->validator->validate($multiple, 'boolean'))
+        if ($this->validate($multiple, 'boolean'))
         {
             $this->multiple = $multiple;
         }
@@ -114,7 +114,7 @@ class Dropdown extends Input
      */
     public function setOptionsClasses($optionsClasses)
     {
-        if ($this->validator->validate($optionsClasses, 'array'))
+        if ($this->validate($optionsClasses, 'array'))
         {
             $this->optionsClasses = $optionsClasses;
         }
@@ -128,7 +128,7 @@ class Dropdown extends Input
      */
     public function setOptionsTitles($optionsTitles)
     {
-        if ($this->validator->validate($optionsTitles, 'array'))
+        if ($this->validate($optionsTitles, 'array'))
         {
             $this->optionsTitles = $optionsTitles;
         }
