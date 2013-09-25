@@ -177,21 +177,15 @@ class TextAreaInput extends Input
      */
     public function setWrapStyle($wrapStyle)
     {
-        $allowed = array('normal','pre','nowrap','pre-wrap','pre-line','inherit');
-        if (! in_array($wrapStyle, $allowed))
+        if ($this->validate($wrapStyle, 'normal,pre,nowrap,pre-wrap,pre-line,inherit', 'Given textarea wrap-style "'.$wrapStyle.'" is invalid'))
         {
-            // TODO build solution for this
-            $this->validator->invalidate('Given textarea wrap-style "'.$wrapStyle.'" is invalid');
-        }
-        else
-        {
-            // remove old width style
+            // remove old white-space style
             foreach ($this->styles as $style)
             {
                 if (preg_match('/^white-space:/', $style)) // regular expression to make sure the string starts with white-space
                     $this->removeStyle($style);
             }
-            // add new width style
+            // add new white-space style
             $this->addStyle('white-space:'.$wrapStyle);
         }
         
@@ -222,7 +216,7 @@ class TextAreaInput extends Input
      */
     public function setCounter($counter, array $options = array())
     {
-        if ($this->validator->isBoolean($counter))
+        if ($this->validate($counter, 'boolean'))
         {
             $this->jsCounter = $counter;
             

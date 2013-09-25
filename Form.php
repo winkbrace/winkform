@@ -335,8 +335,8 @@ abstract class Form
     protected function validateInput(Input\Input $input)
     {
         // validate required fields
-        if ($input->isRequired() && ! $input->isPosted())
-            $this->invalidate($input, 'This is a required field.');
+        if ($input->isRequired() && $input->isPosted())
+            $this->validator->addValidation($input, 'required');
         
         // skip non-required fields that are not posted
         if (! $input->isPosted())
@@ -344,68 +344,38 @@ abstract class Form
         
         // always validate date inputs
         if ($input instanceof Input\DateInput)
-            $this->validator->date($input->getPosted());
+        {
+            $this->validator->addValidation($input, 'date_form:d-m-Y');
+        }
         
         if ($input instanceof Input\DateRangeInput)
         {
-            $this->validator->date($input->getDateFrom()->getPosted());
-            $this->validator->date($input->getDateTo()->getPosted());
+            $this->validator->addValidation($input->getDateFrom(), 'date_form:d-m-Y');
+            $this->validator->addValidation($input->getDateTo(), 'date_form:d-m-Y');
         }
         
-        // always validate that posted value of checkbox, radio or dropdown is one of the supplied values
+        // always validate that posted value(s) of checkbox, radio or dropdown are in the array of values of the Input element
         $values = $input->getValues();
         if (! empty($values))
         {
-            $posted = $input->getPosted();
-            if (is_array($posted)) // checkboxes and dropdowns allow multiple values to be posted
-            {
-                foreach ($posted as $post)
-                    $this->validator->inArray($post, $values);
-            }
-            else
-            {
-                $this->validator->inArray($posted, $values);
-            }
+            $this->validator->addValidation($input, 'all_in:'.implode(',', $values));
         }
         
-        // custom validations added to Input
+        // validations added to the Input element
         if ($input->hasValidations())
         {
-            foreach ($input->getValidations() as $validation)
-            {
-                // if an array is given as an argument, we need to write it out as an array creation before passing it to eval() as string
-                for ($i = 0; $i < count($validation['parameters']); $i++)
-                {
-                    if (is_array($validation['parameters'][$i]))
-                        $validation['parameters'][$i] = 'array("' . implode('", "', $validation['parameters'][$i]) . '")';
-                }
-                
-                $pars = ! empty($validation['parameters']) ? ', ' . implode(', ', $validation['parameters']) : '';
-                eval('$this->validator->' . $validation['validation'] . '($input->getPosted()' . $pars . ');');
-            }
+            $this->validator->addValidation($input, $input->getValidations());
         }
         
         // custom validations added to this Form
         if (array_key_exists($input->getName(), $this->validations))
         {
-            // multiple validations per input possible
-            foreach ($this->validations[$input->getName()] as $validation)
-            {
-                // if an array is given as an argument, we need to write it out as an array creation before passing it to eval() as string
-                for ($i = 0; $i < count($validation['parameters']); $i++)
-                {
-                    if (is_array($validation['parameters'][$i]))
-                        $validation['parameters'][$i] = 'array("' . implode('", "', $validation['parameters'][$i]) . '")';
-                }
-                
-                $pars = ! empty($validation['parameters']) ? ', ' . implode(', ', $validation['parameters']) : '';
-                eval('$this->validator->' . $validation['validation'] . '($input->getPosted()' . $pars . ');');
-            }
+            $this->validator->addValidation($input, $this->validations[$input->getName()]);
         }
         
         // place found invalidations after the input element
         if (! $this->validator->passes())
-            $this->invalidate($input, $this->validator->getMessage('', false));
+            $this->invalidate($input, implode("<br/>\n", $this->validator->getAttributeErrors($input->getName())));
         
         // clear the validator for the next input
         $this->validator->reset();
@@ -538,10 +508,10 @@ abstract class Form
      */
     public function setEnctype($enctype)
     {
-        if ($this->validator->inArray($enctype, array(self::ENCTYPE_DEFAULT, self::ENCTYPE_FILE, 'text/plain')))
-        {
-            $this->enctype = $enctype;
-        }
+        if (! in_array($enctype, array(self::ENCTYPE_DEFAULT, self::ENCTYPE_FILE, 'text/plain')))
+            throw new \Exception('Invalid enctype given for Form');
+        
+        $this->enctype = $enctype;
     }
 
     /**

@@ -24,8 +24,7 @@ class Button extends \WinkForm\Input\Input
     public function render()
     {
         // default validity check
-        if (! $this->validator->passes())
-            throw new \Exception($this->validator->getMessage('Error rendering '.get_class($this).' object with name '.$this->name));
+        $this->checkValidity();
             
         $output = $this->renderLabel()
                 . '<input'

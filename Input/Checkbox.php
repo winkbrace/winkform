@@ -231,7 +231,7 @@ class Checkbox extends Input
      */
     protected function setPosted()
     {
-        if (isset($_POST[$this->name.'-isPosted']) && isPosted($this->name)) // check the hidden input field that is always send
+        if ($this->isPosted())
         {
             // checkboxes can be array or single value. If array of values is given, make sure posted is an array
             $posted = $_POST[$this->name];
@@ -251,6 +251,7 @@ class Checkbox extends Input
      */
     public function isPosted()
     {
+        // check the hidden input field that is always send
         return (isset($_POST[$this->name.'-isPosted']) && isPosted($this->name));
     }
     

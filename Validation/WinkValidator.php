@@ -1,11 +1,11 @@
 <?php namespace WinkForm\Validation;
 
 /**
- *
+ * Extension on Laravel Validator class with extra validations
  * @author b-deruiter
  *
  */
-class ExtendedValidator extends \Illuminate\Validation\Validator
+class WinkValidator extends \Illuminate\Validation\Validator
 {
     /**
      * Validate that an attribute is not an array.
@@ -106,6 +106,30 @@ class ExtendedValidator extends \Illuminate\Validation\Validator
     protected function validateEmpty($attribute, $value)
     {
         return empty($value);
+    }
+    
+    /**
+     * validate that all values in array are in given array
+     * @param string $attribute
+     * @param mixed $value
+     * @return boolean
+     */
+    protected function validateAllIn($attribute, $value, $parameters)
+    {
+        // all_in should also be able to handle single posted values like a normal in.
+        if (! is_array($value))
+            return in_array($value, $parameters);
+        
+        if (empty($value))
+            return true;
+        
+        foreach ($value as $val)
+        {
+            if (! in_array($val, $parameters))
+                return false;
+        }
+        
+        return true;
     }
     
 }

@@ -29,7 +29,7 @@ class Validator
     /**
      * @var array
      */
-    protected $allowedRules;
+    protected $allowedRules = array();
 
     /**
      * @var bool
@@ -58,23 +58,45 @@ class Validator
         // @see https://github.com/caouecs/Laravel4-lang
         $this->translator = new Translator(new FileLoader(new Filesystem, "lang"), $this->locale);
 
+        // fetch the allowed rules by reading the Validator validate methods
+        $this->fetchRules();
+        
         // init
+        $this->init();
+    }
+    
+    /**
+     * init variables
+     */
+    protected function init()
+    {
         $this->validations = array();
         $this->isValid = true;
         $this->errors = array();
-
-        // fetched from the documentation on 2013-09-18
-        $this->allowedRules = array(
-            // default
-            'accepted', 'active_url', 'after', 'alpha', 'alpha_dash',
-            'alpha_num', 'array', 'before', 'between', 'confirmed', 'date',
-            'date_format', 'different', 'email', 'exists', 'image',
-            'in', 'integer', 'ip', 'max', 'mimes', 'min', 'not_in',
-            'numeric', 'regex', 'required', 'required_if', 'required_with',
-            'required_without', 'same', 'size', 'unique', 'url',
-            // custom
-            'not_array', 'boolean', 'numeric_array', 'assoc_array',
-            );
+    }
+    
+    /**
+     * reset validations
+     */
+    public function reset()
+    {
+        $this->init();
+    }
+    
+    /**
+     * fetch all defined validation rules
+     */
+    protected function fetchRules()
+    {
+        $rf = new \ReflectionClass('\WinkForm\Validation\WinkValidator');
+        foreach ($rf->getMethods(\ReflectionProperty::IS_PROTECTED) as $prop)
+        {
+            $name = $prop->getName();
+            if (substr($name, 0, 8) == 'validate' && $name != 'validate')
+                $this->allowedRules[] = snake_case(substr($name, 8));
+        }
+        
+        sort($this->allowedRules);
     }
 
     /**
@@ -92,10 +114,12 @@ class Validator
         if (! $this->rulesExist($rules))
             throw new \Exception('Invalid rule "'.implode('|', $rules).'" specified.');
         
+        $name = $input->getName();
+        
         // create entry in validations array for the input if it doesn't yet exist
-        if (! array_key_exists($input->getName(), $this->validations))
+        if (! array_key_exists($name, $this->validations))
         {
-            $this->validations[$input->getName()] = array(
+            $this->validations[$name] = array(
                 'data' => $input->getPosted(),
                 'rules' => $rules,
                 'message' => $message
@@ -107,13 +131,13 @@ class Validator
             // merge rules
             foreach ($rules as $rule)
             {
-                if (! in_array($rule, $this->validations[$input->getName()]['rules']))
-                    $this->validations[$input->getName()]['rules'][] = $rule;
+                if (! in_array($rule, $this->validations[$name]['rules']))
+                    $this->validations[$name]['rules'][] = $rule;
             }
             
             // append message
             if (! empty($message))
-                $this->validations[$input->getName()]['message'] = trim($this->validations[$input->getName()]['message'] . ' ' . $message);
+                $this->validations[$name]['message'] = trim($this->validations[$name]['message'] . ' ' . $message);
         }
     }
     
@@ -134,7 +158,7 @@ class Validator
             throw new \Exception('Invalid rule "' . implode('|', $rules) . '" specified.');
         
         // The way Validator is built we have to create a new instance for every time we validate with this function
-        $validator = new ExtendedValidator($this->translator, array($attribute => $value), array($attribute => $rules), array($attribute => $message));
+        $validator = new WinkValidator($this->translator, array($attribute => $value), array($attribute => $rules), array($attribute => $message));
 
         // execute validation and store result to return
         $result = $validator->passes();
@@ -152,7 +176,7 @@ class Validator
      */
     public function passes()
     {
-        $validator = new ExtendedValidator(
+        $validator = new WinkValidator(
             $this->translator,
             $this->getValidationData(),
             $this->getValidationRules(),

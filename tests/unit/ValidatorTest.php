@@ -73,6 +73,7 @@ class ValidatorTest extends \Codeception\TestCase\Test
     {
         $input = Form::text('text', 'value');
         $this->validator->addValidation($input, 'invalid_rule');
+        $this->fail('An invalid rule should throw an Exception');
     }
     
     /**
@@ -137,7 +138,8 @@ class ValidatorTest extends \Codeception\TestCase\Test
     /**
      * test that a custom message is returned when given
      */
-    public function xtestCustomMessage()
+    /*
+    public function testCustomMessage()
     {
         $input = Form::text('my_name');
         $this->validator->addValidation($input, 'required', ':attribute is required.');
@@ -145,8 +147,10 @@ class ValidatorTest extends \Codeception\TestCase\Test
         
         $errors = $this->validator->getErrors();
         $error = $errors['my_name'][0];
-        $this->assertEquals("my_name is required.", $error, 'The error message should display the custom error message');
+        dd($error);
+        $this->assertEquals("my name is required.", $error, 'The error message should display the custom error message');
     }
+    */
     
     /**
      * test that I use the date_format check right
@@ -159,5 +163,38 @@ class ValidatorTest extends \Codeception\TestCase\Test
         $this->validator->validate('test', '8-2-2013', 'date_format:d-m-Y');
         $this->assertTrue($this->validator->passes(), 'date format is indifferent about leading zeroes');
     }
-
+    
+    /**
+     * test to make sure that if Input has an array of posted values, are values are checked against the rules
+     */
+    public function testArrayOfPostedValues()
+    {
+        // Note that we require 3 different named Input elements, because addValidation() checks if there are
+        // already rules defined and in that case doesn't overwrite the $data with another posted value
+        // (which is not possible when coding decently)
+        
+        // checkboxes require a {$name}-isPosted hidden field to be posted
+        $_POST['test1-isPosted'] = 1;
+        $_POST['test2-isPosted'] = 1;
+        $_POST['test3-isPosted'] = 1;
+        
+        // test that should pass
+        $_POST['test1'] = array('one', 'two', 'three');
+        $input = Form::checkbox('test1')->appendOptions(array('one' => 'one', 'two' => 'two', 'three' => 'three'));
+        $this->validator->addValidation($input, 'required|all_in:one,two,three');
+        $this->assertTrue($this->validator->passes(), 'array of posted values should pass using all_in');
+    
+        // single posted value should pass
+        $_POST['test2'] = 'two';
+        $input = Form::checkbox('test2')->appendOptions(array('one' => 'one', 'two' => 'two', 'three' => 'three'));
+        $this->validator->addValidation($input, 'all_in:one,two,three');
+        $this->assertTrue($this->validator->passes(), 'single posted value should pass using all_in');
+    
+        // this should fail
+        $_POST['test3'] = array('one', 'two', 'FAIL');
+        $input = Form::checkbox('test3')->appendOptions(array('one' => 'one', 'two' => 'two', 'three' => 'three'));
+        $this->validator->addValidation($input, 'all_in:one,two,three');
+        $this->assertFalse($this->validator->passes(), 'array with an unallowed value should not pass using all_in');
+    }
+    
 }

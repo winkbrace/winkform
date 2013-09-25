@@ -1018,7 +1018,7 @@ abstract class Input
     /**
      * Add validation for input field. This validation must be executed by a form->validate() or in a script after posting.
      * @see http://laravel.com/docs/validation#available-validation-rules
-     * The rules must exist in the \WinkForm\Validation\ExtendedValidator class
+     * The rules must exist in the \WinkForm\Validation\WinkValidator class
      * @param string|array $rules
      * @return $this
      */

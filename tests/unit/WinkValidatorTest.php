@@ -1,17 +1,17 @@
 <?php
 
 use Codeception\Util\Stub;
-use WinkForm\Validation\ExtendedValidator;
+use WinkForm\Validation\WinkValidator;
 use Illuminate\Filesystem\Filesystem;
 use Illuminate\Translation\FileLoader;
 use Illuminate\Translation\Translator;
 
 /**
- * Tests for the Illuminate\Validation\Validator extension ExtendedValidator
+ * Tests for the Illuminate\Validation\Validator extension WinkValidator
  * @author b-deruiter
  *
  */
-class ExtendedValidatorTest extends \Codeception\TestCase\Test
+class WinkValidatorTest extends \Codeception\TestCase\Test
 {
     /**
      * @var \CodeGuy
@@ -49,12 +49,12 @@ class ExtendedValidatorTest extends \Codeception\TestCase\Test
         $rule = 'array';
         
         $value = array('one', 'two', 'three');
-        $validator = new ExtendedValidator($this->translator, array($value), array($rule));
+        $validator = new WinkValidator($this->translator, array($value), array($rule));
         $this->assertTrue($validator->passes(), 'array should validate as array');
         
         // and a failing test
         $value = 'string';
-        $validator = new ExtendedValidator($this->translator, array($value), array($rule));
+        $validator = new WinkValidator($this->translator, array($value), array($rule));
         $this->assertFalse($validator->passes(), 'string should not validate as array');
     }
     
@@ -66,11 +66,11 @@ class ExtendedValidatorTest extends \Codeception\TestCase\Test
         $rule = 'not_array';
         
         $value = 'string';
-        $validator = new ExtendedValidator($this->translator, array($value), array($rule));
+        $validator = new WinkValidator($this->translator, array($value), array($rule));
         $this->assertTrue($validator->passes(), 'string should validate as not an array');
         
         $value = array('one', 'two', 'three');
-        $validator = new ExtendedValidator($this->translator, array($value), array($rule));
+        $validator = new WinkValidator($this->translator, array($value), array($rule));
         $this->assertFalse($validator->passes(), 'string should not validate as not an array');
     }
     
@@ -82,11 +82,11 @@ class ExtendedValidatorTest extends \Codeception\TestCase\Test
         $rule = 'boolean';
         
         $value = false;
-        $validator = new ExtendedValidator($this->translator, array($value), array($rule));
+        $validator = new WinkValidator($this->translator, array($value), array($rule));
         $this->assertTrue($validator->passes(), 'boolean should validate as boolean');
         
         $value = 'string';
-        $validator = new ExtendedValidator($this->translator, array($value), array($rule));
+        $validator = new WinkValidator($this->translator, array($value), array($rule));
         $this->assertFalse($validator->passes(), 'boolean should not validate as boolean');
     }
     
@@ -99,22 +99,22 @@ class ExtendedValidatorTest extends \Codeception\TestCase\Test
     
         // passes
         $value = array('one', 'two', 'three');
-        $validator = new ExtendedValidator($this->translator, array($value), array($rule));
+        $validator = new WinkValidator($this->translator, array($value), array($rule));
         $this->assertTrue($validator->passes(), 'numeric array should validate as numeric array');
     
         // fails
         $value = array('key' => 'value', 'foo' => 'bar');
-        $validator = new ExtendedValidator($this->translator, array($value), array($rule));
+        $validator = new WinkValidator($this->translator, array($value), array($rule));
         $this->assertFalse($validator->passes(), 'assoc array should not validate as numeric array');
         
         // empty array should pass
         $value = array();
-        $validator = new ExtendedValidator($this->translator, array($value), array($rule));
+        $validator = new WinkValidator($this->translator, array($value), array($rule));
         $this->assertTrue($validator->passes(), 'empty array should validate as numeric array');
         
         // integer should fail
         $value = 10;
-        $validator = new ExtendedValidator($this->translator, array($value), array($rule));
+        $validator = new WinkValidator($this->translator, array($value), array($rule));
         $this->assertFalse($validator->passes(), 'integer should not validate as numeric array');
     }
     
@@ -127,12 +127,12 @@ class ExtendedValidatorTest extends \Codeception\TestCase\Test
     
         // in the code this is actually ! numeric_array, so I'm not going to test all options again
         $value = array('key' => 'value', 'foo' => 'bar');
-        $validator = new ExtendedValidator($this->translator, array($value), array($rule));
+        $validator = new WinkValidator($this->translator, array($value), array($rule));
         $this->assertTrue($validator->passes(), 'assoc array should validate as assoc array');
         
         // empty array should pass
         $value = array();
-        $validator = new ExtendedValidator($this->translator, array($value), array($rule));
+        $validator = new WinkValidator($this->translator, array($value), array($rule));
         $this->assertTrue($validator->passes(), 'empty array should validate as assoc array');
     }
     
@@ -144,11 +144,11 @@ class ExtendedValidatorTest extends \Codeception\TestCase\Test
         $rule = 'not_empty';
         
         $value = 1;
-        $validator = new ExtendedValidator($this->translator, array($value), array($rule));
+        $validator = new WinkValidator($this->translator, array($value), array($rule));
         $this->assertTrue($validator->passes(), 'value 1 should validate as not empty');
         
         $value = array();
-        $validator = new ExtendedValidator($this->translator, array($value), array($rule));
+        $validator = new WinkValidator($this->translator, array($value), array($rule));
         $this->assertFalse($validator->passes(), 'empty array should not validate as not empty');
     }
     
@@ -160,12 +160,28 @@ class ExtendedValidatorTest extends \Codeception\TestCase\Test
         $rule = 'empty';
     
         $value = 1;
-        $validator = new ExtendedValidator($this->translator, array($value), array($rule));
+        $validator = new WinkValidator($this->translator, array($value), array($rule));
         $this->assertFalse($validator->passes(), 'value 1 should not validate as empty');
     
         $value = array();
-        $validator = new ExtendedValidator($this->translator, array($value), array($rule));
+        $validator = new WinkValidator($this->translator, array($value), array($rule));
         $this->assertTrue($validator->passes(), 'empty array should validate as empty');
+    }
+    
+    /**
+     * test all_in
+     */
+    public function testAllIn()
+    {
+        $rule = 'all_in:1,2,3,4,5';
+        
+        $value = array(1, 2, 3);
+        $validator = new WinkValidator($this->translator, array($value), array($rule));
+        $this->assertTrue($validator->passes(), 'all values in 1,2,3 should be in array 1,2,3,4,5');
+        
+        $value = array(1, 10, 3);
+        $validator = new WinkValidator($this->translator, array($value), array($rule));
+        $this->assertFalse($validator->passes(), 'not all values in 1,10,3 should be in array 1,2,3,4,5');
     }
     
 }
