@@ -20,11 +20,11 @@ class DateInput extends Input
      */
     function __construct($name, $value = null)
     {
-        parent::__construct($name, $value);
-        
         // set date format
         $config = require WINKFORM_PATH.'config.php';
         $this->setDateFormat($config['date_format']);
+        
+        parent::__construct($name, $value);
     }
 
     /**
@@ -56,7 +56,7 @@ class DateInput extends Input
     {
         if ($this->validate($value, 'not_array|date_format:'.$this->dateFormat))
         {
-            $this->value = xsschars($value);
+            $this->value = $value;
         }
     
         return $this;
