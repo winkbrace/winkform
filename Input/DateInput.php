@@ -54,7 +54,7 @@ class DateInput extends Input
      */
     public function setValue($value)
     {
-        if ($this->validate($value, 'not_array|date_format:'.$this->dateFormat))
+        if (empty($value) || $this->validate($value, 'not_array|date_format:'.$this->dateFormat))
         {
             $this->value = $value;
         }

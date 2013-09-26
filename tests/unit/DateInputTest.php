@@ -56,5 +56,18 @@ class DateInputTest extends \Codeception\TestCase\Test
         $input->setDateFormat('j-n-2013');
         $this->assertEquals('1-8-2013', $input->getPosted());
     }
+    
+    /**
+     * test that setValue checks date
+     */
+    public function testSetValue()
+    {
+        $input = new DateInput('test', date('d-m-Y'));
+        $this->assertEquals(date('d-m-Y'), $input->getValue());
+        
+        // should not be set
+        $input->setValue('wrong');
+        $this->assertEquals(date('d-m-Y'), $input->getValue());
+    }
 
 }

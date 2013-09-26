@@ -782,12 +782,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Codeception/Codeception.git",
-                "reference": "71907ae93140ed17b47d64570a81eda38362a796"
+                "reference": "8127eceb86a75bc1c8f84a57e722706414d64765"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Codeception/Codeception/zipball/71907ae93140ed17b47d64570a81eda38362a796",
-                "reference": "71907ae93140ed17b47d64570a81eda38362a796",
+                "url": "https://api.github.com/repos/Codeception/Codeception/zipball/8127eceb86a75bc1c8f84a57e722706414d64765",
+                "reference": "8127eceb86a75bc1c8f84a57e722706414d64765",
                 "shasum": ""
             },
             "require": {
@@ -835,7 +835,7 @@
                 "functional testing",
                 "unit testing"
             ],
-            "time": "2013-09-20 20:34:43"
+            "time": "2013-09-25 22:06:51"
         },
         {
             "name": "fabpot/goutte",
@@ -1251,12 +1251,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Seldaek/monolog.git",
-                "reference": "65fb44410157839a012e9a9b8c11d38598484a0e"
+                "reference": "ca18e81f79484c552b6bac0e40e4ee3fd0161000"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Seldaek/monolog/zipball/65fb44410157839a012e9a9b8c11d38598484a0e",
-                "reference": "65fb44410157839a012e9a9b8c11d38598484a0e",
+                "url": "https://api.github.com/repos/Seldaek/monolog/zipball/ca18e81f79484c552b6bac0e40e4ee3fd0161000",
+                "reference": "ca18e81f79484c552b6bac0e40e4ee3fd0161000",
                 "shasum": ""
             },
             "require": {
@@ -1306,7 +1306,7 @@
                 "logging",
                 "psr-3"
             ],
-            "time": "2013-09-17 13:26:34"
+            "time": "2013-09-24 08:48:58"
         },
         {
             "name": "phpunit/php-code-coverage",
@@ -1784,12 +1784,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/Console.git",
-                "reference": "2b9e91a60b4cac3edae1aaef23b9cb25b37fb627"
+                "reference": "e430d7416327a93be77b3c4844c191a10cc8c1c7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/Console/zipball/2b9e91a60b4cac3edae1aaef23b9cb25b37fb627",
-                "reference": "2b9e91a60b4cac3edae1aaef23b9cb25b37fb627",
+                "url": "https://api.github.com/repos/symfony/Console/zipball/e430d7416327a93be77b3c4844c191a10cc8c1c7",
+                "reference": "e430d7416327a93be77b3c4844c191a10cc8c1c7",
                 "shasum": ""
             },
             "require": {
@@ -1828,7 +1828,7 @@
             ],
             "description": "Symfony Console Component",
             "homepage": "http://symfony.com",
-            "time": "2013-09-22 18:04:51"
+            "time": "2013-09-25 06:04:58"
         },
         {
             "name": "symfony/css-selector",
@@ -1888,12 +1888,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/DomCrawler.git",
-                "reference": "5219c96558c298940c9d57fd6fdb4c12dbedf53c"
+                "reference": "1b83a3398dbf2279ed603ec5a01080196a8d4342"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/DomCrawler/zipball/5219c96558c298940c9d57fd6fdb4c12dbedf53c",
-                "reference": "5219c96558c298940c9d57fd6fdb4c12dbedf53c",
+                "url": "https://api.github.com/repos/symfony/DomCrawler/zipball/1b83a3398dbf2279ed603ec5a01080196a8d4342",
+                "reference": "1b83a3398dbf2279ed603ec5a01080196a8d4342",
                 "shasum": ""
             },
             "require": {
@@ -1932,7 +1932,7 @@
             ],
             "description": "Symfony DomCrawler Component",
             "homepage": "http://symfony.com",
-            "time": "2013-09-22 18:04:51"
+            "time": "2013-09-25 22:07:33"
         },
         {
             "name": "symfony/event-dispatcher",
@@ -2088,12 +2088,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/videlalvaro/php-amqplib.git",
-                "reference": "ae91bc69fe59f288f9ed4fe52ef9e3e9a027250c"
+                "reference": "7eb115946b835e621c203e17eb2b8f775d65bcab"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/videlalvaro/php-amqplib/zipball/ae91bc69fe59f288f9ed4fe52ef9e3e9a027250c",
-                "reference": "ae91bc69fe59f288f9ed4fe52ef9e3e9a027250c",
+                "url": "https://api.github.com/repos/videlalvaro/php-amqplib/zipball/7eb115946b835e621c203e17eb2b8f775d65bcab",
+                "reference": "7eb115946b835e621c203e17eb2b8f775d65bcab",
                 "shasum": ""
             },
             "require": {
@@ -2122,7 +2122,7 @@
                 "queue",
                 "rabbitmq"
             ],
-            "time": "2013-08-15 12:13:40"
+            "time": "2013-09-26 05:30:43"
         }
     ],
     "aliases": [
