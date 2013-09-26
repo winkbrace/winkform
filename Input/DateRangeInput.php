@@ -25,14 +25,6 @@ class DateRangeInput extends Input
         
         $this->name = $name;
         
-        // validate creation
-        if (! empty($from))
-            $this->validate($from, 'date_format:d-m-Y');
-        if (! empty($to))
-            $this->validate($to, 'date_format:d-m-Y');
-        
-        $this->checkValidity();
-        
         // create the two date input fields
         $this->setDateFrom(new DateInput($this->name.'-from', $from));
         $this->setDateTo(new DateInput($this->name.'-to', $to));
@@ -82,6 +74,32 @@ class DateRangeInput extends Input
     public function getLabels()
     {
         return array($this->dateFrom->label, $this->dateTo->label);
+    }
+    
+    /**
+     * Set initial values for the date range input fields
+     * @param array $selected  array('from', 'to')
+     * @param int $flag
+     * @return $this
+     */
+    public function setSelected($selected, $flag = 0)
+    {
+        if ($this->validate($selected, 'array|size:2', 'Invalid $selected given for DateRangeInput. Has to be array of 2.'))
+        {
+            if (empty($this->posted) || $this->isFlagSet($flag, self::INPUT_OVERRULE_POST))
+            {
+                // of flag is niet geset of wel geset maar dan moet POST empty zijn
+                if (! $this->isFlagSet($flag, self::INPUT_SELECTED_INITIALLY_ONLY) || empty($_POST))
+                {
+                    $from = array_key_exists('from', $selected) ? $selected['from'] : $selected[0];
+                    $to = array_key_exists('to', $selected) ? $selected['to'] : $selected[1];
+                    $this->dateFrom->setSelected($from);
+                    $this->dateTo->setSelected($to);
+                }
+            }
+        }
+        
+        return $this;
     }
     
     /**

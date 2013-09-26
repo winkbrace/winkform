@@ -46,6 +46,21 @@ class DateInput extends Input
 
         return $this;
     }
+    
+    /**
+     * Override setValue to always validate date format
+     * (non-PHPdoc)
+     * @see \WinkForm\Input\Input::setValue()
+     */
+    public function setValue($value)
+    {
+        if ($this->validate($value, 'not_array|date_format:'.$this->dateFormat))
+        {
+            $this->value = xsschars($value);
+        }
+    
+        return $this;
+    }
 
     /**
      * This is a fix for when users manually input dates without using leading 0s
