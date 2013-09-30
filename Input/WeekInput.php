@@ -6,8 +6,8 @@ class WeekInput extends Input
     protected $year,
               $week,
               $hiddenInput; // $hidden already exists in Input
-    
-    
+
+
     /**
      * construct Input
      * @param string $name
@@ -15,12 +15,12 @@ class WeekInput extends Input
      */
     function __construct($name, $week = null)
     {
-        $this->validator = new \WinkForm\Validation\Validator();
-    
+        $this->validator = new \WinkForm\Validation\QuickValidator();
+
         $this->setName($name);
         $this->setId($name); // normally you want the id to be the same as the name
         $this->addClass('week-dropdown'); // this will be copied to children on render()
-        
+
         // create week and year dropdown objects
         $this->year = new Dropdown($this->name.'-year');
         $this->year
@@ -28,26 +28,26 @@ class WeekInput extends Input
             ->setLabels(range(date('Y') - 3, date('Y') + 1))
             ->setSelected(date('Y'))
             ->setWidth(65);
-        
+
         // create array with week numbers from 01 to 53
         $weeks = range(1, 53);
         array_walk($weeks, function(&$nr) {
             $nr = str_pad($nr, 2, '0', STR_PAD_LEFT);
         });
-    
+
         $this->week = new Dropdown($this->name.'-week');
         $this->week->setValues($weeks)
                     ->setLabels($weeks)
                     ->setSelected(date('W'))
                     ->setWidth(52);
-        
+
         // this will be the field we will actually fetch when posted, because that's easier. ;)
         // we need javascript to fill it when the dropdowns change, tho.
         $this->hiddenInput = new HiddenInput($name, date('Y-W'));
-        
+
         if (! empty($week))
             $this->setSelected($week);
-    
+
         // store posted as selected
         $this->setPosted();
     }
@@ -67,8 +67,8 @@ class WeekInput extends Input
                 list($year, $week) = explode('-', $selected);
                 $this->validate($week, 'between:1,53');
                 $this->validate($year, 'between:1900,2200');
-                    
-                if ($this->validator->passes())
+
+                if ($this->validator->isValid())
                 {
                     $this->week->setSelected($week);
                     $this->year->setSelected($year);
@@ -76,11 +76,11 @@ class WeekInput extends Input
                 }
             }
         }
-        
+
         return $this;
     }
-    
-    
+
+
     /**
      * render the date input element
      */
@@ -95,7 +95,7 @@ class WeekInput extends Input
         $excludes = array('name','id','value','values','label','labels','selected','posted','required','invalidations', 'width');
         copySharedAttributes($this->year, $this, $excludes);
         copySharedAttributes($this->week, $this, $excludes);
-        
+
         // start output
         if (! empty($this->label) && ! $this->inReportForm)
             $output .= '<label for="'.$this->id.'">'.$this->label.'</label> ';
@@ -106,7 +106,7 @@ class WeekInput extends Input
         $output .= $this->week->render();
         $output .= $this->hiddenInput->render();
         $output .= "</span>\n";
-        
+
         // javascript to change the hidden input field when a dropdown changes
         // I create a trigger by id, so when there are multiple WeekInputs on the screen these scripts wont all fire every time one changes
         $output .= '<script type="text/javascript">
@@ -115,12 +115,12 @@ class WeekInput extends Input
                             $("#'.$this->name.'").val($("#'.$this->name.'-year").val() + "-" + $("#'.$this->name.'-week").val());
                         });
                     </script>'."\n";
-        
+
         $output .= $this->renderInvalidations();
-        
+
         return $output;
     }
-    
+
     /**
      * The width should be split equally between the two WeekInputs
      *
@@ -132,11 +132,11 @@ class WeekInput extends Input
     public function setWidth($width)
     {
         parent::setWidth($width);
-        
+
         $yearWidth = round($width * 0.55, 0, PHP_ROUND_HALF_DOWN);
-        
+
         $this->year->setWidth($yearWidth);            // 60% width to the year
         $this->week->setWidth($width - $yearWidth);   // 40% width to the week
     }
-    
+
 }

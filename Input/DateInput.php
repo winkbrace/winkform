@@ -7,12 +7,12 @@ class DateInput extends Input
      * @var array
      */
     protected $jsOptions = array();
-    
+
     protected $type = 'text', // 'date' will only accept yyyy-mm-dd, which is not the format we use :'(
               $dateFormat,
               $dateFormatDelimiter;
-    
-    
+
+
     /**
      * construct DateInput
      * @param string $name
@@ -23,7 +23,7 @@ class DateInput extends Input
         // set date format
         $config = require WINKFORM_PATH.'config.php';
         $this->setDateFormat($config['date_format']);
-        
+
         parent::__construct($name, $value);
     }
 
@@ -46,7 +46,7 @@ class DateInput extends Input
 
         return $this;
     }
-    
+
     /**
      * Override setValue to always validate date format
      * (non-PHPdoc)
@@ -58,7 +58,7 @@ class DateInput extends Input
         {
             $this->value = $value;
         }
-    
+
         return $this;
     }
 
@@ -66,16 +66,17 @@ class DateInput extends Input
      * This is a fix for when users manually input dates without using leading 0s
      * We can think of a lot more checks, but let's keep it as fast as possible. Real validation is in the validate() functions
      * @param string $post
+     * @return string
      */
     protected function getCorrectedPostedDate($post)
     {
         if (strlen($post) == 10)  // when dates are dd-mm-yyyy, they are good
             return $post;
-        
+
         // if j or n are in the date format, leading 0s are not required
         if (strpos($this->dateFormat, 'j') !== false || strpos($this->dateFormat, 'n') !== false)
             return $post;
-        
+
         // if there is no delimiter in the date format, don't try to help users for now
         if ($this->dateFormatDelimiter == '')
             return $post;
@@ -100,31 +101,31 @@ class DateInput extends Input
         // we will show/hide the container div for the text field and the image and not the text field and the image themselves
         $this->removeStyle('display:none');
         $hidden = $this->getHidden() === true ? ' style="display:none;"' : '';
-        
+
         // create TextInput object with all same properties as this DateInput object
         $text = new TextInput($this->name);
         copySharedAttributes($text, $this);
-        
+
         // set default width if none was given
         if (strpos($this->renderStyle(), 'width') === false)
             $text->setWidth(80);
-        
+
         $text->setMaxLength(10);
-        
+
         $output = '<div id="'.$this->id.'-container"'.$hidden.' style="float: left;">'
                 . $text->render()
                 . '</div>' . PHP_EOL;
-        
+
         if (empty($this->disabled))
         {
             $output .= $this->getJS() . PHP_EOL;
         }
-        
+
         $output .= $this->renderInvalidations();
-        
+
         return $output;
     }
-    
+
     /**
      * The JS to initialize the jQuery UI DatePicker
      *
@@ -141,7 +142,7 @@ class DateInput extends Input
                     });
                 </script>';
     }
-    
+
     /**
      * Prepares the array of options for the jQuery UI DatePicker
      *
@@ -151,12 +152,12 @@ class DateInput extends Input
     protected function getJSOptions()
     {
         $options = $this->jsOptions;
-        
+
         //there will be no validation here, it's assumed the user has knowledge
         // of the possible arguments. Only some defaults will be provided
-        
+
         // TODO build date format translation based on $this->dateFormat
-        
+
         // Merge in defaults.
         $options += array(
             'dateFormat'      => 'dd-mm-yy',
@@ -170,15 +171,16 @@ class DateInput extends Input
             'buttonImageOnly' => true,
             'buttonText'      => 'Pick a date',
         );
-        
+
         $json = json_encode($options);
 
         return $json;
     }
-    
+
     /**
      * Set extra parameters or overwrite default ones for the DatePicker.
      * @param array $options
+     * @return $this
      */
     public function setDatePickerOptions(array $options = array())
     {
@@ -186,33 +188,34 @@ class DateInput extends Input
         {
             $this->jsOptions = $options;
         }
-        
+
         return $this;
     }
-    
+
     /**
      * set a date format
      * @param string $format
+     * @return $this
      */
     public function setDateFormat($format)
     {
         // I assume that when someone uses this method, they know how to write their format.
         // Almost all letter characters are allowed anyway: string(37) "dDjlNSwzWFmMntLoYyaABgGhHisueIOPTZcrU"
         $this->dateFormat = $format;
-        
+
         // set the delimiter
         $this->setDateFormatDelimiter();
-        
+
         // change the date format validation to the new format
         $this->replaceValidation('date_format:'.$this->dateFormat);
-        
+
         // reset posted, (but not selected) because we correct posted dates that are missing leading zeroes
         if ($this->isPosted())
             $this->posted = $this->getCorrectedPostedDate($_POST[$this->name]);
-        
+
         return $this;
     }
-    
+
     /**
      * set date format delimiter
      * @return string
@@ -227,8 +230,8 @@ class DateInput extends Input
                 return;
             }
         }
-        
+
         $this->dateFormatDelimiter = '';
     }
-    
+
 }

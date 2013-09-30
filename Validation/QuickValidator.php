@@ -12,7 +12,6 @@ class QuickValidator extends AbstractValidator
      */
     protected function init()
     {
-        $this->isValid = true;
         $this->errors = array();
     }
 
@@ -32,7 +31,7 @@ class QuickValidator extends AbstractValidator
         $validator = new WinkValidator($this->translator, array($attribute => $value), array($attribute => $rules), array($attribute => $message));
 
         // execute validation and store result to return
-        $result = $validator->passes();
+        $result = $validator->isValid();
 
         // addValidation() stores errors with Input name as key. This stores all errors at index 0.
         foreach ($validator->getMessageBag()->all() as $error)

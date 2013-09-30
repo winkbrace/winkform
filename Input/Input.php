@@ -35,15 +35,19 @@ abstract class Input
               $autoFocus = false,        // boolean value if the input element should get focus when the page is loaded
               $placeholder;              // specifies a short hint that describes the expected value of an input field
 
-    protected $validator; // Validate object (this validates the object attributes are properly set, not the form validation!)
-    
+    /**
+     * Validate object (this validates the object attributes are properly set, not the form validation!)
+     * @var \WinkForm\Validation\QuickValidator
+     */
+    protected $validator;
+
     // bitwise flags
     const INPUT_OVERRULE_POST = 1; // make the given selected value overwrite anything that is posted
     const INPUT_SELECTED_INITIALLY_ONLY = 2; // only use an initial "selected" value if nothing has been posted yet
     const INPUT_DONT_ESCAPE_HTML = 4; // used by setLabels() and appendOptions to not escape HTML chars
     // next const should be 8, then 16 etc. to have the nth bit set to 1
 
-    
+
     /**
      * construct Input
      * @param string $name
@@ -51,11 +55,11 @@ abstract class Input
      */
     function __construct($name, $value = null)
     {
-        $this->validator = new \WinkForm\Validation\Validator();
-        
+        $this->validator = new \WinkForm\Validation\QuickValidator();
+
         $this->setName($name);
         $this->setId($name); // normally you want the id to be the same as the name
-        
+
         if (! empty($value))
         {
             if (is_array($value))
@@ -63,11 +67,11 @@ abstract class Input
             else
                 $this->setValue($value);
         }
-        
+
         // store posted as selected
         $this->setPosted();
     }
-    
+
     /**
      * render html
      * @return string
@@ -81,7 +85,7 @@ abstract class Input
      */
     protected function checkValidity()
     {
-        if (! $this->validator->passes())
+        if (! $this->validator->isValid())
             throw new \Exception($this->renderValidationErrors('Error rendering '.get_class($this).' object with name '.$this->name));
     }
 
@@ -96,7 +100,7 @@ abstract class Input
         $invalidCharacters = str_split(" \\\r\n\t;,./&|[]{}+=`~!@#$%^*()'\"");
         return str_replace($invalidCharacters, $replace, $value);
     }
-    
+
     /**
      * bitwise check if given flag number contains the wanted value
      *
@@ -108,11 +112,11 @@ abstract class Input
     {
         if (empty($flag) || empty($value))
             return false;
-        
+
         return (($flag & $value) == $value);
     }
-    
-    
+
+
     /**
      * @return string id="$id"
      */
@@ -120,7 +124,7 @@ abstract class Input
     {
         return ' id="'.$this->id.'"';
     }
-    
+
     /**
      * return only the contents of the id attribute
      * @return string $id
@@ -129,7 +133,7 @@ abstract class Input
     {
         return $this->id;
     }
-    
+
     /**
      * @return string type="$type"
      */
@@ -147,7 +151,7 @@ abstract class Input
         $name = $array == '[]' && strpos($this->name, '[]') === false ? $this->name.'[]' : $this->name;
         return ' name="'.$name.'"';
     }
-    
+
     /**
      * return only the contents of the name attribute
      * @return string $name
@@ -165,7 +169,7 @@ abstract class Input
         $value = ! empty($this->selected) ? $this->selected : $this->value;
         return ! empty($value) ? ' value="'.$value.'"' : null;
     }
-    
+
     /**
      * @return $value
      */
@@ -189,11 +193,11 @@ abstract class Input
     {
         if (empty($this->label) || $this->inReportForm)
             return null;
-            
+
            $class = $this->required ? ' class="required"' : '';
            return '<label for="'.$this->id.'"'.$class.'>'.$this->label.'</label> ';
     }
-    
+
     /**
      * @return string placeholder="$placeholder"
      */
@@ -201,7 +205,7 @@ abstract class Input
     {
         return ! empty($this->placeholder) ? ' placeholder="'.$this->placeholder.'"' : null;
     }
-    
+
     /**
      * return only the label attribute
      * @return string $label
@@ -226,7 +230,7 @@ abstract class Input
     {
         return $this->width;
     }
-    
+
     /**
      * @return string $class
      */
@@ -234,7 +238,7 @@ abstract class Input
     {
         return ! empty($this->classes) ? ' class="'.implode(' ', $this->classes).'"' : null;
     }
-    
+
     /**
      * @return array $classes
      */
@@ -242,7 +246,7 @@ abstract class Input
     {
         return $this->classes;
     }
-    
+
     /**
      * Prepares the inline style for an input element
      *
@@ -255,14 +259,14 @@ abstract class Input
 
         if (empty($styles))
             return null;
-        
+
         $inlineStyle = array();
         foreach ($styles as $attribute => $value)
             $inlineStyle[] = $attribute . ':' . $value;
-        
+
         return ' style="' . implode('; ', $inlineStyle) . ';"';
     }
-    
+
     /**
      *
      * @return array $styles
@@ -275,13 +279,13 @@ abstract class Input
          */
         if ($this->width)
             $this->addStyle(array('width' => $this->width . 'px'));
-        
+
         if ($this->hidden)
             $this->addStyle(array('display' => 'none'));
-            
+
         return $this->styles;
     }
-    
+
     /**
      * @return mixed $selected
      */
@@ -289,7 +293,7 @@ abstract class Input
     {
         return $this->selected;
     }
-    
+
     /**
      * @return string $posted
      */
@@ -305,7 +309,7 @@ abstract class Input
     {
         return $this->isDisabled() ? ' ' . $this->disabled . '="' . $this->disabled . '"' : null;
     }
-    
+
     /**
      * @return boolean
      */
@@ -313,7 +317,7 @@ abstract class Input
     {
         return ! empty($this->disabled);
     }
-    
+
     /**
      * @return boolean $hidden
      */
@@ -321,7 +325,7 @@ abstract class Input
     {
         return $this->hidden;
     }
-    
+
     /**
      * @return boolean $hidden
      */
@@ -329,7 +333,7 @@ abstract class Input
     {
         return $this->hidden;
     }
-    
+
     /**
      * @return boolean $inReportForm
      */
@@ -337,7 +341,7 @@ abstract class Input
     {
         return $this->inReportForm;
     }
-    
+
     /**
      * @return string $title
      */
@@ -345,7 +349,7 @@ abstract class Input
     {
         return ! empty($this->title) ? ' title="'.$this->title.'"' : null;
     }
-    
+
     /**
      * @return string $size
      */
@@ -353,7 +357,7 @@ abstract class Input
     {
         return ! empty($this->size) ? ' size="'.$this->size.'"' : null;
     }
-    
+
     /**
      * @return string $required
      */
@@ -361,7 +365,7 @@ abstract class Input
     {
         return $this->required ? ' required' : null;
     }
-    
+
     /**
      * @return string autofocus attribute if it was set
      */
@@ -369,7 +373,7 @@ abstract class Input
     {
         return $this->autoFocus ? ' autofocus' : null;
     }
-    
+
     /**
      * @param string $id
      * @return $this
@@ -378,12 +382,12 @@ abstract class Input
     {
         // a name can contain [] (or [bla][][][]) but the id not
         $id = str_replace(array('[',']'), '_', $id);
-            
+
         if ($this->validate($id, 'alpha_dash'))
         {
             $this->id = $id;
         }
-        
+
         return $this;
     }
 
@@ -399,7 +403,7 @@ abstract class Input
         {
             $this->name = $name;
         }
-        
+
         return $this;
     }
 
@@ -413,7 +417,7 @@ abstract class Input
         {
             $this->value = xsschars($value);
         }
-        
+
         return $this;
     }
 
@@ -427,10 +431,10 @@ abstract class Input
         {
             $values = array_values($values); // enforce numeric array
             array_walk($values, 'xsschars');
-            
+
             $this->values = $values;
         }
-        
+
         return $this;
     }
 
@@ -441,10 +445,10 @@ abstract class Input
     public function setLabel($label)
     {
         $this->label = $label;
-        
+
         return $this;
     }
-    
+
     /**
      * @param array $labels
      * @param optional int $flag
@@ -455,16 +459,16 @@ abstract class Input
         if ($this->validate($labels, 'array'))
         {
             $labels = array_values($labels); // enforce numeric array
-            
+
             if (! $this->isFlagSet(self::INPUT_DONT_ESCAPE_HTML, $flag))
                 array_walk($labels, 'xsschars');
-            
+
             $this->labels = $labels;
         }
-        
+
         return $this;
     }
-    
+
     /**
      * Sets the value for the placeholder attribute
      * The placeholder attribute works with the following input types:
@@ -482,7 +486,7 @@ abstract class Input
 
         return $this;
     }
-    
+
     /**
      * Sets the autofocus attribute for the input field. The input will
      * get focus when the page loads
@@ -499,7 +503,7 @@ abstract class Input
 
         return $this;
     }
-    
+
     /**
      * Append individual option <option value="$value">$option</option>
      * @param string $value
@@ -520,13 +524,13 @@ abstract class Input
             $this->values[] = xsschars($value);
             $this->labels[] = xsschars($label);
         }
-        
+
         if (! empty($category))
             $this->categories[] = $category;
-        
+
         return $this;
     }
-    
+
     /**
      * append array of options ( $value => $label )
      * @param $options
@@ -544,10 +548,10 @@ abstract class Input
             foreach ($options as $value => $label)
                 $this->appendOption($value, $label, $category, $flag);
         }
-        
+
         return $this;
     }
-    
+
     /**
      * Prepend individual option <option value="$value">$option</option>
      * @param string $value
@@ -569,13 +573,13 @@ abstract class Input
             array_unshift($this->values, xsschars($value));
             array_unshift($this->labels, xsschars($label));
         }
-        
+
         if (! empty($category))
             array_unshift($this->categories, $category);
-        
+
         return $this;
     }
-    
+
     /**
      * prepend array of options ( $value => $label )
      * @param $options
@@ -596,10 +600,10 @@ abstract class Input
                 $this->prependOption($value, $label, $category, $flag);
             }
         }
-        
+
         return $this;
     }
-    
+
     /**
      * remove an option (= value and label) by providing the value of that option
      * @param string $value
@@ -616,7 +620,7 @@ abstract class Input
 
         return $this;
     }
-    
+
     /**
      * set categories for dropdowns and checkboxes
      * @param array $categories
@@ -628,7 +632,7 @@ abstract class Input
         {
             $this->categories = array_values($categories); // enforce numeric array
         }
-    
+
         return $this;
     }
 
@@ -654,7 +658,7 @@ abstract class Input
     {
         if (! is_array($classes))
             $classes = explode(' ', trim($classes));
-        
+
         foreach ($classes as $class)
         {
             if ($this->validate($class, 'alpha_dash'))
@@ -662,7 +666,7 @@ abstract class Input
                 $this->classes[] = $class;
             }
         }
-        
+
         return $this;
     }
 
@@ -682,10 +686,10 @@ abstract class Input
                     $this->classes[] = $cls;
             }
         }
-        
+
         return $this;
     }
-    
+
     /**
      * remove a class from the classes
      * @param string $class
@@ -698,10 +702,10 @@ abstract class Input
             if ($val == $class)
                 unset($this->classes[$key]);
         }
-        
+
         return $this;
     }
-    
+
     /**
      * Resets the inline style and adds the new one
      *
@@ -713,10 +717,10 @@ abstract class Input
         // use addStyle to keep the logic in one function
         $this->styles = array();
         $this->addStyle($styles);
-        
+
         return $this;
     }
-    
+
     /**
      * Adds additional attributes to the inline style of the input element
      *
@@ -727,15 +731,15 @@ abstract class Input
     public function addStyle($style)
     {
         $styles = (is_array($style)) ? $style : $this->parseStyleToArray($style);
-        
+
         foreach ($styles as $attribute => $value)
         {
             $this->styles[$attribute] = trim($value);
         }
-        
+
         return $this;
     }
-    
+
     /**
      * Removes attributes from the inline style of the input element
      *
@@ -746,13 +750,13 @@ abstract class Input
     public function removeStyle($style)
     {
         $styles = (is_array($style)) ? $style : $this->parseStyleToArray($style);
-        
+
         foreach ($styles as $attribute => $value)
             unset($this->styles[$attribute]);
-        
+
         return $this;
     }
-    
+
     /**
      * Parses a string an returns an array where the key is the CSS attribute
      * and the value is the CSS atribute's value
@@ -764,22 +768,22 @@ abstract class Input
     {
         if (empty($style))
             return array();
-    
+
         $params = array();
-    
+
         $elements = explode(';', $style);
         $elements = array_map('trim', $elements);
         $elements = array_filter($elements);
-    
+
         foreach($elements as $element)
         {
             list($key, $value) = explode(':', $element);
             $params[trim($key)] = trim($value);
         }
-    
+
         return $params;
     }
-    
+
     /**
      * Set an initial value for the input field
      * @param string $selected
@@ -796,10 +800,10 @@ abstract class Input
                 $this->selected = $selected;
             }
         }
-        
+
         return $this;
     }
-    
+
     /**
      * store posted values
      */
@@ -817,7 +821,7 @@ abstract class Input
             $this->selected = $post;  // so we can always retrieve the selected fields with getSelected()
         }
     }
-    
+
     /**
      * is this input element posted?
      * @return boolean
@@ -826,7 +830,7 @@ abstract class Input
     {
         return ! empty($_POST[$this->name]);
     }
-    
+
     /**
      * set $disabled
      * @param string $disabled
@@ -838,10 +842,10 @@ abstract class Input
         {
             $this->disabled = $disabled;
         }
-        
+
         return $this;
     }
-    
+
     /**
      * @param boolean $hidden
      * @return $this
@@ -851,14 +855,14 @@ abstract class Input
         if ($this->validate($hidden, 'boolean'))
         {
             $this->hidden = $hidden;
-            
+
             if ($this->hidden === false)
                 $this->removeStyle(array('display'));
         }
-        
+
         return $this;
     }
-    
+
     /**
      * @param string $title
      * @return $this
@@ -866,10 +870,10 @@ abstract class Input
     public function setTitle($title)
     {
         $this->title = $title;
-        
+
         return $this;
     }
-    
+
     /**
      * @param int $size
      * @return $this
@@ -880,10 +884,10 @@ abstract class Input
         {
             $this->size = $size;
         }
-        
+
         return $this;
     }
-    
+
     /**
      * indicator to let Input know if it's in the ReportForm class or not (needed to display labels or not)
      * @param bool $bool
@@ -895,10 +899,10 @@ abstract class Input
         {
             $this->inReportForm = $bool;
         }
-        
+
         return $this;
     }
-    
+
     /**
      * @return boolean $required
      */
@@ -916,7 +920,7 @@ abstract class Input
         if ($this->validate($required, 'boolean'))
         {
             $this->required = $required;
-            
+
             if ($required === true)
             {
                 $this->addClass('required');
@@ -928,10 +932,10 @@ abstract class Input
                 $this->removeValidation('required');
             }
         }
-        
+
         return $this;
     }
-    
+
     /**
      * @return array $invalidations
      */
@@ -951,10 +955,10 @@ abstract class Input
             $this->invalidations[] = $invalidation;
             $this->addClass('invalid');
         }
-        
+
         return $this;
     }
-    
+
     /**
      * render the custom data attributes
      * @return string $output
@@ -963,17 +967,17 @@ abstract class Input
     {
         if (empty($this->dataAttributes))
             return null;
-        
+
         $output = '';
         foreach ($this->dataAttributes as $name => $value)
         {
             $name =  ! str_like($name, 'data-%') ? 'data-'.$name : $name;
             $output .= ' '.$name.'="'.$value.'"';
         }
-        
+
         return $output;
     }
-    
+
     /**
      * set all custom data attributes
      * Note: this will overwrite any previously set or added data attributes
@@ -986,10 +990,10 @@ abstract class Input
         {
             $this->dataAttributes = $dataAttributes;
         }
-        
+
         return $this;
     }
-    
+
     /**
      * add a custom data attribute (Example: <input ... data-answer_to_life="42">)
      * @param string $name
@@ -999,10 +1003,10 @@ abstract class Input
     public function addDataAttribute($name, $value)
     {
         $this->dataAttributes[$name] = $value;
-        
+
         return $this;
     }
-    
+
     /**
      * remove a custom data attribute
      * @param string $name
@@ -1012,10 +1016,10 @@ abstract class Input
     {
         if (array_key_exists($name, $this->dataAttributes))
             unset($this->dataAttributes[$name]);
-        
+
         return $this;
     }
-    
+
     /**
      * Add validation for input field. This validation must be executed by a form->validate() or in a script after posting.
      * @see http://laravel.com/docs/validation#available-validation-rules
@@ -1031,10 +1035,10 @@ abstract class Input
             if (! in_array($rule, $this->validations))
                 $this->validations[] = $rule;
         }
-        
+
         return $this;
     }
-    
+
     /**
      * remove validation for Input element
      * @param string|array $rules
@@ -1042,23 +1046,23 @@ abstract class Input
     public function removeValidation($rules)
     {
         $rules = (is_string($rules)) ? explode('|', $rules) : $rules;
-        
+
         foreach ($rules as $rule)
         {
             // cut off everthing from the colon
             $rule = $this->getRawRuleName($rule);
-            
+
             foreach ($this->validations as $i => $validation)
             {
                 if ($this->getRawRuleName($validation) == $rule)
                     unset($this->validations[$i]);
             }
         }
-        
+
         // reset validations keys to be incrementing again
         $this->validations = array_values($this->validations);
     }
-    
+
     /**
      * replace validation for Input element
      * @param string|array $rules
@@ -1068,7 +1072,7 @@ abstract class Input
         $this->removeValidation($rules);
         $this->addValidation($rules);
     }
-    
+
     /**
      * get the raw rule name, omitting everything from the colon
      * @param string $rule
@@ -1078,7 +1082,7 @@ abstract class Input
     {
         return strpos($rule, ':') !== false ? substr($rule, 0, strpos($rule, ':')) : $rule;
     }
-    
+
     /**
      * get array of validations. Each as array('validation' => '', 'parameters' => array())
      * @return array $validations
@@ -1087,7 +1091,7 @@ abstract class Input
     {
         return $this->validations;
     }
-    
+
     /**
      * Does this Input element have validations?
      * @return boolean
@@ -1096,7 +1100,7 @@ abstract class Input
     {
         return count($this->validations) > 0;
     }
-    
+
     /**
      * is the input valid?
      * @return boolean
@@ -1114,7 +1118,7 @@ abstract class Input
     {
         if (empty($this->invalidations))
             return null;
-        
+
         return '<div class="invalidations">'.implode("<br/>\n", $this->invalidations)."</div>\n";
     }
 
@@ -1129,7 +1133,7 @@ abstract class Input
     {
         return $this->validator->validate($this->name, $value, $rules, $message);
     }
-    
+
     /**
      * return the found error messages using $this->validate()
      * optionally prefixed with given message and optionally formatted in error div
@@ -1164,5 +1168,5 @@ abstract class Input
     {
         return $this->render();
     }
-    
+
 }

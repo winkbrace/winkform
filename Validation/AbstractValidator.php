@@ -63,6 +63,12 @@ abstract class AbstractValidator
     abstract protected function init();
 
     /**
+     * All validations passed
+     * @return boolean
+     */
+    abstract public function isValid();
+
+    /**
      * reset validations
      */
     public function reset()

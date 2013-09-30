@@ -10,7 +10,7 @@ abstract class Form
 {
     const ENCTYPE_DEFAULT = 'application/x-www-form-urlencoded';
     const ENCTYPE_FILE    = 'multipart/form-data';
-    
+
 
     /**
      * create AddressInput object
@@ -22,7 +22,7 @@ abstract class Form
     {
         return new Input\AddressInput($name, $value);
     }
-    
+
     /**
      * create Button object
      * @param string $name
@@ -33,7 +33,7 @@ abstract class Form
     {
         return new Button\InputButton($name, $value);
     }
-    
+
     /**
      * create ChainedDropdowns object
      * @param string $name
@@ -44,7 +44,7 @@ abstract class Form
     {
         return new Input\ChainedDropdowns($name, $value);
     }
-    
+
     /**
      * create Checkbox object
      * @param string $name
@@ -55,7 +55,7 @@ abstract class Form
     {
         return new Input\Checkbox($name, $value);
     }
-    
+
     /**
      * create custom Input element
      * @link http://www.w3schools.com/tags/att_input_type.asp
@@ -70,7 +70,7 @@ abstract class Form
         $custom->setType($type);
         return $custom;
     }
-    
+
     /**
      * create DateInput object
      * @param string $name
@@ -81,7 +81,7 @@ abstract class Form
     {
         return new Input\DateInput($name, $value);
     }
-    
+
     /**
      * create DateRange object
      * @param string $name
@@ -93,7 +93,7 @@ abstract class Form
     {
         return new Input\DateRangeInput($name, $from, $to);
     }
-    
+
     /**
      * create Dropdown object
      * @param string $name
@@ -104,7 +104,7 @@ abstract class Form
     {
         return new Input\Dropdown($name, $value);
     }
-    
+
     /**
      * create Email object
      * @param string $name
@@ -115,7 +115,7 @@ abstract class Form
     {
         return new Input\EmailInput($name, $value);
     }
-    
+
     /**
      * create FileInput object
      * @param string $name
@@ -126,7 +126,7 @@ abstract class Form
     {
         return new Input\FileInput($name, $value);
     }
-    
+
     /**
      * create HiddenInput object
      * @param string $name
@@ -137,7 +137,7 @@ abstract class Form
     {
         return new Input\HiddenInput($name, $value);
     }
-    
+
     /**
      * create ImageButton object
      * @param string $name
@@ -148,7 +148,7 @@ abstract class Form
     {
         return new Button\ImageButton($name, $value);
     }
-    
+
     /**
      * create MonthInput object
      * @param string $name
@@ -159,7 +159,7 @@ abstract class Form
     {
         return new Input\MonthInput($name, $month);
     }
-    
+
     /**
      * create MonthRange object
      * @param string $name
@@ -171,7 +171,7 @@ abstract class Form
     {
         return new Input\MonthRangeInput($name, $from, $to);
     }
-    
+
     /**
      * create PasswordInput object
      * @param string $name
@@ -182,7 +182,7 @@ abstract class Form
     {
         return new Input\PasswordInput($name, $value);
     }
-    
+
     /**
      * create RadioInput object
      * @param string $name
@@ -193,7 +193,7 @@ abstract class Form
     {
         return new Input\RadioInput($name, $value);
     }
-    
+
     /**
      * create reset button
      * @param string $name
@@ -204,7 +204,7 @@ abstract class Form
     {
         return new Button\ResetButton($name, $value);
     }
-    
+
     /**
      * create SubmitButton object
      * @param string $name
@@ -215,7 +215,7 @@ abstract class Form
     {
         return new Button\SubmitButton($name, $value);
     }
-    
+
     /**
      * create TextInput object
      * @param string $name
@@ -226,7 +226,7 @@ abstract class Form
     {
         return new Input\TextInput($name, $value);
     }
-    
+
     /**
      * create TextAreaInput object
      * @param string $name
@@ -237,7 +237,7 @@ abstract class Form
     {
         return new Input\TextAreaInput($name, $value);
     }
-    
+
     /**
      * create WeekInput object
      * @param string $name
@@ -248,7 +248,7 @@ abstract class Form
     {
         return new Input\WeekInput($name, $week);
     }
-    
+
     /**
      * create WeekRange object
      * @param string $name
@@ -260,35 +260,35 @@ abstract class Form
     {
         return new Input\WeekRangeInput($name, $from, $to);
     }
-    
-        
-    
-    
-    
-    
-    
+
+
+
+
+
+
+
     protected $method = 'post',
               $action = '',
               $enctype = self::ENCTYPE_DEFAULT,
               $name,
               $isValid = true,
               $validator;   // Validate class to perform the POST validation
-    
-    
+
+
     /**
      * Create new Form
      */
     public function __construct()
     {
-        $this->validator = new \WinkForm\Validation\Validator();
+        $this->validator = new \WinkForm\Validation\FormValidator();
     }
-    
+
     /**
      * render the form
      * @return string
      */
     abstract public function render();
-    
+
     /**
      * render the default form open tag
      * @return string
@@ -298,7 +298,7 @@ abstract class Form
         $this->determineEnctype();
         return '<form name="'.$this->name.'" method="'.$this->method.'" action="'.$this->action.'" enctype="'.$this->enctype.'">'."\n";
     }
-    
+
     /**
      * render the form close tag
      * @return string
@@ -307,7 +307,7 @@ abstract class Form
     {
         return '</form>'."\n";
     }
-    
+
     /**
      * validate all posted values for the form input fields
      * @return boolean
@@ -319,10 +319,10 @@ abstract class Form
         {
             if (! $input instanceof Input\Input)
                 continue;
-            
+
             $this->validateInput($input);
         }
-        
+
         return $this->isValid();
     }
 
@@ -336,36 +336,36 @@ abstract class Form
         // skip non-required fields that are not posted
         if (! $input->isPosted() && ! $input->isRequired())
             return;
-        
+
         // always validate that posted value(s) of checkbox, radio or dropdown are in the array of values of the Input element
         $values = $input->getValues();
         if (! empty($values))
         {
             $this->validator->addValidation($input, 'all_in:'.implode(',', $values));
         }
-        
+
         // validations added to the Input element
         if ($input->hasValidations())
         {
             $this->validator->addValidation($input, $input->getValidations());
         }
-        
+
         // place found invalidations after the input element
-        if (! $this->validator->passes())
+        if (! $this->validator->isValid())
         {
             $this->invalidate($input, implode("<br/>\n", $this->validator->getAttributeErrors($input->getName())));
         }
-        
+
         // clear the validator for the next input
         $this->validator->reset();
     }
-    
+
     /**
      * is the form posted?
      * @return boolean
      */
     abstract public function isPosted();
-    
+
     /**
      * Invalidate input field (and let this form know it is invalid)
      * @param Input\Input $input
@@ -376,7 +376,7 @@ abstract class Form
         $this->isValid = false;
         $input->addInvalidation($invalidation);
     }
-    
+
     /**
      * generate salt
      * @param int $length
@@ -388,10 +388,10 @@ abstract class Form
         $salt = '';
         for ($i = 0; $i < $length; $i++)
             $salt .= $chars[mt_rand(0, strlen($chars) - 1)];
-        
+
         return $salt;
     }
-    
+
     /**
      * is the form valid?
      * @return boolean
@@ -400,7 +400,7 @@ abstract class Form
     {
         return $this->isValid;
     }
-    
+
     /**
      * @return string $method
      */
@@ -440,7 +440,7 @@ abstract class Form
     {
         if (! in_array($method, array('post', 'get')))
             throw new \Exception('Invalid method for Form');
-        
+
         $this->method = $method;
     }
 
@@ -459,7 +459,7 @@ abstract class Form
     {
         if (! in_array($enctype, array(self::ENCTYPE_DEFAULT, self::ENCTYPE_FILE, 'text/plain')))
             throw new \Exception('Invalid enctype given for Form');
-        
+
         $this->enctype = $enctype;
     }
 
@@ -470,7 +470,7 @@ abstract class Form
     {
         $this->name = $name;
     }
-    
+
     /**
      * check if the Form has FileInput objects and if so, set the enctype to Form::ENCTYPE_FILE
      */
@@ -485,8 +485,8 @@ abstract class Form
                 return $this->enctype; // immediately quit searching when a FileInput is found
             }
         }
-        
+
         return $this->enctype;
     }
-    
+
 }

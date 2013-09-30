@@ -2,12 +2,12 @@
 
 class MonthInput extends Input
 {
-    
+
     protected $month,
               $year,
               $monthyear; // hidden input field with the name $name that will contain the YYYY-MM value
-    
-    
+
+
     /**
      * construct MonthInput object
      *
@@ -16,26 +16,26 @@ class MonthInput extends Input
      */
     function __construct($name, $value = null)
     {
-        $this->validator = new \WinkForm\Validation\Validator();
+        $this->validator = new \WinkForm\Validation\QuickValidator();
 
         $this->name = $name;
-        
+
         // create the two dropdowns
         $this->month = new Dropdown($name.'_month', date('m'));
         $months = array(1 => 'Januari', 'Februari', 'Maart', 'April', 'Mei', 'Juni', 'Juli', 'Augustus', 'September', 'Oktober', 'November', 'December');
         foreach ($months as $nr => $label)
             $this->month->appendOption($nr, $label);
-        
+
         $this->year = new Dropdown($name.'_year', date('Y'));
         for ($y = date('Y') - 2; $y < date('Y') + 3; $y++)
             $this->year->appendOption($y, $y);
-        
+
         $this->monthyear = new HiddenInput($name, date('Y').'-'.date('m'));
-        
+
         if (! empty($value))
             $this->setSelected($value);
     }
-    
+
     /**
      * render the date range input fields
      */
@@ -48,16 +48,16 @@ class MonthInput extends Input
         $excludes = array('name','id','value','values','label','labels','selected','posted','required','invalidations');
         copySharedAttributes($this->month, $this, $excludes);
         copySharedAttributes($this->year, $this, $excludes);
-        
+
         // force the widths
         $this->month->setWidth(92);
         $this->year->setWidth(65);
-        
+
         // render the date range input fields
         $output = $this->month->render() . $this->year->render() . $this->monthyear->render();
 
         $output .= $this->renderInvalidations();
-        
+
         $output .= '<script type="text/javascript">
                      $(document).ready(function()
                      {
@@ -70,7 +70,7 @@ class MonthInput extends Input
 
         return $output;
     }
-    
+
     /**
      * set a value selected
      *
@@ -80,23 +80,23 @@ class MonthInput extends Input
         // validate
         if (! $this->validate($selected, 'size:7|date_format:Y-m'))
             throw new \Exception($this->renderValidationErrors("Invalid string given for setting ".get_class($this)." object as selected: $selected. Has to be YYYY-MM."));
-        
+
         list($year, $month) = explode('-', $selected);
-        
+
         $this->validate($year, 'between:1000,9999');
         $this->validate($month, 'between:1,12');
-        
-        if (! $this->validator->passes())
+
+        if (! $this->validator->isValid())
             throw new \Exception($this->renderValidationErrors('Error setting selected values for '.get_class($this).' object with name '.$this->name));
-        
+
         // set selected
         $this->month->setSelected($month, $flag);
         $this->year->setSelected($year, $flag);
         $this->monthyear->setSelected($selected, $flag);
-        
+
         return $this;
     }
-    
+
     /**
      * (non-PHPdoc)
      * @see \WinkForm\Input\Input::getSelected()
@@ -105,7 +105,7 @@ class MonthInput extends Input
     {
         return $this->monthyear->getSelected();
     }
-    
+
     /**
      * (non-PHPdoc)
      * @see \WinkForm\Input\Input::getPosted()
