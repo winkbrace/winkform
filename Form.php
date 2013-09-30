@@ -27,11 +27,11 @@ abstract class Form
      * create Button object
      * @param string $name
      * @param string $value
-     * @return \WinkForm\Button\Button
+     * @return \WinkForm\Button\InputButton
      */
-    public static function button($name, $value = null)
+    public static function inputButton($name, $value = null)
     {
-        return new Button\Button($name, $value);
+        return new Button\InputButton($name, $value);
     }
     
     /**

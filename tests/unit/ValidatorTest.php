@@ -3,6 +3,7 @@
 use Codeception\Util\Stub;
 use WinkForm\Validation\Validator;
 use WinkForm\Form;
+use WinkForm\Validation\ValidationException;
 
 class ValidatorTest extends \Codeception\TestCase\Test
 {
@@ -195,6 +196,39 @@ class ValidatorTest extends \Codeception\TestCase\Test
         $input = Form::checkbox('test3')->appendOptions(array('one' => 'one', 'two' => 'two', 'three' => 'three'));
         $this->validator->addValidation($input, 'all_in:one,two,three');
         $this->assertFalse($this->validator->passes(), 'array with an unallowed value should not pass using all_in');
+    }
+    
+    /**
+     * test validation with comma in in: list
+     */
+    public function testCommaInIn()
+    {
+        $rule = 'in:"TAB", ";", ","';
+        $this->validator->validate('test', '|', $rule);
+        $this->assertTrue($this->validator->passes());
+    }
+    
+    /**
+     * test validation with pipe in in: list
+     */
+    public function testPipeInIn()
+    {
+        // note: when using in, not_in or regex, then you must pass an array of rules if they contain any of the special characters: | : ,
+        $rule = array('in:"TAB", "|", ","');
+        $this->validator->validate('test', '|', $rule);
+        $this->assertTrue($this->validator->passes());
+    }
+    
+    /**
+     * @expectedException \WinkForm\Validation\ValidationException
+     */
+    public function testValidationException()
+    {
+        $this->validator->validate('test', 'non numeric value', 'numeric|max:8|in:2,3,4');
+        if (! $this->validator->isValid())
+            throw new ValidationException('The test throws the exception', $this->validator->getErrors());
+        
+        $this->fail('The ValidationException should have been thrown.');
     }
     
 }

@@ -306,12 +306,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/HttpFoundation.git",
-                "reference": "ed17ea8ee67ae25371bdb63f691c22b453ea4bc0"
+                "reference": "59e712338cd05463ebcb8da6422a01b1291871e3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/HttpFoundation/zipball/ed17ea8ee67ae25371bdb63f691c22b453ea4bc0",
-                "reference": "ed17ea8ee67ae25371bdb63f691c22b453ea4bc0",
+                "url": "https://api.github.com/repos/symfony/HttpFoundation/zipball/59e712338cd05463ebcb8da6422a01b1291871e3",
+                "reference": "59e712338cd05463ebcb8da6422a01b1291871e3",
                 "shasum": ""
             },
             "require": {
@@ -347,7 +347,7 @@
             ],
             "description": "Symfony HttpFoundation Component",
             "homepage": "http://symfony.com",
-            "time": "2013-09-19 09:45:20"
+            "time": "2013-09-29 19:41:41"
         },
         {
             "name": "symfony/translation",
@@ -1251,12 +1251,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Seldaek/monolog.git",
-                "reference": "ca18e81f79484c552b6bac0e40e4ee3fd0161000"
+                "reference": "df90f919b73e2e848d767a372caf9ca036877bf6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Seldaek/monolog/zipball/ca18e81f79484c552b6bac0e40e4ee3fd0161000",
-                "reference": "ca18e81f79484c552b6bac0e40e4ee3fd0161000",
+                "url": "https://api.github.com/repos/Seldaek/monolog/zipball/df90f919b73e2e848d767a372caf9ca036877bf6",
+                "reference": "df90f919b73e2e848d767a372caf9ca036877bf6",
                 "shasum": ""
             },
             "require": {
@@ -1306,7 +1306,7 @@
                 "logging",
                 "psr-3"
             ],
-            "time": "2013-09-24 08:48:58"
+            "time": "2013-09-27 14:18:10"
         },
         {
             "name": "phpunit/php-code-coverage",
@@ -1729,12 +1729,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/BrowserKit.git",
-                "reference": "dd1b9a06e8618cb420df9d22fe8efd53b525722f"
+                "reference": "fc5d0dd10afe707f08ac7b5b4ceecb8119c57498"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/BrowserKit/zipball/dd1b9a06e8618cb420df9d22fe8efd53b525722f",
-                "reference": "dd1b9a06e8618cb420df9d22fe8efd53b525722f",
+                "url": "https://api.github.com/repos/symfony/BrowserKit/zipball/fc5d0dd10afe707f08ac7b5b4ceecb8119c57498",
+                "reference": "fc5d0dd10afe707f08ac7b5b4ceecb8119c57498",
                 "shasum": ""
             },
             "require": {
@@ -1775,7 +1775,7 @@
             ],
             "description": "Symfony BrowserKit Component",
             "homepage": "http://symfony.com",
-            "time": "2013-09-19 09:47:34"
+            "time": "2013-09-27 14:07:49"
         },
         {
             "name": "symfony/console",
@@ -1888,12 +1888,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/DomCrawler.git",
-                "reference": "1b83a3398dbf2279ed603ec5a01080196a8d4342"
+                "reference": "0b31587eb27b54d0a655469e76e015948c864be3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/DomCrawler/zipball/1b83a3398dbf2279ed603ec5a01080196a8d4342",
-                "reference": "1b83a3398dbf2279ed603ec5a01080196a8d4342",
+                "url": "https://api.github.com/repos/symfony/DomCrawler/zipball/0b31587eb27b54d0a655469e76e015948c864be3",
+                "reference": "0b31587eb27b54d0a655469e76e015948c864be3",
                 "shasum": ""
             },
             "require": {
@@ -1932,7 +1932,7 @@
             ],
             "description": "Symfony DomCrawler Component",
             "homepage": "http://symfony.com",
-            "time": "2013-09-25 22:07:33"
+            "time": "2013-09-27 14:07:49"
         },
         {
             "name": "symfony/event-dispatcher",
@@ -1995,12 +1995,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/Process.git",
-                "reference": "c1b7251f873f960c32f79ad264268ca82158bafd"
+                "reference": "4adfa47d187f90638261566ba0a0ab1c1291b9bd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/Process/zipball/c1b7251f873f960c32f79ad264268ca82158bafd",
-                "reference": "c1b7251f873f960c32f79ad264268ca82158bafd",
+                "url": "https://api.github.com/repos/symfony/Process/zipball/4adfa47d187f90638261566ba0a0ab1c1291b9bd",
+                "reference": "4adfa47d187f90638261566ba0a0ab1c1291b9bd",
                 "shasum": ""
             },
             "require": {
@@ -2033,7 +2033,7 @@
             ],
             "description": "Symfony Process Component",
             "homepage": "http://symfony.com",
-            "time": "2013-09-19 09:47:34"
+            "time": "2013-09-27 14:31:42"
         },
         {
             "name": "symfony/yaml",
@@ -2088,17 +2088,20 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/videlalvaro/php-amqplib.git",
-                "reference": "7eb115946b835e621c203e17eb2b8f775d65bcab"
+                "reference": "3eac0fdc4eb290b58f9880489f1e5eb9d5d9e66c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/videlalvaro/php-amqplib/zipball/7eb115946b835e621c203e17eb2b8f775d65bcab",
-                "reference": "7eb115946b835e621c203e17eb2b8f775d65bcab",
+                "url": "https://api.github.com/repos/videlalvaro/php-amqplib/zipball/3eac0fdc4eb290b58f9880489f1e5eb9d5d9e66c",
+                "reference": "3eac0fdc4eb290b58f9880489f1e5eb9d5d9e66c",
                 "shasum": ""
             },
             "require": {
                 "ext-bcmath": "*",
                 "php": ">=5.3.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "3.7.*"
             },
             "type": "library",
             "autoload": {
@@ -2122,7 +2125,7 @@
                 "queue",
                 "rabbitmq"
             ],
-            "time": "2013-09-26 05:30:43"
+            "time": "2013-09-29 05:02:02"
         }
     ],
     "aliases": [

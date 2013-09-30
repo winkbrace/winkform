@@ -132,4 +132,76 @@ class WinkValidator extends \Illuminate\Validation\Validator
         return true;
     }
     
+    /**
+     * validate that given value is a mobile phone number
+     * @param string $attribute
+     * @param string $value
+     * @return boolean
+     */
+    protected function validateMobileNumber($attribute, $value)
+    {
+        if (preg_match('/^06[0-9]{8}$/', $value))
+            return true;
+        
+        if (preg_match('/^\+[0-9]{2}6[0-9]{8}$/', $value))
+            return true;
+        
+        return false;
+    }
+    
+    /**
+     * validate that value is Dutch postcode
+     * @param string $attribute
+     * @param string $value
+     * @return boolean
+     */
+    protected function validatePostcode($attribute, $value)
+    {
+        if (preg_match('/^[1-9][0-9]{3}\s?[a-z|A-Z]{2}$/', $value)) // 4 cijfers, 0 of 1 spatie, 2 letters
+            return true;
+        
+        return false;
+    }
+    
+    /**
+     * Checks if the given date is greater than the minimum date
+     *
+     * @param string $attribute
+     * @param string $value
+     * @param string $parameters
+     * @return boolean
+     */
+    protected function validateDateMin($attribute, $value, $parameters)
+    {
+        // when null there is no minimum
+        if (is_null($parameters))
+            return true;
+    
+        $format = 'd-m-Y';
+        $dateToCheck = new \DateTime($value);
+        $dateMin = new \DateTime('now');
+    
+        // number of days from today
+        if (is_numeric($parameters))
+        {
+            $interval = \DateInterval::createFromDateString((int) $parameters . ' day');
+            $dateMin->add($interval);
+        }
+        // relative date
+        else
+        {
+            if (strtotime($parameters) === false)
+                return false;
+    
+            $interval = \DateInterval::createFromDateString($parameters);
+            $dateMin->add($interval);
+        }
+    
+        // finally check to see if the date is bigger than the minimum
+        if ($dateToCheck > $dateMin)
+            return true;
+        
+        return false;
+    }
+    
 }

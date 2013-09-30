@@ -1,6 +1,6 @@
 <?php namespace WinkForm\Button;
 
-class ResetButton extends Button
+class ResetButton extends InputButton
 {
     protected $type = 'reset';
 

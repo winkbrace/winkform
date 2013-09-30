@@ -1,9 +1,18 @@
 <?php namespace WinkForm\Button;
 
+/**
+ * The difference between a <input type="button"> and a <button> element is that
+ * for the later is that inside the <button> element you can put content.
+ * @author m-nedelcu
+ *
+ */
 class Button extends \WinkForm\Input\Input
 {
-    protected $type = 'button';
-    
+    /**
+     * Always specify the type attribute since browsers have different default values
+     * @var string
+     */
+    protected $type = 'submit';
     
     /**
      * construct Button
@@ -25,25 +34,50 @@ class Button extends \WinkForm\Input\Input
     {
         // default validity check
         $this->checkValidity();
-            
+    
         $output = $this->renderLabel()
-                . '<input'
-                . $this->renderType()
-                . $this->renderId()
-                . $this->renderClass()
-                . $this->renderName()
-                . $this->renderValue()
-                . $this->renderStyle()
-                . $this->renderDisabled()
-                . $this->renderTitle()
-                . $this->renderDataAttributes()
-                . $this->renderRequired()
-                . $this->renderAutoFocus()
-                .' />'."\n";
-        
+        . '<button'
+            . $this->renderType()
+            . $this->renderId()
+            . $this->renderClass()
+            . $this->renderName()
+            . $this->renderValue()
+            . $this->renderStyle()
+            . $this->renderDisabled()
+            . $this->renderTitle()
+            . $this->renderDataAttributes()
+            . $this->renderRequired()
+            . $this->renderAutoFocus()
+            .' >'
+            . $this->getValue()
+            . '</button>'
+            . PHP_EOL;
+    
         $output .= $this->renderInvalidations();
-        
+    
         return $output;
     }
     
+    /**
+     * Set the type of the button
+     *
+     * @param string $type the type of button
+     * <ul>
+     *   <li>button</li>
+     *   <li>reset</li>
+     *   <li>submit (default value)</li>
+     * </ul>
+     * @return \WinkForm\Button\Button
+     */
+    public function setType($type)
+    {
+        $allowedTypes = array('button', 'reset', 'submit');
+        
+        if (in_array($type, $allowedTypes))
+        {
+            $this->setType($type);
+        }
+        
+        return $this;
+    }
 }

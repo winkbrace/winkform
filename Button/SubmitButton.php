@@ -1,6 +1,6 @@
 <?php namespace WinkForm\Button;
 
-class SubmitButton extends Button
+class SubmitButton extends InputButton
 {
     protected $type = 'submit';
 

@@ -1,6 +1,6 @@
 <?php namespace WinkForm\Button;
 
-class ImageButton extends Button
+class ImageButton extends InputButton
 {
     
     protected $type = 'image',

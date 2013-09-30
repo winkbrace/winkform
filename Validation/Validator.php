@@ -110,11 +110,7 @@ class Validator
      */
     public function addValidation(\WinkForm\Input\Input $input, $rules, $message = null)
     {
-        if (is_string($rules))
-            $rules = explode('|', $rules);
-        
-        if (! $this->rulesExist($rules))
-            throw new \Exception('Invalid rule "'.implode('|', $rules).'" specified.');
+        $rules = $this->checkRules($rules);
         
         $name = $input->getName();
         
@@ -153,11 +149,7 @@ class Validator
      */
     public function validate($attribute, $value, $rules, $message = null)
     {
-        if (is_string($rules))
-            $rules = explode('|', $rules);
-
-        if (! $this->rulesExist($rules))
-            throw new \Exception('Invalid rule "' . implode('|', $rules) . '" specified.');
+        $rules = $this->checkRules($rules);
         
         // The way Validator is built we have to create a new instance for every time we validate with this function
         $validator = new WinkValidator($this->translator, array($attribute => $value), array($attribute => $rules), array($attribute => $message));
@@ -170,6 +162,15 @@ class Validator
             $this->errors[$attribute][] = $error;
         
         return $result;
+    }
+    
+    /**
+     * None of the validate() methods created an error
+     * @return boolean
+     */
+    public function isValid()
+    {
+        return empty($this->errors);
     }
 
     /**
@@ -246,6 +247,23 @@ class Validator
             return $this->errors[$name];
         else
             return array();
+    }
+    
+    /**
+     * check rules and return array
+     * @param string|array $rules
+     * @return array $rules
+     * @throws \Exception
+     */
+    protected function checkRules($rules)
+    {
+        if (is_string($rules))
+            $rules = explode('|', $rules);
+        
+        if (! $this->rulesExist($rules))
+            throw new \Exception('Invalid rule "' . implode('|', $rules) . '" specified.');
+        
+        return $rules;
     }
 
     /**

@@ -66,7 +66,7 @@ class TestForm extends Form
         $this->oWeek = self::week('week', '2013-44');
         $this->oWeekRange = self::weekRange('weekRange', '2013-01', '2013-38');
         
-        $this->oButton = self::button('button', 'Button');
+        $this->oButton = self::inputButton('button', 'Button');
         $this->oImage = self::image('image')->setAlt('Image')->setSrc('https://2.gravatar.com/avatar/f65305395860df24db70a8dc6aeddc2f');
         $this->oReset = self::reset('reset', 'Reset');
         $this->oSubmit = self::submit('submit', 'Submit');

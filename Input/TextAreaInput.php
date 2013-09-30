@@ -177,7 +177,7 @@ class TextAreaInput extends Input
      */
     public function setWrapStyle($wrapStyle)
     {
-        if ($this->validate($wrapStyle, 'normal,pre,nowrap,pre-wrap,pre-line,inherit', 'Given textarea wrap-style "'.$wrapStyle.'" is invalid'))
+        if ($this->validate($wrapStyle, 'in:normal,pre,nowrap,pre-wrap,pre-line,inherit', 'Given textarea wrap-style "'.$wrapStyle.'" is invalid'))
         {
             // remove old white-space style
             foreach ($this->styles as $style)
