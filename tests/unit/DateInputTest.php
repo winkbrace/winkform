@@ -39,11 +39,21 @@ class DateInputTest extends \Codeception\TestCase\Test
         // default setting
         // we can check that everything was set via the validation
         $this->assertEquals(array('date_format:d-m-Y'), $input->getValidations());
-        
+
         $input->setDateFormat('Ymd');
         $this->assertEquals(array('date_format:Ymd'), $input->getValidations());
     }
-    
+
+    /**
+     * @expectedException         InvalidArgumentException
+     */
+    public function testInvalidDateFormat()
+    {
+        $input = new DateInput('test');
+        $input->setDateFormat('invalid');
+        $this->fail('setDateFormat() with an invalid date should throw InvalidArgumentException');
+    }
+
     /**
      * test getCorrectedPostedDate()
      */
@@ -52,11 +62,11 @@ class DateInputTest extends \Codeception\TestCase\Test
         $_POST['test'] = '1-8-2013';
         $input = new DateInput('test');
         $this->assertEquals('01-08-2013', $input->getPosted());
-        
-        $input->setDateFormat('j-n-2013');
+
+        $input->setDateFormat('j-n-Y');
         $this->assertEquals('1-8-2013', $input->getPosted());
     }
-    
+
     /**
      * test that setValue checks date
      */
@@ -64,10 +74,21 @@ class DateInputTest extends \Codeception\TestCase\Test
     {
         $input = new DateInput('test', date('d-m-Y'));
         $this->assertEquals(date('d-m-Y'), $input->getValue());
-        
+
         // should not be set
         $input->setValue('wrong');
         $this->assertEquals(date('d-m-Y'), $input->getValue());
+    }
+
+    /**
+     * test setting jquery date picker date format based on php date format
+     */
+    public function testJsDateFormat()
+    {
+        $input = new DateInput('test');
+        $input->setDateFormat('m.d.y');
+        $html = $input->render();
+        $this->assertContains('"dateFormat":"mm.dd.y"', $html, 'setting php date format should also adjust js date format');
     }
 
 }

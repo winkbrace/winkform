@@ -92,6 +92,7 @@ class DateInput extends Input
 
     /**
      * render the date input element
+     * @return string
      */
     public function render()
     {
@@ -160,7 +161,7 @@ class DateInput extends Input
 
         // Merge in defaults.
         $options += array(
-            'dateFormat'      => 'dd-mm-yy',
+            'dateFormat'      => $this->getJSDateFormat(),
             'firstDay'        => 1,
             'showButtonPanel' => true,
             'showWeek'        => true,
@@ -175,6 +176,44 @@ class DateInput extends Input
         $json = json_encode($options);
 
         return $json;
+    }
+
+    /**
+     * translate the php date format to jquery date picker date format
+     * @return string
+     * @throws \Exception
+     */
+    protected function getJSDateFormat()
+    {
+        if (empty($this->dateFormat))
+            return null;
+
+        // array with php => jquery date picker date formats
+        $translation = array(
+            'j' => 'd',     // day of the month
+            'd' => 'dd',    // day of the month with leading 0
+            'z' => 'o',     // day of the year
+            'D' => 'D',     // day of the week short: 'Mon'
+            'l' => 'DD',    // day of the week full: 'Monday'
+            'n' => 'm',     // month of the year
+            'm' => 'mm',    // month of the year with leading 0
+            'M' => 'M',     // month name short
+            'F' => 'MM',    // month name full
+            'y' => 'y',     // year 2 digit
+            'Y' => 'yy',    // year 4 digit
+        );
+
+        $jsDateElements = array();
+        $dateElements = explode($this->dateFormatDelimiter, $this->dateFormat);
+        foreach ($dateElements as $el)
+        {
+            if (! array_key_exists($el, $translation))
+                throw new \Exception('Untranslatable date format specified for date picker');
+
+            $jsDateElements[] = $translation[$el];
+        }
+
+        return implode($this->dateFormatDelimiter, $jsDateElements);
     }
 
     /**
@@ -196,11 +235,18 @@ class DateInput extends Input
      * set a date format
      * @param string $format
      * @return $this
+     * @throws \InvalidArgumentException
      */
     public function setDateFormat($format)
     {
-        // I assume that when someone uses this method, they know how to write their format.
-        // Almost all letter characters are allowed anyway: string(37) "dDjlNSwzWFmMntLoYyaABgGhHisueIOPTZcrU"
+        // only accept date formats that can be translated to jquery date picker
+        $allowed = array('-', '/', '.', ' ', 'j', 'd', 'z', 'D', 'l', 'n', 'm', 'M', 'F', 'y', 'Y');
+        for ($i = 0; $i < strlen($format); $i++)
+        {
+            if (! in_array($format[$i], $allowed))
+                throw new \InvalidArgumentException('Invalid date format given. Only allowed characters are: "'.implode('", "', $allowed).'"');
+        }
+
         $this->dateFormat = $format;
 
         // set the delimiter
