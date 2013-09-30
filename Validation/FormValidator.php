@@ -67,6 +67,7 @@ class FormValidator extends AbstractValidator
 
     /**
      * execute the validations and return the result
+     * This method will always run all validations (again)
      * @return bool
      */
     public function run()
@@ -86,6 +87,7 @@ class FormValidator extends AbstractValidator
 
     /**
      * return if all validations for this form pass
+     * This method will return the result of the last run validations
      * @return bool
      */
     public function isValid()
