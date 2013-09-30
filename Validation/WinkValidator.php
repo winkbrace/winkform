@@ -18,7 +18,7 @@ class WinkValidator extends \Illuminate\Validation\Validator
     {
         return ! is_array($value);
     }
-    
+
     /**
      * Validate that an attribute is boolean
      *
@@ -30,7 +30,7 @@ class WinkValidator extends \Illuminate\Validation\Validator
     {
         return is_bool($value);
     }
-    
+
     /**
      * Validate that an attribute is a numeric array
      *
@@ -42,13 +42,13 @@ class WinkValidator extends \Illuminate\Validation\Validator
     {
         if (! is_array($value))
             return false;
-        
+
         if (empty($value))
             return true;
-        
+
         return $this->arrayIsNumeric($value);
     }
-    
+
     /**
      * Validate that an attribute is an assoc array
      *
@@ -60,13 +60,13 @@ class WinkValidator extends \Illuminate\Validation\Validator
     {
         if (! is_array($value))
             return false;
-        
+
         if (empty($value))
             return true;
-        
+
         return ! $this->arrayIsNumeric($value);
     }
-    
+
     /**
      * private method to be used by validateNumericArray and validateAssocArray
      * @param array $array
@@ -82,10 +82,10 @@ class WinkValidator extends \Illuminate\Validation\Validator
             if (! is_int($key))
                 return false;
         }
-        
+
         return true;
     }
-    
+
     /**
      * validate that value is not empty
      * @param string $attribute
@@ -96,7 +96,7 @@ class WinkValidator extends \Illuminate\Validation\Validator
     {
         return ! empty($value);
     }
-    
+
     /**
      * validate that value is empty
      * @param string $attribute
@@ -107,31 +107,32 @@ class WinkValidator extends \Illuminate\Validation\Validator
     {
         return empty($value);
     }
-    
+
     /**
      * validate that all values in array are in given array
      * @param string $attribute
      * @param mixed $value
-     * @return boolean
+     * @param array $parameters
+     * @return bool
      */
     protected function validateAllIn($attribute, $value, $parameters)
     {
         // all_in should also be able to handle single posted values like a normal in.
         if (! is_array($value))
             return in_array($value, $parameters);
-        
+
         if (empty($value))
             return true;
-        
+
         foreach ($value as $val)
         {
             if (! in_array($val, $parameters))
                 return false;
         }
-        
+
         return true;
     }
-    
+
     /**
      * validate that given value is a mobile phone number
      * @param string $attribute
@@ -142,13 +143,13 @@ class WinkValidator extends \Illuminate\Validation\Validator
     {
         if (preg_match('/^06[0-9]{8}$/', $value))
             return true;
-        
+
         if (preg_match('/^\+[0-9]{2}6[0-9]{8}$/', $value))
             return true;
-        
+
         return false;
     }
-    
+
     /**
      * validate that value is Dutch postcode
      * @param string $attribute
@@ -159,10 +160,10 @@ class WinkValidator extends \Illuminate\Validation\Validator
     {
         if (preg_match('/^[1-9][0-9]{3}\s?[a-z|A-Z]{2}$/', $value)) // 4 cijfers, 0 of 1 spatie, 2 letters
             return true;
-        
+
         return false;
     }
-    
+
     /**
      * Checks if the given date is greater than the minimum date
      *
@@ -176,11 +177,11 @@ class WinkValidator extends \Illuminate\Validation\Validator
         // when null there is no minimum
         if (is_null($parameters))
             return true;
-    
+
         $format = 'd-m-Y';
         $dateToCheck = new \DateTime($value);
         $dateMin = new \DateTime('now');
-    
+
         // number of days from today
         if (is_numeric($parameters))
         {
@@ -192,16 +193,16 @@ class WinkValidator extends \Illuminate\Validation\Validator
         {
             if (strtotime($parameters) === false)
                 return false;
-    
+
             $interval = \DateInterval::createFromDateString($parameters);
             $dateMin->add($interval);
         }
-    
+
         // finally check to see if the date is bigger than the minimum
         if ($dateToCheck > $dateMin)
             return true;
-        
+
         return false;
     }
-    
+
 }
