@@ -23,7 +23,7 @@ class FormValidator extends AbstractValidator
     protected function init()
     {
         $this->validations = array();
-        $this->isValid = true;
+        $this->isValid = null;
         $this->errors = array();
     }
 
@@ -69,7 +69,7 @@ class FormValidator extends AbstractValidator
      * execute the validations and return the result
      * @return bool
      */
-    public function isValid()
+    public function run()
     {
         $validator = new WinkValidator(
             $this->translator,
@@ -80,6 +80,18 @@ class FormValidator extends AbstractValidator
 
         $this->isValid = $validator->isValid();
         $this->errors = $validator->getMessageBag()->getMessages();
+
+        return $this->isValid;
+    }
+
+    /**
+     * return if all validations for this form pass
+     * @return bool
+     */
+    public function isValid()
+    {
+        if (is_null($this->isValid))
+            $this->run();
 
         return $this->isValid;
     }

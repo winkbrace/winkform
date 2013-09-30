@@ -108,7 +108,7 @@ class FormValidatorTest extends \Codeception\TestCase\Test
         // create failing validation
         $input = Form::text('my_name');
         $this->validator->addValidation($input, 'required');
-        $this->validator->isValid();
+        $this->validator->run();
 
         $errors = $this->validator->getErrors();
         $this->assertArrayHasKey('my_name', $errors, 'errors array should have input element name as key');
@@ -120,19 +120,19 @@ class FormValidatorTest extends \Codeception\TestCase\Test
     /**
      * test that a custom message is returned when given
      */
-    /*
     public function testCustomMessage()
     {
+        // default error message for required is: 'The :attribute field is required'
+
         $input = Form::text('my_name');
         $this->validator->addValidation($input, 'required', ':attribute is required.');
-        $this->validator->isValid();
+        $this->validator->run();
 
         $errors = $this->validator->getErrors();
         $error = $errors['my_name'][0];
         dd($error);
         $this->assertEquals("my name is required.", $error, 'The error message should display the custom error message');
     }
-    */
 
     /**
      * test to make sure that if Input has an array of posted values, are values are checked against the rules
