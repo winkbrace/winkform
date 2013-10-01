@@ -79,7 +79,7 @@ class FormValidator extends AbstractValidator
             $this->getValidationMessages()
         );
 
-        $this->isValid = $validator->isValid();
+        $this->isValid = $validator->passes();
         $this->errors = $validator->getMessageBag()->getMessages();
 
         return $this->isValid;
