@@ -62,7 +62,8 @@ class WeekInput extends Input
         if (empty($this->posted) || $this->isFlagSet($flag, self::INPUT_OVERRULE_POST))
         {
             // only continue if valid week string is given
-            if ($this->validate($selected, 'date_format:o-W', 'Invalid week string given for :attribute. Needs to be format IYYY-IW.'))
+            // do not use 'date_format:o-W' since date_parse_from_format() does not support this format
+            if ($this->validate($selected, 'regex:/^\d{4}-\d{2}$/', 'Invalid week string given for :attribute. Needs to be format IYYY-IW.'))
             {
                 list($year, $week) = explode('-', $selected);
                 $this->validate($week, 'between:1,53');
