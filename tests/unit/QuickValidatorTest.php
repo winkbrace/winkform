@@ -122,5 +122,23 @@ class QuickValidatorTest extends \Codeception\TestCase\Test
 
         $this->fail('The ValidationException should have been thrown.');
     }
+    
+    /**
+     * test handling array of rules, just like in Laravel
+     */
+    public function testPassingArrayOfRules()
+    {
+        $rules = array(
+            'foo' => 'required|numeric',
+            'bar' => 'required|date',
+            'baz' => 'required',
+        );
+        $values = array(
+            'foo' => '2000',
+            'bar' => '2014-09-25',
+            'baz' => 'bla',
+        );
+        $this->assertTrue($this->validator->validateSet($values, $rules));
+    }
 
 }

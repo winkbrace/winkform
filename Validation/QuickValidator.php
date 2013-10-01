@@ -32,11 +32,33 @@ class QuickValidator extends AbstractValidator
 
         // execute validation and store result to return
         $result = $validator->passes();
-
-        // addValidation() stores errors with Input name as key. This stores all errors at index 0.
+        
         foreach ($validator->getMessageBag()->all() as $error)
             $this->errors[$attribute][] = $error;
-
+        
+        return $result;
+    }
+    
+    /**
+     * validate set of rules at once. This is to support the Laravel way of passing array of rules
+     * @param array $values    the values to test
+     * @param array $rules     the rules to test against
+     * @param array $messages  custom error messages
+     * @return boolean
+     */
+    public function validateSet(array $values, array $rules, array $messages = array())
+    {
+        foreach ($rules as $rule)
+            $this->checkRules($rule);
+        
+        $validator = new WinkValidator($this->translator, $values, $rules);
+        
+        // execute validation and store result to return
+        $result = $validator->passes();
+        
+        foreach ($validator->getMessageBag()->all() as $attribute => $error)
+            $this->errors[$attribute][] = $error;
+        
         return $result;
     }
 
