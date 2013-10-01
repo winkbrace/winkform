@@ -233,7 +233,7 @@ if (! function_exists('xsschars'))
     }
 }
 
-if (! function_exists('error'))
+if (! error('str_like'))
 {
     /**
      * encapsulate message with error div
