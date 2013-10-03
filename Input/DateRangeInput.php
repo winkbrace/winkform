@@ -147,5 +147,16 @@ class DateRangeInput extends Input
 
         return $this;
     }
+    
+    /**
+     * is the DateRangeInput element posted?
+     *
+     * @see \WinkForm\Input\Input::isPosted()
+     * @return boolean
+     */
+    public function isPosted()
+    {
+        return ($this->dateFrom->isPosted() || $this->dateTo->isPosted());
+    }
 
 }

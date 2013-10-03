@@ -23,7 +23,7 @@ class WeekRangeInput extends Input
      */
     function __construct($name, $from = null, $to = null)
     {
-        $this->validator = new \WinkForm\Validation\Validator();
+        $this->validator = new \WinkForm\Validation\QuickValidator();
         
         $this->name = $name;
         
@@ -101,7 +101,7 @@ class WeekRangeInput extends Input
     /**
      * The width should be split equally between the two WeekInputs
      *
-     * Otherwise the childs will also have the same width as the parent
+     * Otherwise the children will also have the same width as the parent
      * which is not logical.
      *
      * @see Input::setWidth()
@@ -114,6 +114,15 @@ class WeekRangeInput extends Input
         
         $this->getWeekFrom()->setWidth($childWidth);
         $this->getWeekTo()->setWidth($childWidth);
+    }
+    
+    /**
+     * (non-PHPdoc)
+     * @see \WinkForm\Input\Input::isPosted()
+     */
+    public function isPosted()
+    {
+        return ($this->weekFrom->isPosted() || $this->weekTo->isPosted());
     }
     
 }

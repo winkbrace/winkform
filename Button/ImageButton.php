@@ -62,6 +62,7 @@ class ImageButton extends InputButton
 
     /**
      * @param url $src
+     * @return \WinkForm\Button\ImageButton
      */
     public function setSrc($src)
     {
@@ -83,6 +84,7 @@ class ImageButton extends InputButton
 
     /**
      * @param string $alt
+     * @return \WinkForm\Button\ImageButton
      */
     public function setAlt($alt)
     {

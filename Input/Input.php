@@ -376,7 +376,7 @@ abstract class Input
 
     /**
      * @param string $id
-     * @return $this
+     * @return \WinkForm\Input\Input
      */
     public function setId($id)
     {
@@ -393,7 +393,7 @@ abstract class Input
 
     /**
      * @param string $name
-     * @return $this
+     * @return \WinkForm\Input\Input
      */
     protected function setName($name)
     {
@@ -409,7 +409,7 @@ abstract class Input
 
     /**
      * @param string $value
-     * @return $this
+     * @return \WinkForm\Input\Input
      */
     public function setValue($value)
     {
@@ -423,7 +423,7 @@ abstract class Input
 
     /**
      * @param array $values
-     * @return $this
+     * @return \WinkForm\Input\Input
      */
     public function setValues($values)
     {
@@ -440,7 +440,7 @@ abstract class Input
 
     /**
      * @param string $label
-     * @return $this
+     * @return \WinkForm\Input\Input
      */
     public function setLabel($label)
     {
@@ -452,7 +452,7 @@ abstract class Input
     /**
      * @param array $labels
      * @param optional int $flag
-     * @return $this
+     * @return \WinkForm\Input\Input
      */
     public function setLabels($labels, $flag = null)
     {
@@ -475,7 +475,7 @@ abstract class Input
      * text, search, url, tel, email, and password.
      *
      * @param string $placeholder
-     * @return $this
+     * @return \WinkForm\Input\Input
      */
     public function setPlaceholder($placeholder)
     {
@@ -492,7 +492,7 @@ abstract class Input
      * get focus when the page loads
      *
      * @param boolean $flag
-     * @return $this
+     * @return \WinkForm\Input\Input
      */
     public function setAutoFocus($flag)
     {
@@ -510,7 +510,7 @@ abstract class Input
      * @param string $label
      * @param optional string $category
      * @param optional int $flag
-     * @return $this
+     * @return \WinkForm\Input\Input
      */
     public function appendOption($value, $label, $category = null, $flag = null)
     {
@@ -536,7 +536,7 @@ abstract class Input
      * @param $options
      * @param optional int $flag
      * @param string $category    - You can optionally specify one category for all options in the array
-     * @return $this
+     * @return \WinkForm\Input\Input
      */
     public function appendOptions($options, $flag = null, $category = null)
     {
@@ -558,7 +558,7 @@ abstract class Input
      * @param string $label
      * @param optional string $category
      * @param optional int $flag
-     * @return $this
+     * @return \WinkForm\Input\Input
      */
     public function prependOption($value, $label, $category = null, $flag = null)
     {
@@ -585,7 +585,7 @@ abstract class Input
      * @param $options
      * @param optional int $flag
      * @param string $category    - You can optionally specify one category for all options in the array
-     * @return $this
+     * @return \WinkForm\Input\Input
      */
     public function prependOptions($options, $flag = null, $category = null)
     {
@@ -607,7 +607,7 @@ abstract class Input
     /**
      * remove an option (= value and label) by providing the value of that option
      * @param string $value
-     * @return $this
+     * @return \WinkForm\Input\Input
      */
     public function removeOption($value)
     {
@@ -624,7 +624,7 @@ abstract class Input
     /**
      * set categories for dropdowns and checkboxes
      * @param array $categories
-     * @return $this
+     * @return \WinkForm\Input\Input
      */
     public function setCategories($categories)
     {
@@ -638,7 +638,7 @@ abstract class Input
 
     /**
      * @param int $width (in pixels)
-     * @return $this
+     * @return \WinkForm\Input\Input
      */
     public function setWidth($width)
     {
@@ -652,7 +652,7 @@ abstract class Input
 
     /**
      * @param array $classes
-     * @return $this
+     * @return \WinkForm\Input\Input
      */
     public function setClass($classes)
     {
@@ -673,7 +673,7 @@ abstract class Input
     /**
      * add a class or a list of classes separated by a space, just like in html
      * @param string $class
-     * @return $this
+     * @return \WinkForm\Input\Input
      */
     public function addClass($class)
     {
@@ -693,7 +693,7 @@ abstract class Input
     /**
      * remove a class from the classes
      * @param string $class
-     * @return $this
+     * @return \WinkForm\Input\Input
      */
     public function removeClass($class)
     {
@@ -710,7 +710,7 @@ abstract class Input
      * Resets the inline style and adds the new one
      *
      * @param string|array $styles
-     * @return $this
+     * @return \WinkForm\Input\Input
      */
     public function setStyle($styles)
     {
@@ -726,7 +726,7 @@ abstract class Input
      *
      * @param string|array $style  either a string (e.g. 'color:red; padding: 8px'),
      *                             or an array (e.g. array('color' => 'red', 'padding' => '8px'));
-     * @return $this
+     * @return \WinkForm\Input\Input
      */
     public function addStyle($style)
     {
@@ -745,7 +745,7 @@ abstract class Input
      *
      * @param string|array $style   either a string (e.g. 'color:red; padding: 8px'),
      *                              or an array (e.g. array('color' => 'red', 'padding' => '8px'));
-     * @return $this
+     * @return \WinkForm\Input\Input
      */
     public function removeStyle($style)
     {
@@ -788,7 +788,7 @@ abstract class Input
      * Set an initial value for the input field
      * @param string $selected
      * @param int $flag
-     * @return $this
+     * @return \WinkForm\Input\Input
      */
     public function setSelected($selected, $flag = 0)
     {
@@ -834,7 +834,7 @@ abstract class Input
     /**
      * set $disabled
      * @param string $disabled
-     * @return $this
+     * @return \WinkForm\Input\Input
      */
     public function setDisabled($disabled)
     {
@@ -848,7 +848,7 @@ abstract class Input
 
     /**
      * @param boolean $hidden
-     * @return $this
+     * @return \WinkForm\Input\Input
      */
     public function setHidden($hidden)
     {
@@ -865,7 +865,7 @@ abstract class Input
 
     /**
      * @param string $title
-     * @return $this
+     * @return \WinkForm\Input\Input
      */
     public function setTitle($title)
     {
@@ -876,7 +876,7 @@ abstract class Input
 
     /**
      * @param int $size
-     * @return $this
+     * @return \WinkForm\Input\Input
      */
     public function setSize($size)
     {
@@ -891,7 +891,7 @@ abstract class Input
     /**
      * indicator to let Input know if it's in the ReportForm class or not (needed to display labels or not)
      * @param bool $bool
-     * @return $this
+     * @return \WinkForm\Input\Input
      */
     public function setInReportForm($bool)
     {
@@ -913,7 +913,7 @@ abstract class Input
 
     /**
      * @param boolean $required
-     * @return $this
+     * @return \WinkForm\Input\Input
      */
     public function setRequired($required = true)
     {
@@ -946,7 +946,7 @@ abstract class Input
 
     /**
      * @param string $invalidation
-     * @return $this
+     * @return \WinkForm\Input\Input
      */
     public function addInvalidation($invalidation)
     {
@@ -982,11 +982,11 @@ abstract class Input
      * set all custom data attributes
      * Note: this will overwrite any previously set or added data attributes
      * @param array $dataAttributes
-     * @return $this
+     * @return \WinkForm\Input\Input
      */
     public function setDataAttributes($dataAttributes)
     {
-        if ($this->validate($dataAttributes, 'array') && $this->validate($dataAttributes, 'numeric_array'))
+        if ($this->validate($dataAttributes, 'array') && $this->validate($dataAttributes, 'assoc_array'))
         {
             $this->dataAttributes = $dataAttributes;
         }
@@ -998,7 +998,7 @@ abstract class Input
      * add a custom data attribute (Example: <input ... data-answer_to_life="42">)
      * @param string $name
      * @param string $value
-     * @return $this
+     * @return \WinkForm\Input\Input
      */
     public function addDataAttribute($name, $value)
     {
@@ -1010,7 +1010,7 @@ abstract class Input
     /**
      * remove a custom data attribute
      * @param string $name
-     * @return $this
+     * @return \WinkForm\Input\Input
      */
     public function removeDataAttribute($name)
     {
@@ -1025,7 +1025,7 @@ abstract class Input
      * @see http://laravel.com/docs/validation#available-validation-rules
      * The rules must exist in the \WinkForm\Validation\WinkValidator class
      * @param string|array $rules
-     * @return $this
+     * @return \WinkForm\Input\Input
      */
     public function addValidation($rules)
     {

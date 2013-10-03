@@ -23,7 +23,7 @@ class MonthRangeInput extends Input
      */
     function __construct($name, $from = null, $to = null)
     {
-        $this->validator = new \WinkForm\Validation\Validator();
+        $this->validator = new \WinkForm\Validation\QuickValidator();
         
         $this->name = $name;
         
@@ -96,6 +96,15 @@ class MonthRangeInput extends Input
     public function setMonthTo(MonthInput $monthTo)
     {
         $this->monthTo = $monthTo;
+    }
+    
+    /**
+     * (non-PHPdoc)
+     * @see \WinkForm\Input\Input::isPosted()
+     */
+    public function isPosted()
+    {
+        return ($this->monthFrom->isPosted() || $this->monthTo->isPosted());
     }
     
 }

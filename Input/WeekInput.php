@@ -66,8 +66,8 @@ class WeekInput extends Input
             if ($this->validate($selected, 'regex:/^\d{4}-\d{2}$/', 'Invalid week string given for :attribute. Needs to be format IYYY-IW.'))
             {
                 list($year, $week) = explode('-', $selected);
-                $this->validate($week, 'between:1,53');
-                $this->validate($year, 'between:1900,2200');
+                $this->validate($week, 'numeric|between:1,53');
+                $this->validate($year, 'numeric|between:1900,2200');
 
                 if ($this->validator->isValid())
                 {

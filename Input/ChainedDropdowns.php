@@ -55,7 +55,7 @@ class ChainedDropdowns extends Input
      * This must be a database table like array with row indexes as first level keys
      * Typically the result of a query fetch has this form ;)
      * @param array $data
-     * @return $this
+     * @return \WinkForm\Input\ChainedDropdowns
      */
     public function setData(array $data)
     {
@@ -82,7 +82,7 @@ class ChainedDropdowns extends Input
      */
     protected function createDropdowns()
     {
-        if (empty($this->result))
+        if (empty($this->data))
             throw new \Exception('Error creating dropdowns, because there are no results to create dropdowns from.');
 
         // the separator we use to glue the values of the different columns together to ensure uniqueness
@@ -90,7 +90,7 @@ class ChainedDropdowns extends Input
 
         // collect all values with their parent value into $options
         $options = array();
-        foreach ($this->result as $row)
+        foreach ($this->data as $row)
         {
             $class = null;
             foreach ($row as $colname => $value)

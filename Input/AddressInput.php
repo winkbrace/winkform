@@ -16,7 +16,7 @@ class AddressInput extends Input
      */
     function __construct($name, $value = null)
     {
-        $this->validator = new \WinkForm\Validation\Validator();
+        $this->validator = new \WinkForm\Validation\QuickValidator();
 
         $this->name = $name;
         
@@ -76,6 +76,8 @@ class AddressInput extends Input
      * setSelected method that will set the child inputs values and makes the font normal and removes the default values
      * @param array $selected array(postcode, housenr, extension)
      * @param int $flag
+     * @return \WinkForm\Input\AddressInput
+     * @see \WinkForm\Input\Input::setSelected()
      */
     public function setSelected($selected, $flag = 0)
     {
@@ -98,7 +100,8 @@ class AddressInput extends Input
     }
     
     /**
-     * @return TextInput $postcode
+     *
+     * @return \WinkForm\Input\TextInput $postcode
      */
     public function getPostcode()
     {
@@ -106,7 +109,7 @@ class AddressInput extends Input
     }
     
     /**
-     * @return TextInput $house_number
+     * \WinkForm\Input\TextInput $house_number
      */
     public function getHouseNumber()
     {
@@ -114,7 +117,7 @@ class AddressInput extends Input
     }
     
     /**
-     * @return TextInput $house_number_extension
+     * \WinkForm\Input\TextInput $house_number_extension
      */
     public function getHouseNumberExtension()
     {
