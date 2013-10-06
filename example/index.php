@@ -28,8 +28,11 @@ $form = new TestForm();
     body     { font-family:Comic Sans, Comic Sans MS, cursive;  }
     label    { float:left; width:200px;, padding:5px; }
     input    { float:left; padding:5px; margin:5px; }
+    .clear   { clear:both; }
     div#testCheckbox-container label { width:auto; }
     div#container { margin:100px; padding:20px 20px 50px 20px; border:10px dotted pink; }
+    div#checkboxes-container label,
+    div#radio-container label { width:auto; margin-right:10px; margin-left:2px; }
     </style>
 </head>
 <body>
