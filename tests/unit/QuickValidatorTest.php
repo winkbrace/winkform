@@ -64,19 +64,15 @@ class QuickValidatorTest extends \Codeception\TestCase\Test
     /**
      * test that a custom message is returned when given
      */
-    /*
     public function testCustomMessage()
     {
-        $input = Form::text('my_name');
-        $this->validator->addValidation($input, 'required', ':attribute is required.');
-        $this->validator->isValid();
+        $this->validator->validate('custom message test', 'foo', 'numeric', ':attribute must be a number.');
 
         $errors = $this->validator->getErrors();
-        $error = $errors['my_name'][0];
-        dd($error);
-        $this->assertEquals("my name is required.", $error, 'The error message should display the custom error message');
+        $error = $errors['custom message test'][0];
+        //dd($error);
+        $this->assertEquals("custom message test must be a number.", $error, 'The error message should display the custom error message');
     }
-    */
 
     /**
      * test that I use the date_format check right
@@ -122,7 +118,7 @@ class QuickValidatorTest extends \Codeception\TestCase\Test
 
         $this->fail('The ValidationException should have been thrown.');
     }
-    
+
     /**
      * test handling array of rules, just like in Laravel
      */

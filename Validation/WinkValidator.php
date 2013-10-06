@@ -1,11 +1,13 @@
 <?php namespace WinkForm\Validation;
 
+use \Illuminate\Validation\Validator;
+
 /**
  * Extension on Laravel Validator class with extra validations
  * @author b-deruiter
  *
  */
-class WinkValidator extends \Illuminate\Validation\Validator
+class WinkValidator extends Validator
 {
     /**
      * Validate that an attribute is not an array.

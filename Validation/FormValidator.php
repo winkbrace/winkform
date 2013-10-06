@@ -1,5 +1,8 @@
 <?php namespace WinkForm\Validation;
 
+use Illuminate\Validation\Validator;
+use WinkForm\Input\Input;
+
 /**
  * Validation class that utilizes Laravel Validation
  * @author b-deruiter
@@ -34,7 +37,7 @@ class FormValidator extends AbstractValidator
      * @param string $message custom message to overwrite default
      * @throws \Exception
      */
-    public function addValidation(\WinkForm\Input\Input $input, $rules, $message = null)
+    public function addValidation(Input $input, $rules, $message = null)
     {
         $rules = $this->checkRules($rules);
 
@@ -75,14 +78,35 @@ class FormValidator extends AbstractValidator
         $validator = new WinkValidator(
             $this->translator,
             $this->getValidationData(),
-            $this->getValidationRules(),
-            $this->getValidationMessages()
+            $this->getValidationRules()
         );
 
         $this->isValid = $validator->passes();
-        $this->errors = $validator->getMessageBag()->getMessages();
+        $this->fetchMessages($validator);
 
         return $this->isValid;
+    }
+
+    /**
+     * fetch error messages from validator and optionally prepend them with a custom message
+     * @param Validator $validator
+     */
+    protected function fetchMessages(Validator $validator)
+    {
+        /**
+         * $errors array is constructed like: field1 => array(0 => 'error message 1', 1 => 'error message 2' ...)
+         * I will prepend the custom error message (added by addValidation()) to this messages array per field
+         */
+        $this->errors = $validator->getMessageBag()->getMessages();
+        foreach ($this->errors as $name => &$messages)
+        {
+            if (! empty($this->validations[$name]['message']))
+            {
+                $attributeName = str_replace('_', ' ', $name);
+                $customMessage = str_replace(':attribute', $attributeName, $this->validations[$name]['message']);
+                array_unshift($messages, $customMessage);
+            }
+        }
     }
 
     /**
@@ -120,18 +144,6 @@ class FormValidator extends AbstractValidator
             $rules[$key] = $validation['rules'];
 
         return $rules;
-    }
-
-    /**
-     * @return array
-     */
-    protected function getValidationMessages()
-    {
-        $messages = array();
-        foreach ($this->validations as $key => $validation)
-            $messages[$key] = $validation['message'];
-
-        return $messages;
     }
 
     /**
