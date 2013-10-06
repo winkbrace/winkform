@@ -1,5 +1,15 @@
 <?php
 
+/**
+ * TODO these functions are not used in the library. Move to functions.php:
+ * isDate
+ * dateYmd
+ * isValidEmail
+ * array_join
+ * any_in_array
+ * array_is_numeric
+ */
+
 if (! function_exists('str_like'))
 {
     /**
@@ -17,14 +27,14 @@ if (! function_exists('str_like'))
         {
             if (empty($sub))  // starts or ends with %
                 continue;
-        
+
             $pos = strpos($haystack, $sub, $lastPos);
             if ($pos === false)
                 return false;
-            
+
             $lastPos = $pos;
         }
-        
+
         return true;
     }
 }
@@ -32,8 +42,8 @@ if (! function_exists('str_like'))
 if (! function_exists('isPosted'))
 {
     /**
-     * Check of $name gepost is en of het een waarde heeft.
-     * Als $value meegeven wordt, check dan of de gepostte waarde daaraan gelijk is.
+     * Check if $name is posted and not empty
+     * If $value is given, then check if the posted value equals the given value
      *
      * @param string $name
      * @param string $value
@@ -43,7 +53,7 @@ if (! function_exists('isPosted'))
     {
         if (! isset($_POST[$name]))
             return false;
-        
+
         if (is_array($_POST[$name]))
         {
             if (! empty($value))
@@ -75,16 +85,16 @@ if (! function_exists('isDate'))
     {
         if (! strstr($date, '-'))
             return false;
-            
+
         $arr = explode('-', $date);
-        
+
         if (count($arr) != 3)  // dd, mm en yyyy
             return false;
-            
+
         list($d, $m, $y) = $arr;
         if (! checkdate($m, $d, $y))  // php built in function to check if date is valid
             return false;
-        
+
         return true;
     }
 }
@@ -139,13 +149,13 @@ if (! function_exists('array_join'))
     {
         if (! is_array($array) || ! is_array($array2))
             return false;
-            
+
         // create array if single value is given
         if (! is_array($fields))
             $fields = array($fields);
-        
+
         $count = count($fields);  // store count in variable
-            
+
         foreach ($array as $nr => $row)
         {
             foreach($array2 as $row2)
@@ -157,7 +167,7 @@ if (! function_exists('array_join'))
                     if ($row[$field] == $row2[$field])
                        $c--;
                 }
-                
+
                 // if all fields are the same counter $c will be 0
                 if ($c == 0)
                 {
@@ -166,7 +176,7 @@ if (! function_exists('array_join'))
                 }
             }
         }
-        
+
         return $array;
     }
 }
@@ -187,7 +197,7 @@ if (! function_exists('any_in_array'))
             if (in_array($a, $array2))
                 return true;
         }
-        
+
         return false;
     }
 }
@@ -210,7 +220,7 @@ if (! function_exists('array_is_numeric'))
             if (! is_int($key))
                 return false;
         }
-        
+
         return true;
     }
 }
@@ -243,7 +253,7 @@ if (! function_exists('error'))
     function error($msg)
     {
         $div = '<div class="error">';
-    
+
         // first remove error divs from $msg
         if (strstr($msg, $div))
         {
@@ -261,7 +271,7 @@ if (! function_exists('error'))
                 $msg = $start . substr($end, 0, $endpos) . substr($end, $endpos + 6);
             }
         }
-        
+
         // then surround $msg with (new) error div
         return $div.$msg."</div>\n";
     }
@@ -306,7 +316,7 @@ if (! function_exists('coalesce'))
             if (! empty($arg))
                 return $arg;
         }
-        
+
         // if everything was empty, then return null
         return null;
     }
@@ -353,10 +363,10 @@ if (! function_exists('getFiles'))
                     $files[] = $dir . '/' . $entry;
                 }
             }
-    
+
             unset($files[$i]); // remove initial value, because we always add to array
         }
-    
+
         return array_values($files);
     }
 }
@@ -375,7 +385,7 @@ if (! function_exists('copySharedAttributes'))
     {
         if (! is_object($to) && ! is_object($from))
             return false;
-        
+
         // get the attributes of both objects and loop through all attributes that exist in both objects
         $rf = new \ReflectionObject($from);
         $rt = new \ReflectionObject($to);
@@ -384,7 +394,7 @@ if (! function_exists('copySharedAttributes'))
             $propFrom->setAccessible(true);
             $name = $propFrom->getName();
             $value = $propFrom->getValue($from);
-            
+
             if ($rt->hasProperty($name) && ! in_array($name, $excludes))
             {
                 $propTo = $rt->getProperty($name);
