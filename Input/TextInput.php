@@ -2,7 +2,7 @@
 
 class TextInput extends Input
 {
-    
+
     protected $type = 'text',
               $maxLength;
 
@@ -30,12 +30,12 @@ class TextInput extends Input
                 . $this->renderPlaceholder()
                 . $this->renderAutoFocus()
                 .' />'."\n";
-        
+
         $output .= $this->renderInvalidations();
-        
+
         return $output;
     }
-    
+
     /**
      * @return int $maxLength
      */
@@ -46,6 +46,7 @@ class TextInput extends Input
 
     /**
      * @param int $maxLength
+     * @return $this
      */
     public function setMaxLength($maxLength)
     {
@@ -53,7 +54,7 @@ class TextInput extends Input
             throw new \Exception('Invalid value for maxLength: '.$maxLength);
         else
             $this->maxLength = $maxLength;
-        
+
         return $this;
     }
 

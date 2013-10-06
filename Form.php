@@ -57,18 +57,14 @@ abstract class Form
     }
 
     /**
-     * create custom Input element
-     * @link http://www.w3schools.com/tags/att_input_type.asp
-     * @param string $type
+     * create ColorInput object
      * @param string $name
      * @param string $value
-     * @return \WinkForm\Input\CustomInput
+     * @return Input\ColorInput
      */
-    public static function custom($type, $name, $value = null)
+    public static function color($name, $value = null)
     {
-        $custom = new Input\CustomInput($name, $value);
-        $custom->setType($type);
-        return $custom;
+        return new Input\ColorInput($name, $value);
     }
 
     /**
@@ -173,6 +169,17 @@ abstract class Form
     }
 
     /**
+     * create NumberInput object
+     * @param string $name
+     * @param string $value
+     * @return \WinkForm\Input\NumberInput
+     */
+    public static function number($name, $value = null)
+    {
+        return new Input\NumberInput($name, $value);
+    }
+
+    /**
      * create PasswordInput object
      * @param string $name
      * @param string $value
@@ -195,6 +202,17 @@ abstract class Form
     }
 
     /**
+     * create RangeInput object
+     * @param string $name
+     * @param string $value
+     * @return \WinkForm\Input\RangeInput
+     */
+    public static function range($name, $value = null)
+    {
+        return new Input\RangeInput($name, $value);
+    }
+
+    /**
      * create reset button
      * @param string $name
      * @param string $value
@@ -206,6 +224,17 @@ abstract class Form
     }
 
     /**
+     * create SearchInput object
+     * @param string $name
+     * @param string $value
+     * @return \WinkForm\Input\SearchInput
+     */
+    public static function search($name, $value = null)
+    {
+        return new Input\SearchInput($name, $value);
+    }
+
+    /**
      * create SubmitButton object
      * @param string $name
      * @param string $value
@@ -214,6 +243,17 @@ abstract class Form
     public static function submit($name, $value = null)
     {
         return new Button\SubmitButton($name, $value);
+    }
+
+    /**
+     * create TelInput object
+     * @param string $name
+     * @param string $value
+     * @return \WinkForm\Input\TelInput
+     */
+    public static function tel($name, $value = null)
+    {
+        return new Input\TelInput($name, $value);
     }
 
     /**
@@ -236,6 +276,17 @@ abstract class Form
     public static function textarea($name, $value = null)
     {
         return new Input\TextAreaInput($name, $value);
+    }
+
+    /**
+     * create UrlInput object
+     * @param string $name
+     * @param string $value
+     * @return \WinkForm\Input\UrlInput
+     */
+    public static function url($name, $value = null)
+    {
+        return new Input\UrlInput($name, $value);
     }
 
     /**

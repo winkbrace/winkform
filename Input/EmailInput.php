@@ -3,7 +3,7 @@
 class EmailInput extends Input
 {
     protected $type = 'email';
-    
+
 
     /**
      * render the text input element
@@ -22,16 +22,15 @@ class EmailInput extends Input
                 . $this->renderValue()
                 . $this->renderStyle()
                 . $this->renderDisabled()
-                . $this->renderMaxLength()
                 . $this->renderTitle()
                 . $this->renderDataAttributes()
                 . $this->renderRequired()
                 . $this->renderPlaceholder()
                 .' />'."\n";
-        
+
         $output .= $this->renderInvalidations();
-        
+
         return $output;
     }
-    
+
 }
