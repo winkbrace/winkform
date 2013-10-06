@@ -84,7 +84,7 @@ class FormValidatorTest extends \Codeception\TestCase\Test
         // setup input to test
         $_POST['text'] = 'value';  // first create the POST value, because Input->$posted is set on construction.
         $input = Form::text('text');
-        $this->validator->addValidation($input, 'required|min:5|between:4,8', 'This is a message');
+        $this->validator->addValidation($input, 'required|min:5|between:4,8', 'This is a custom message');
 
         $result = $this->validator->isValid();
         $this->assertTrue($result, 'isValid() should return true when all rules will validate');
@@ -97,7 +97,7 @@ class FormValidatorTest extends \Codeception\TestCase\Test
         $this->assertFalse($this->validator->run(), 'isValid() should return false when not all rules validate');
 
         $errors = $this->validator->getErrors();
-        $this->assertCount(2, $errors['text'], 'errors should contain 2 errors because 2 validations failed');
+        $this->assertCount(3, $errors['text'], 'errors should contain 3 errors because 1 custom message + 2 validations failed');
     }
 
     /**

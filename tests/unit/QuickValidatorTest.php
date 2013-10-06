@@ -62,19 +62,6 @@ class QuickValidatorTest extends \Codeception\TestCase\Test
     }
 
     /**
-     * test that a custom message is returned when given
-     */
-    public function testCustomMessage()
-    {
-        $this->validator->validate('custom message test', 'foo', 'numeric', ':attribute must be a number.');
-
-        $errors = $this->validator->getErrors();
-        $error = $errors['custom message test'][0];
-        //dd($error);
-        $this->assertEquals("custom message test must be a number.", $error, 'The error message should display the custom error message');
-    }
-
-    /**
      * test that I use the date_format check right
      */
     public function testDateFormat()
