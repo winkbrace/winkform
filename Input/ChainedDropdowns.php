@@ -175,12 +175,15 @@ class ChainedDropdowns extends Input
 
     /**
      * Override the default implementation if this input element is posted
-     * @see Input::setPosted()
+     * @see Input::isPosted()
      * @return boolean
      */
     public function isPosted()
     {
-        return $_SERVER['REQUEST_METHOD'] === 'POST';
+        if (empty($this->dropdowns))
+            return false;
+
+        return $this->dropdowns[0]->isPosted();
     }
 
 }
