@@ -200,6 +200,17 @@ abstract class Form
     {
         return new Input\RadioInput($name, $value);
     }
+    
+    /**
+     * create a <button> element
+     * @param string $name
+     * @param string $value
+     * @return \WinkForm\Button\Button
+     */
+    public static function button($name, $value = null)
+    {
+        return new Button\Button($name, $value);
+    }
 
     /**
      * create RangeInput object

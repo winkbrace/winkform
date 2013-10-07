@@ -67,7 +67,7 @@ class MonthRangeInput extends Input
     }
     
     /**
-     * @return the $monthFrom
+     * @return MonthInput $monthFrom
      */
     public function getMonthFrom()
     {
@@ -75,7 +75,7 @@ class MonthRangeInput extends Input
     }
 
     /**
-     * @return the $monthTo
+     * @return MonthInput $monthTo
      */
     public function getMonthTo()
     {

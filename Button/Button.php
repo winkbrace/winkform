@@ -2,7 +2,7 @@
 
 /**
  * The difference between a <input type="button"> and a <button> element is that
- * for the later is that inside the <button> element you can put content.
+ * inside the <button> element you can put content, providing more flexibility.
  * @author m-nedelcu
  *
  */
