@@ -75,7 +75,7 @@ class Button extends \WinkForm\Input\Input
         
         if (in_array($type, $allowedTypes))
         {
-            $this->setType($type);
+            $this->type = $type;
         }
         
         return $this;

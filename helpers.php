@@ -242,3 +242,22 @@ if (! function_exists('copySharedAttributes'))
         }
     }
 }
+
+if (! function_exists('is_blank'))
+{
+    /**
+     * A version of empty() that accepts these as valid not empty values:
+     * <ul>
+     *    <li>0 (0 as an integer)</li>
+     *    <li>0.0 (0 as a float)</li>
+     *    <li>"0" (0 as a string)</li>
+     * </ul>
+     *
+     * @param mixed $value
+     * @return boolean
+     */
+    function is_blank($value)
+    {
+        return empty($value) && !is_numeric($value);
+    }
+}
