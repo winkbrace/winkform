@@ -7,13 +7,13 @@
  */
 class MonthRangeInput extends Input
 {
-    // the 2 month objects
-    protected $monthFrom,
-              $monthTo;
-    
-    protected $validator;
-    
-    
+    /** @var MonthInput */
+    protected $monthFrom;
+
+    /** @var MonthInput */
+    protected $monthTo;
+
+
     /**
      * construct MonthRange object
      *
@@ -23,17 +23,15 @@ class MonthRangeInput extends Input
      */
     function __construct($name, $from = null, $to = null)
     {
-        $this->validator = new \WinkForm\Validation\QuickValidator();
-        
-        $this->name = $name;
-        
+        parent::__construct($name);
+
         $this->setMonthFrom(new MonthInput($name.'-from', $from));
         $this->setMonthTo(new MonthInput($name.'-to', $to));
-        
+
         // set default labels
         $this->setLabels(array('Between', 'and'));
     }
-    
+
     /**
      * render the month range dropdown fields
      */
@@ -46,26 +44,27 @@ class MonthRangeInput extends Input
         $excludes = array('name','id','value','values','label','labels','selected','posted','required','invalidations');
         copySharedAttributes($this->monthFrom, $this, $excludes);
         copySharedAttributes($this->monthTo, $this, $excludes);
-        
+
         // render the month range dropdowns
         $output = $this->monthFrom->render() . '&nbsp;t/m&nbsp; ' . $this->monthTo->render();
-        
+
         $output .= $this->renderInvalidations();
-        
+
         return $output;
     }
-    
+
     /**
      * set labels for the Months
-     *
-     * @param array $labels array(from, to)
+     * @param array $labels  array(from, to)
+     * @param null  $flag
+     * @return void|Input
      */
     public function setLabels($labels, $flag = null)
     {
         $this->monthFrom->setLabel($labels[0], $flag);
         $this->monthTo->setLabel($labels[1], $flag);
     }
-    
+
     /**
      * @return MonthInput $monthFrom
      */
@@ -97,7 +96,7 @@ class MonthRangeInput extends Input
     {
         $this->monthTo = $monthTo;
     }
-    
+
     /**
      * (non-PHPdoc)
      * @see \WinkForm\Input\Input::isPosted()
@@ -106,5 +105,5 @@ class MonthRangeInput extends Input
     {
         return ($this->monthFrom->isPosted() || $this->monthTo->isPosted());
     }
-    
+
 }

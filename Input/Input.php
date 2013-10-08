@@ -1,5 +1,7 @@
 <?php namespace WinkForm\Input;
 
+use Illuminate\Support\Collection;
+
 /**
  * Abstract class for input classes
  * Only render() _has_ to be different for each concrete class. The rest can be inherited.
@@ -16,14 +18,12 @@ abstract class Input
               $values = array(),
               $labels = array(),
               $categories,
-              $width,
               $classes = array(),
               $title,
-              $styles = array(),
+              $styles,
               $selected,
               $posted,
               $disabled,
-              $hidden,
               $onclick,
               $onchange,
               $size, // File Input doesn't support style="width" and Dropdown also uses it
@@ -67,6 +67,9 @@ abstract class Input
             else
                 $this->setValue($value);
         }
+
+        // init Collections
+        $this->styles = new Collection();
 
         // store posted as selected
         $this->setPosted();
@@ -228,7 +231,13 @@ abstract class Input
      */
     public function getWidth()
     {
-        return $this->width;
+        foreach ($this->styles as $name => $value)
+        {
+            if ($name == 'width')
+                return $value;
+        }
+
+        return null;
     }
 
     /**
@@ -254,14 +263,11 @@ abstract class Input
      */
     public function renderStyle()
     {
-        // use getStyles() to make sure all the styles are fetched in a uniform way
-        $styles = $this->getStyles();
-
-        if (empty($styles))
+        if ($this->styles->isEmpty())
             return null;
 
         $inlineStyle = array();
-        foreach ($styles as $attribute => $value)
+        foreach ($this->styles as $attribute => $value)
             $inlineStyle[] = $attribute . ':' . $value;
 
         return ' style="' . implode('; ', $inlineStyle) . ';"';
@@ -269,20 +275,10 @@ abstract class Input
 
     /**
      *
-     * @return array $styles
+     * @return Collection $styles
      */
     public function getStyles()
     {
-        /* This gives child input elements that are part of an another input
-         * (e.g. WeekRange) the possibility to still have their own width and
-         * hidden visibility by overwriting the copied styles, just before render.
-         */
-        if ($this->width)
-            $this->addStyle(array('width' => $this->width . 'px'));
-
-        if ($this->hidden)
-            $this->addStyle(array('display' => 'none'));
-
         return $this->styles;
     }
 
@@ -319,19 +315,19 @@ abstract class Input
     }
 
     /**
-     * @return boolean $hidden
+     * @return boolean
      */
     public function getHidden()
     {
-        return $this->hidden;
+        return $this->styles->has('hidden');
     }
 
     /**
-     * @return boolean $hidden
+     * @return boolean
      */
     public function isHidden()
     {
-        return $this->hidden;
+        return $this->getHidden();
     }
 
     /**
@@ -367,7 +363,8 @@ abstract class Input
     }
 
     /**
-     * @return string autofocus attribute if it was set
+     * return autofocus attribute if it was set
+     * @return null|string
      */
     public function renderAutoFocus()
     {
@@ -644,7 +641,7 @@ abstract class Input
     {
         if ($this->validate($width, 'numeric'))
         {
-            $this->width = $width;
+            $this->addStyle(array('width' => $width.'px'));
         }
 
         return $this;
@@ -656,6 +653,20 @@ abstract class Input
      */
     public function setClass($classes)
     {
+        $this->classes = array();
+
+        $this->addClass($classes);
+
+        return $this;
+    }
+
+    /**
+     * add a class or a list of classes separated by a space, just like in html
+     * @param string|array
+     * @return \WinkForm\Input\Input
+     */
+    public function addClass($classes)
+    {
         if (! is_array($classes))
             $classes = explode(' ', trim($classes));
 
@@ -663,27 +674,8 @@ abstract class Input
         {
             if ($this->validate($class, 'alpha_dash'))
             {
-                $this->classes[] = $class;
-            }
-        }
-
-        return $this;
-    }
-
-    /**
-     * add a class or a list of classes separated by a space, just like in html
-     * @param string $class
-     * @return \WinkForm\Input\Input
-     */
-    public function addClass($class)
-    {
-        $classes = explode(' ', $class);
-        foreach ($classes as $cls)
-        {
-            if ($this->validate($cls, 'alpha_dash'))
-            {
-                if (! in_array($cls, $this->classes))
-                    $this->classes[] = $cls;
+                if (! in_array($class, $this->classes))
+                    $this->classes[] = $class;
             }
         }
 
@@ -709,13 +701,13 @@ abstract class Input
     /**
      * Resets the inline style and adds the new one
      *
-     * @param string|array $styles
+     * @param string|array|Collection $styles
      * @return \WinkForm\Input\Input
      */
     public function setStyle($styles)
     {
         // use addStyle to keep the logic in one function
-        $this->styles = array();
+        $this->styles = new Collection();
         $this->addStyle($styles);
 
         return $this;
@@ -730,11 +722,11 @@ abstract class Input
      */
     public function addStyle($style)
     {
-        $styles = (is_array($style)) ? $style : $this->parseStyleToArray($style);
+        $styles = (is_string($style)) ? $this->parseStyleToArray($style) : $style;
 
         foreach ($styles as $attribute => $value)
         {
-            $this->styles[$attribute] = trim($value);
+            $this->styles->put($attribute, trim($value));
         }
 
         return $this;
@@ -749,12 +741,22 @@ abstract class Input
      */
     public function removeStyle($style)
     {
-        $styles = (is_array($style)) ? $style : $this->parseStyleToArray($style);
+        $styles = (is_string($style)) ? $this->parseStyleToArray($style) : $style;
 
         foreach ($styles as $attribute => $value)
-            unset($this->styles[$attribute]);
+            $this->styles->forget($attribute);
 
         return $this;
+    }
+
+    /**
+     * get the value of the style by style attribute name
+     * @param $name
+     * @return null
+     */
+    public function getStyle($name)
+    {
+        return $this->styles->get($name);
     }
 
     /**
@@ -865,9 +867,9 @@ abstract class Input
     {
         if ($this->validate($hidden, 'boolean'))
         {
-            $this->hidden = $hidden;
-
-            if ($this->hidden === false)
+            if ($hidden)
+                $this->addStyle(array('display' => 'none'));
+            else
                 $this->removeStyle(array('display' => 'none'));
         }
 

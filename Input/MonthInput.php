@@ -16,9 +16,7 @@ class MonthInput extends Input
      */
     function __construct($name, $value = null)
     {
-        $this->validator = new \WinkForm\Validation\QuickValidator();
-
-        $this->name = $name;
+        parent::__construct($name, $value);
 
         // create the two dropdowns
         $this->month = new Dropdown($name.'_month', date('m'));

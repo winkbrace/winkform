@@ -15,10 +15,8 @@ class WeekInput extends Input
      */
     function __construct($name, $week = null)
     {
-        $this->validator = new \WinkForm\Validation\QuickValidator();
+        parent::__construct($name, $week);
 
-        $this->setName($name);
-        $this->setId($name); // normally you want the id to be the same as the name
         $this->addClass('week-dropdown'); // this will be copied to children on render()
 
         // create week and year dropdown objects

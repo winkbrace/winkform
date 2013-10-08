@@ -2,13 +2,13 @@
 
 class AddressInput extends Input
 {
-    
+
     protected $type = 'address',
               $postcode,
               $houseNumber,
               $houseNumberExtension; // hidden input field with the name $name that will contain the YYYY-MM value
-    
-    
+
+
     /**
      * construct AddressInput object
      *
@@ -16,20 +16,18 @@ class AddressInput extends Input
      */
     function __construct($name, $value = null)
     {
-        $this->validator = new \WinkForm\Validation\QuickValidator();
+        parent::__construct($name, $value);
 
-        $this->name = $name;
-        
         // create the text inputs
         // NOTE: names must be the same as the values for the jquery script
         $this->postcode = new TextInput('postcode', 'postcode');
         $this->houseNumber = new TextInput('huisnr', 'huisnr');
         $this->houseNumberExtension = new TextInput('toevoeging', 'toevoeging');
-        
+
         // set the global style that will get copied down
         $this->setWidth(150)->addStyle('font-style:italic; color:#888;')->addClass('address');
     }
-    
+
     /**
      * render the date range input fields
      */
@@ -43,7 +41,7 @@ class AddressInput extends Input
         copySharedAttributes($this->postcode, $this, $excludes);
         copySharedAttributes($this->houseNumber, $this, $excludes);
         copySharedAttributes($this->houseNumberExtension, $this, $excludes);
-        
+
         $this->postcode->setLabel($this->label);
 
         // render the date range input fields
@@ -52,7 +50,7 @@ class AddressInput extends Input
                 . $this->houseNumberExtension->render();
 
         $output .= $this->renderInvalidations();
-        
+
         $output .= '<script>
                     $("input.address").focus(function() {
                         if ($(this).val() == $(this).attr("id")) {
@@ -60,7 +58,7 @@ class AddressInput extends Input
                         }
                     });
                     </script>'."\n";
-        
+
         // if setSelected has been used, remove the default values by triggering focus on the .address elements
         if (! empty($this->selected))
         {
@@ -71,7 +69,7 @@ class AddressInput extends Input
 
         return $output;
     }
-    
+
     /**
      * setSelected method that will set the child inputs values and makes the font normal and removes the default values
      * @param array $selected array(postcode, housenr, extension)
@@ -88,17 +86,17 @@ class AddressInput extends Input
             {
                 $this->selected = $selected;
                 $this->removeStyle('font-style:italic; color:#888;');
-                
+
                 list($postcode, $housenumber, $extension) = $selected;
                 $this->postcode->setSelected($postcode);
                 $this->houseNumber->setSelected($housenumber);
                 $this->houseNumberExtension->setSelected($extension);
             }
         }
-        
+
         return $this;
     }
-    
+
     /**
      *
      * @return \WinkForm\Input\TextInput $postcode
@@ -107,7 +105,7 @@ class AddressInput extends Input
     {
         return $this->postcode;
     }
-    
+
     /**
      * \WinkForm\Input\TextInput $house_number
      */
@@ -115,7 +113,7 @@ class AddressInput extends Input
     {
         return $this->houseNumber;
     }
-    
+
     /**
      * \WinkForm\Input\TextInput $house_number_extension
      */
@@ -123,7 +121,7 @@ class AddressInput extends Input
     {
         return $this->houseNumberExtension;
     }
-    
+
     /**
      * (non-PHPdoc)
      * @see \WinkForm\Input\Input::isPosted()
@@ -136,5 +134,5 @@ class AddressInput extends Input
                 && $this->houseNumber->getPosted() != 'huisnr'
                );
     }
-    
+
 }

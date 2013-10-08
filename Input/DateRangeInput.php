@@ -1,7 +1,5 @@
 <?php namespace WinkForm\Input;
 
-use WinkForm\Validation\QuickValidator;
-
 /**
  * Create 2 date input fields for selecting a date range
  *
@@ -29,9 +27,7 @@ class DateRangeInput extends Input
      */
     function __construct($name, $from, $to)
     {
-        $this->validator = new QuickValidator();
-
-        $this->name = $name;
+        parent::__construct($name);
 
         // create the two date input fields
         $this->setDateFrom(new DateInput($this->name.'-from', $from));
@@ -147,7 +143,7 @@ class DateRangeInput extends Input
 
         return $this;
     }
-    
+
     /**
      * is the DateRangeInput element posted?
      *

@@ -239,6 +239,25 @@ class InputTest extends \Codeception\TestCase\Test
     }
 
     /**
+     * test passing down style to child Input object
+     */
+    public function testStyleInheritance()
+    {
+        $input = new \WinkForm\Input\DateRangeInput('test', date('d-m-Y', strtotime('1 week ago')), date('d-m-Y'));
+        $input->setWidth(300);
+        $input->setHidden(true);
+        $input->addStyle('padding:5px; margin:5px;');
+        $expected = array(
+            'width' => '300px',
+            'display' => 'none',
+            'padding' => '5px',
+            'margin' => '5px',
+        );
+        dd($input->getStyles());
+        $this->assertEquals($expected, $input->getStyles());
+    }
+
+    /**
      * test title attribute
      */
     public function testInputTitle()

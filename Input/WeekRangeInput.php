@@ -7,13 +7,13 @@
  */
 class WeekRangeInput extends Input
 {
-    // the 2 week objects
-    protected $weekFrom,
-              $weekTo;
-    
-    protected $validator;
-    
-    
+    /** @var WeekInput */
+    protected $weekFrom;
+
+    /** @var WeekInput */
+    protected $weekTo;
+
+
     /**
      * construct WeekRange object
      *
@@ -23,17 +23,15 @@ class WeekRangeInput extends Input
      */
     function __construct($name, $from = null, $to = null)
     {
-        $this->validator = new \WinkForm\Validation\QuickValidator();
-        
-        $this->name = $name;
-        
+        parent::__construct($name);
+
         $this->setWeekFrom(new WeekInput($name.'-from', $from));
         $this->setWeekTo(new WeekInput($name.'-to', $to));
-        
+
         // set default labels
         $this->setLabels(array('Between', 'and'));
     }
-    
+
     /**
      * render the week range dropdown fields
      */
@@ -46,15 +44,15 @@ class WeekRangeInput extends Input
         $excludes = array('name','id','value','values','label','labels','selected','posted','required','invalidations','width');
         copySharedAttributes($this->weekFrom, $this, $excludes);
         copySharedAttributes($this->weekTo, $this, $excludes);
-        
+
         // render the week range dropdowns
         $output = $this->weekFrom->render() . '&nbsp;t/m&nbsp; ' . $this->weekTo->render();
-        
+
         $output .= $this->renderInvalidations();
-            
+
         return $output;
     }
-    
+
     /**
      * set labels for the Weeks
      *
@@ -65,7 +63,7 @@ class WeekRangeInput extends Input
         $this->weekFrom->setLabel($labels[0], $flag);
         $this->weekTo->setLabel($labels[1], $flag);
     }
-    
+
     /**
      * @return WeekInput $weekFrom
      */
@@ -97,7 +95,7 @@ class WeekRangeInput extends Input
     {
         $this->weekTo = $weekTo;
     }
-    
+
     /**
      * The width should be split equally between the two WeekInputs
      *
@@ -109,13 +107,13 @@ class WeekRangeInput extends Input
     public function setWidth($width)
     {
         parent::setWidth($width);
-        
+
         $childWidth = round($width / 2, 0, PHP_ROUND_HALF_DOWN);
-        
+
         $this->getWeekFrom()->setWidth($childWidth);
         $this->getWeekTo()->setWidth($childWidth);
     }
-    
+
     /**
      * (non-PHPdoc)
      * @see \WinkForm\Input\Input::isPosted()
@@ -124,5 +122,5 @@ class WeekRangeInput extends Input
     {
         return ($this->weekFrom->isPosted() || $this->weekTo->isPosted());
     }
-    
+
 }
