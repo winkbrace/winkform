@@ -184,9 +184,9 @@ class InputTest extends \Codeception\TestCase\Test
     public function testInputHidden()
     {
         $input = new TextInput('test');
-        $this->assertNull($input->getHidden(), 'Initially hidden is null');
+        $this->assertFalse($input->getHidden(), 'Initially hidden is false');
         $input->setHidden('invalid');
-        $this->assertNull($input->getHidden(), 'Giving an invalid option should not change hidden');
+        $this->assertFalse($input->getHidden(), 'Giving an invalid option should not change hidden');
 
         $input->setHidden(true);
         $this->assertTrue($input->getHidden());
@@ -226,7 +226,7 @@ class InputTest extends \Codeception\TestCase\Test
             'width' => '300px',
             'display' => 'none',
         );
-        $this->assertEquals($expected, $input->getStyles());
+        $this->assertEquals($expected, $input->getStyles()->all());
         $this->assertEquals(' style="text-align:right; width:300px; display:none;"', $input->renderStyle());
         // test removing style with spaces around
         $input->removeStyle(' text-align:right; ');
@@ -235,7 +235,7 @@ class InputTest extends \Codeception\TestCase\Test
         $this->assertEquals(' style="width:200px; display:none;"', $input->renderStyle());
 
         $input->setHidden(false);
-        $this->assertEquals(array('width' => '200px'), $input->getStyles(), 'setting hidden to false should remove the display style');
+        $this->assertEquals(array('width' => '200px'), $input->getStyles()->all(), 'setting hidden to false should remove the display style');
     }
 
     /**
@@ -253,8 +253,14 @@ class InputTest extends \Codeception\TestCase\Test
             'padding' => '5px',
             'margin' => '5px',
         );
-        dd($input->getStyles());
-        $this->assertEquals($expected, $input->getStyles());
+        $this->assertEquals($expected, $input->getStyles()->all());
+
+        $from = $input->getDateFrom();
+        // only upon rendering will we copy shared attributes
+        $input->render();
+        // on rendering DateInput, the display attribute is moved to the container div
+        unset($expected['display']);
+        $this->assertEquals($expected, $from->getStyles()->all());
     }
 
     /**

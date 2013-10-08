@@ -319,7 +319,7 @@ abstract class Input
      */
     public function getHidden()
     {
-        return $this->styles->has('hidden');
+        return $this->styles->get('display', 'auto') == 'none';
     }
 
     /**
