@@ -55,8 +55,9 @@ class WeekRangeInput extends Input
 
     /**
      * set labels for the Weeks
-     *
-     * @param array $labels array(from, to)
+     * @param array     $labels
+     * @param null|int  $flag
+     * @return void|Input
      */
     public function setLabels($labels, $flag = null)
     {

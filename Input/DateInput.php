@@ -154,10 +154,8 @@ class DateInput extends Input
     {
         $options = $this->jsOptions;
 
-        //there will be no validation here, it's assumed the user has knowledge
+        // There will be no validation here, it's assumed the user has knowledge
         // of the possible arguments. Only some defaults will be provided
-
-        // TODO build date format translation based on $this->dateFormat
 
         // Merge in defaults.
         $options += array(

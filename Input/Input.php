@@ -1,6 +1,7 @@
 <?php namespace WinkForm\Input;
 
 use Illuminate\Support\Collection;
+use WinkForm\Validation\QuickValidator;
 
 /**
  * Abstract class for input classes
@@ -55,7 +56,7 @@ abstract class Input
      */
     function __construct($name, $value = null)
     {
-        $this->validator = new \WinkForm\Validation\QuickValidator();
+        $this->validator = new QuickValidator();
 
         $this->setName($name);
         $this->setId($name); // normally you want the id to be the same as the name
