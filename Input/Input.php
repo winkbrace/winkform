@@ -1139,6 +1139,7 @@ abstract class Input
      * @param string $value        the value to test
      * @param string|array $rules  the rules to test against
      * @param string $message      custom error message
+     * @return bool
      */
     protected function validate($value, $rules, $message = null)
     {
