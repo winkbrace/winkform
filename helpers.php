@@ -1,15 +1,5 @@
 <?php
 
-/**
- * TODO these functions are not used in the library. Move to functions.php:
- * isDate
- * dateYmd
- * isValidEmail
- * array_join
- * any_in_array
- * array_is_numeric
- */
-
 if (! function_exists('str_like'))
 {
     /**
