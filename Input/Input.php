@@ -845,7 +845,7 @@ abstract class Input
 
         return $this;
     }
-    
+
     /**
      * resets any previously set disabled option
      * @return \WinkForm\Input\Input
@@ -853,7 +853,7 @@ abstract class Input
     public function removeDisabled()
     {
         $this->disabled = null;
-        
+
         return $this;
     }
 
@@ -868,7 +868,7 @@ abstract class Input
             $this->hidden = $hidden;
 
             if ($this->hidden === false)
-                $this->removeStyle(array('display'));
+                $this->removeStyle(array('display' => 'none'));
         }
 
         return $this;
