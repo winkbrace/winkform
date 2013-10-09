@@ -37,10 +37,15 @@ class AddressInput extends Input
         $this->checkValidity();
 
         // via casting we can pass all attributes that were set on AddressInput down to the DateInput fields
-        $excludes = array('type', 'name','id','value','values','label','labels','selected','posted','required','invalidations');
+        $excludes = array('type', 'name','id','value','values','label','labels','selected','posted','required','invalidations','styles');
         copySharedAttributes($this->postcode, $this, $excludes);
         copySharedAttributes($this->houseNumber, $this, $excludes);
         copySharedAttributes($this->houseNumberExtension, $this, $excludes);
+        // manually copy style
+        $this->styles->forget('width');
+        $this->postcode->addStyle($this->styles);
+        $this->houseNumber->addStyle($this->styles);
+        $this->houseNumberExtension->addStyle($this->styles);
 
         $this->postcode->setLabel($this->label);
 

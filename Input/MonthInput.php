@@ -43,9 +43,13 @@ class MonthInput extends Input
         $this->checkValidity();
 
         // via casting we can pass all attributes that were set on DateRange down to the DateInput fields
-        $excludes = array('name','id','value','values','label','labels','selected','posted','required','invalidations');
+        $excludes = array('name','id','value','values','label','labels','selected','posted','required','invalidations','styles');
         copySharedAttributes($this->month, $this, $excludes);
         copySharedAttributes($this->year, $this, $excludes);
+        // manually copy style
+        $this->styles->forget('width');
+        $this->year->addStyle($this->styles);
+        $this->month->addStyle($this->styles);
 
         // force the widths
         $this->month->setWidth(92);

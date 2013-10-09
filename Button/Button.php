@@ -14,6 +14,7 @@ class Button extends \WinkForm\Input\Input
      */
     protected $type = 'submit';
     
+    
     /**
      * construct Button
      * @param string $name

@@ -46,9 +46,13 @@ class DateRangeInput extends Input
         $this->checkValidity();
 
         // via casting we can pass all attributes that were set on DateRane down to the DateInput fields
-        $excludes = array('type', 'name', 'id', 'value', 'label', 'selected', 'posted', 'required', 'invalidations', 'inReportForm');
+        $excludes = array('type', 'name', 'id', 'value', 'label', 'selected', 'posted', 'required', 'invalidations', 'inReportForm', 'styles');
         copySharedAttributes($this->dateFrom, $this, $excludes);
         copySharedAttributes($this->dateTo, $this, $excludes);
+        // manually copy style
+        $this->styles->forget('width');
+        $this->dateFrom->addStyle($this->styles);
+        $this->dateTo->addStyle($this->styles);
 
         // render the date range input fields
         $output = $this->dateFrom->render() . $this->dateTo->render();

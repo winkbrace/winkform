@@ -1,10 +1,13 @@
 <?php
 
+use Illuminate\Support\Collection;
+
 use Codeception\Util\Stub;
-use WinkForm\Validation\WinkValidator;
 use Illuminate\Filesystem\Filesystem;
 use Illuminate\Translation\FileLoader;
 use Illuminate\Translation\Translator;
+use WinkForm\Validation\WinkValidator;
+use WinkForm\Input\TextInput;
 
 /**
  * Tests for the Illuminate\Validation\Validator extension WinkValidator
@@ -182,6 +185,29 @@ class WinkValidatorTest extends \Codeception\TestCase\Test
         $value = array(1, 10, 3);
         $validator = new WinkValidator($this->translator, array($value), array($rule));
         $this->assertFalse($validator->passes(), 'not all values in 1,10,3 should be in array 1,2,3,4,5');
+    }
+    
+    /**
+     * test that all objects in array or collection are instance of given object
+     */
+    public function testCollectionOf()
+    {
+        $rule = 'collection_of:WinkForm\Input\TextInput,WinkForm\Input\Input';
+        
+        // array of TextInput objects that are also Input objects
+        $inputs = array(
+            new TextInput('test1'),
+            new TextInput('test2'),
+            new TextInput('test3'),
+            );
+        
+        $validator = new WinkValidator($this->translator, array($inputs), array($rule));
+        $this->assertTrue($validator->passes(), 'all values in array are instance of TextInput and Input');
+        
+        // now test with Collection object
+        $inputs = new Collection($inputs);
+        $validator = new WinkValidator($this->translator, array($inputs), array($rule));
+        $this->assertTrue($validator->passes(), 'all values in array are instance of TextInput and Input');
     }
 
 }

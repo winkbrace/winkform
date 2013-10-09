@@ -41,9 +41,13 @@ class MonthRangeInput extends Input
         $this->checkValidity();
 
         // copy attributes from MonthRange to the MonthInputs
-        $excludes = array('name','id','value','values','label','labels','selected','posted','required','invalidations');
+        $excludes = array('name','id','value','values','label','labels','selected','posted','required','invalidations','styles');
         copySharedAttributes($this->monthFrom, $this, $excludes);
         copySharedAttributes($this->monthTo, $this, $excludes);
+        // manually copy style
+        $this->styles->forget('width');
+        $this->monthFrom->addStyle($this->styles);
+        $this->monthTo->addStyle($this->styles);
 
         // render the month range dropdowns
         $output = $this->monthFrom->render() . '&nbsp;t/m&nbsp; ' . $this->monthTo->render();

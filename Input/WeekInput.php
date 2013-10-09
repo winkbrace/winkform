@@ -90,11 +90,16 @@ class WeekInput extends Input
 
         $output = '';
 
+        // TODO find proper solution for sharing attributes. Look into Observer pattern
         // copy the attributes given to WeekInput to the children year and week
-        $excludes = array('name','id','value','values','label','labels','selected','posted','required','invalidations', 'width');
+        $excludes = array('name','id','value','values','label','labels','selected','posted','required','invalidations','styles');
         copySharedAttributes($this->year, $this, $excludes);
         copySharedAttributes($this->week, $this, $excludes);
-
+        // manually copy style
+        $this->styles->forget('width');
+        $this->year->addStyle($this->styles);
+        $this->week->addStyle($this->styles);
+        
         // start output
         if (! empty($this->label) && ! $this->inReportForm)
             $output .= '<label for="'.$this->id.'">'.$this->label.'</label> ';
@@ -121,7 +126,7 @@ class WeekInput extends Input
     }
 
     /**
-     * The width should be split equally between the two WeekInputs
+     * The width should be split between the two WeekInputs
      *
      * Otherwise the childs will also have the same width as the parent
      * which is not logical.
@@ -134,8 +139,8 @@ class WeekInput extends Input
 
         $yearWidth = round($width * 0.55, 0, PHP_ROUND_HALF_DOWN);
 
-        $this->year->setWidth($yearWidth);            // 60% width to the year
-        $this->week->setWidth($width - $yearWidth);   // 40% width to the week
+        $this->year->setWidth($yearWidth);            // 55% width to the year
+        $this->week->setWidth($width - $yearWidth);   // 45% width to the week
     }
 
 }

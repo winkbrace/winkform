@@ -232,13 +232,7 @@ abstract class Input
      */
     public function getWidth()
     {
-        foreach ($this->styles as $name => $value)
-        {
-            if ($name == 'width')
-                return $value;
-        }
-
-        return null;
+        return $this->styles->get('width');
     }
 
     /**

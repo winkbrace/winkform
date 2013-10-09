@@ -206,5 +206,32 @@ class WinkValidator extends Validator
 
         return false;
     }
+    
+    /**
+     * Check that all itmes in the array or Collection are instanceof parameter
+     * @param string $attribute
+     * @param array|Collection $value
+     * @param string $parameters
+     * @return boolean
+     */
+    protected function validateCollectionOf($attribute, $value, $parameters)
+    {
+        if (empty($parameters))
+            return false;
+        
+        if (! is_array($value) && ! $value instanceof \Illuminate\Support\Collection)
+            $value = array($value);
+        
+        foreach ($parameters as $class)
+        {
+            foreach ($value as $val)
+            {
+                if (! $val instanceof $class)
+                    return false;
+            }
+        }
+        
+        return true;
+    }
 
 }
