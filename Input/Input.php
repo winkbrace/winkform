@@ -812,7 +812,7 @@ abstract class Input
      */
     protected function setPosted()
     {
-        if (isset($_POST[$this->name]) && !is_blank($_POST[$this->name]))
+        if (isset($_POST[$this->name]) && ! is_blank($_POST[$this->name]))
         {
             $post = $_POST[$this->name];
             if (is_array($post))
