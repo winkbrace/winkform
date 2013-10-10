@@ -1,15 +1,21 @@
 <?php namespace WinkForm\Input;
 
 use Illuminate\Support\Collection;
+use WinkForm\Support\ObserverInterface;
+use WinkForm\Support\ObserverSubject;
 use WinkForm\Validation\QuickValidator;
 
 /**
  * Abstract class for input classes
  * Only render() _has_ to be different for each concrete class. The rest can be inherited.
- * @author b-deruiter
  *
+ * Note on Observer pattern:
+ * Since extended Input elements can contain other Input elements, the Input class is both
+ * an observer and an observer subject.
+ *
+ * @author b-deruiter
  */
-abstract class Input
+abstract class Input extends ObserverSubject implements ObserverInterface
 {
     protected $type,
               $name,
@@ -674,6 +680,8 @@ abstract class Input
             }
         }
 
+        $this->notify();
+
         return $this;
     }
 
@@ -689,6 +697,8 @@ abstract class Input
             if ($val == $class)
                 unset($this->classes[$key]);
         }
+
+        $this->notify();
 
         return $this;
     }
@@ -724,6 +734,8 @@ abstract class Input
             $this->styles->put($attribute, trim($value));
         }
 
+        $this->notify();
+
         return $this;
     }
 
@@ -740,6 +752,8 @@ abstract class Input
 
         foreach ($styles as $attribute => $value)
             $this->styles->forget($attribute);
+
+        $this->notify();
 
         return $this;
     }
@@ -838,6 +852,8 @@ abstract class Input
         if ($this->validate($disabled, 'in:disabled,readonly'))
         {
             $this->disabled = $disabled;
+
+            $this->notify();
         }
 
         return $this;
@@ -850,6 +866,8 @@ abstract class Input
     public function removeDisabled()
     {
         $this->disabled = null;
+
+        $this->notify();
 
         return $this;
     }
@@ -866,6 +884,8 @@ abstract class Input
                 $this->addStyle(array('display' => 'none'));
             else
                 $this->removeStyle(array('display' => 'none'));
+
+            $this->notify();
         }
 
         return $this;
@@ -879,6 +899,8 @@ abstract class Input
     {
         $this->title = $title;
 
+        $this->notify();
+
         return $this;
     }
 
@@ -891,6 +913,8 @@ abstract class Input
         if ($this->validate($size, 'numeric'))
         {
             $this->size = $size;
+
+            $this->notify();
         }
 
         return $this;
@@ -906,6 +930,8 @@ abstract class Input
         if ($this->validate($bool, 'boolean'))
         {
             $this->inReportForm = $bool;
+
+            $this->notify();
         }
 
         return $this;
@@ -939,6 +965,8 @@ abstract class Input
                 $this->removeClass('required');
                 $this->removeValidation('required');
             }
+
+            $this->notify();
         }
 
         return $this;
@@ -997,6 +1025,8 @@ abstract class Input
         if ($this->validate($dataAttributes, 'array') && $this->validate($dataAttributes, 'assoc_array'))
         {
             $this->dataAttributes = $dataAttributes;
+
+            $this->notify();
         }
 
         return $this;
@@ -1012,7 +1042,17 @@ abstract class Input
     {
         $this->dataAttributes[$name] = $value;
 
+        $this->notify();
+
         return $this;
+    }
+
+    /**
+     * @return array
+     */
+    public function getDataAttributes()
+    {
+        return $this->dataAttributes;
     }
 
     /**
@@ -1024,6 +1064,8 @@ abstract class Input
     {
         if (array_key_exists($name, $this->dataAttributes))
             unset($this->dataAttributes[$name]);
+
+        $this->notify();
 
         return $this;
     }
@@ -1167,6 +1209,52 @@ abstract class Input
             $message = $message.$errorString;
 
         return $message;
+    }
+
+    /**
+     * set the attributes we want to have copied down from the observer subject
+     * @param array $attributes
+     * @return $this
+     */
+    public function setAttributes($attributes)
+    {
+        foreach ($attributes as $attribute => $value)
+            $this->{$attribute} = $value;
+
+        $this->notify();
+
+        return $this;
+    }
+
+    /**
+     * get the attributes that we want to copy down to our observers
+     * @return array
+     */
+    public function getAttributes()
+    {
+        return array(
+            'classes' => $this->classes,
+            'title' => $this->title,
+            'disabled' => $this->disabled,
+            'size' => $this->size,
+            'inReportForm' => $this->inReportForm,
+            'required' => $this->required,
+            'dataAttributes' => $this->dataAttributes,
+        );
+    }
+
+    /**
+     * Observer update method
+     * @param Input $subject
+     */
+    public function update(ObserverSubject $subject)
+    {
+        // copy all styles except the width
+        $styles = $subject->getStyles()->all();
+        unset($styles['width']);
+        $this->addStyle($styles);
+        // copy all observable attributes
+        $this->setAttributes($subject->getAttributes());
     }
 
     /**

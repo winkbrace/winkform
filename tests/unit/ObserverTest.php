@@ -47,6 +47,9 @@ class ObserverTest extends \Codeception\TestCase\Test
 
         // observer should now have the same state
         $this->assertEquals($newAttributes, $observer->getAttributes());
+
+        // TODO add another observer
+        // TODO remove an observer
     }
 
 }
