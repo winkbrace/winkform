@@ -1,6 +1,9 @@
 <?php namespace WinkForm\Validation;
 
 use \Illuminate\Validation\Validator;
+use \Illuminate\Support\Collection;
+
+// TODO add error messages for these validations and ideally register them in this class
 
 /**
  * Extension on Laravel Validator class with extra validations
@@ -180,7 +183,6 @@ class WinkValidator extends Validator
         if (is_null($parameters))
             return true;
 
-        $format = 'd-m-Y';
         $dateToCheck = new \DateTime($value);
         $dateMin = new \DateTime('now');
 
@@ -206,22 +208,22 @@ class WinkValidator extends Validator
 
         return false;
     }
-    
+
     /**
      * Check that all itmes in the array or Collection are instanceof parameter
      * @param string $attribute
      * @param array|Collection $value
-     * @param string $parameters
+     * @param array $parameters
      * @return boolean
      */
     protected function validateCollectionOf($attribute, $value, $parameters)
     {
         if (empty($parameters))
             return false;
-        
-        if (! is_array($value) && ! $value instanceof \Illuminate\Support\Collection)
+
+        if (! is_array($value) && ! $value instanceof Collection)
             $value = array($value);
-        
+
         foreach ($parameters as $class)
         {
             foreach ($value as $val)
@@ -230,7 +232,7 @@ class WinkValidator extends Validator
                     return false;
             }
         }
-        
+
         return true;
     }
 
