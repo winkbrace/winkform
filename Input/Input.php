@@ -1233,13 +1233,13 @@ abstract class Input extends ObserverSubject implements ObserverInterface
     public function getAttributes()
     {
         return array(
-            'classes' => $this->classes,
-            'title' => $this->title,
-            'disabled' => $this->disabled,
-            'size' => $this->size,
-            'inReportForm' => $this->inReportForm,
-            'required' => $this->required,
-            'dataAttributes' => $this->dataAttributes,
+            'classes'           => $this->classes,
+            'title'             => $this->title,
+            'disabled'          => $this->disabled,
+            'size'              => $this->size,
+            'inReportForm'      => $this->inReportForm,
+            'required'          => $this->required,
+            'dataAttributes'    => $this->dataAttributes,
         );
     }
 
@@ -1255,6 +1255,8 @@ abstract class Input extends ObserverSubject implements ObserverInterface
         $this->addStyle($styles);
         // copy all observable attributes
         $this->setAttributes($subject->getAttributes());
+
+        // TODO test if this works by writing test and then refactor out copySharedAttributes
     }
 
     /**
