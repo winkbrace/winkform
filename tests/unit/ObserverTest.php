@@ -48,8 +48,22 @@ class ObserverTest extends \Codeception\TestCase\Test
         // observer should now have the same state
         $this->assertEquals($newAttributes, $observer->getAttributes());
 
-        // TODO add another observer
-        // TODO remove an observer
+        // add another observer
+        $observer2 = new TestObserver();
+        $subject->attachObserver($observer2);
+        $newAttributes = array('blah' => 'boo');
+        $subject->setAttributes($newAttributes);
+        // now both observers should have the new state
+        $this->assertEquals($newAttributes, $observer->getAttributes());
+        $this->assertEquals($newAttributes, $observer2->getAttributes());
+
+        // remove an observer
+        $subject->detachObserver($observer);
+        $newAttributes = array(1, 2, 3);
+        $subject->setAttributes($newAttributes);
+        // now only the remaining observer2 should have the new state
+        $this->assertEquals($newAttributes, $observer2->getAttributes());
+        $this->assertNotEquals($newAttributes, $observer->getAttributes());
     }
 
 }
