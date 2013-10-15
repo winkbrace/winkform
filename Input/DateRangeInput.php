@@ -62,7 +62,7 @@ class DateRangeInput extends Input
      * @param null  $flag
      * @return $this
      */
-    public function setLabels(array $labels, $flag = null)
+    public function setLabels($labels, $flag = null)
     {
         $this->dateFrom->setLabel($labels[0], $flag);
         $this->dateTo->setLabel($labels[1], $flag);
