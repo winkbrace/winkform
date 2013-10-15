@@ -10,7 +10,8 @@ class DateInput extends Input
 
     protected $type = 'text', // 'date' will only accept yyyy-mm-dd, which is not the format we use :'(
               $dateFormat,
-              $dateFormatDelimiter;
+              $dateFormatDelimiter,
+              $calendarImage;
 
     /**
      * @var TextInput
@@ -36,6 +37,19 @@ class DateInput extends Input
         $this->text->setWidth(80)->setMaxLength(10);
 
         $this->attachObserver($this->text);
+
+        // set default calendar image (base64 encoded, so no actual image file required to use this class)
+        // It is of course better to use an actual image for performance reasons
+        $this->calendarImage = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAACpklEQVRYheWXPWgU'
+            . 'QRTHf5dLxIgiBEQtEgRR4gdiLShWojZ+gbYWthaijSCWgoWVBK1URJAjhYKKX6DEFEpADeYM+IGiSBJzaESNXvwai/cm+9yb3dsNF1L'
+            . '4YGF+M/tm/vPmzcxuwTnHTFrTjI4O4JyjThS2AQeBlpxdb1e/Wanj1hHQAlQAB6zLMXiz8duUJqDZ1K0F2mPvfQZ+a7kTaAMKGQRUjd'
+            . '8qJArWbwh4+I8S4KIqtk8JeKnlrkB70nMTeKHl84H2y35cm4QTsVl8AU4Bs5VvAb0ZZv8VOA60Kt8GemLvTI6VtgvKQB8wT3kUuJpBQ'
+            . 'Bl4YPwqwLWkl9MEdCDreANZhjKSJ/WsPebXl+pncuActWvVDawGlgOHteMsOXDJ+B0K+JVC2zAkYLqeUmgbeqsAp/VFkGUqEG2rrBby'
+            . '24ss7aSFBAwDR3MOltU2xAWEkrCYUN8Iq5lwKAJJtgjYqeV+4DWwQ/k+MAZsVe4BvgOble8hu6jWAklYJhyB9URJdBLYaPgIsMvwfmC'
+            . 'P4QPaRy+xJJxqqH3HWTnR8izBIDJLkHN+yPAAcgR7fowct5778wpwwFLgmPJ15ILZolxE1tjzODBi+ANyl3geA17lFbAA2K38Cbk+9y'
+            . 'lXkbvB8xskQp6fxNoHgbt5BAD8IjpEvmnZsm2vAj8NTyg7w0FLEtAEPAXWKH9EwujZh9jze+CH4WEV0Kk8mlfAHyQHSsoXkIupW/ksc'
+            . 'EfrHXACORe6DJ8BnicNXE8AwFxgpZaXIB8YnjuQ+36F8mIkTyxnsjQB48AzLb9Fst7zO2TbeR5RAZanLMAnzgDRGnrLy0l9pwooAvOR'
+            . 'PPAO/os2D8e/nl1ovJCAZUShbLS1pQloNXULp0mAtzkhAVdI2a8Ntke+UPjv/47/Ajh1PTcN0TPzAAAAAElFTkSuQmCC';
     }
 
     /**
@@ -167,7 +181,7 @@ class DateInput extends Input
             'changeMonth'     => true,
             'changeYear'      => true,
             'showOn'          => 'both',
-            'buttonImage'     => (defined('BASE_URL') ? BASE_URL : '/') . 'images/helveticons/32x32/Calendar alt 32x32.png',
+            'buttonImage'     => $this->calendarImage,
             'buttonImageOnly' => true,
             'buttonText'      => 'Pick a date',
         );
@@ -277,6 +291,15 @@ class DateInput extends Input
         }
 
         $this->dateFormatDelimiter = '';
+    }
+
+    /**
+     * set calendar image url
+     * @param string $calendarImage
+     */
+    public function setCalendarImage($calendarImage)
+    {
+        $this->calendarImage = $calendarImage;
     }
 
 }
