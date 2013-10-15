@@ -28,6 +28,9 @@ class WeekRangeInput extends Input
         $this->setWeekFrom(new WeekInput($name.'-from', $from));
         $this->setWeekTo(new WeekInput($name.'-to', $to));
 
+        $this->attachObserver($this->weekFrom);
+        $this->attachObserver($this->weekTo);
+
         // set default labels
         $this->setLabels(array('Between', 'and'));
     }
@@ -39,15 +42,6 @@ class WeekRangeInput extends Input
     {
         // check result of validity checks of parameters passed to this Input element
         $this->checkValidity();
-
-        // copy attributes from WeekRange to the WeekInputs
-        $excludes = array('name','id','value','values','label','labels','selected','posted','required','invalidations','styles');
-        copySharedAttributes($this->weekFrom, $this, $excludes);
-        copySharedAttributes($this->weekTo, $this, $excludes);
-        // manually copy style
-        $this->styles->forget('width');
-        $this->weekFrom->addStyle($this->styles);
-        $this->weekTo->addStyle($this->styles);
 
         // render the week range dropdowns
         $output = $this->weekFrom->render() . '&nbsp;t/m&nbsp; ' . $this->weekTo->render();
@@ -117,6 +111,8 @@ class WeekRangeInput extends Input
 
         $this->getWeekFrom()->setWidth($childWidth);
         $this->getWeekTo()->setWidth($childWidth);
+
+        return $this;
     }
 
     /**

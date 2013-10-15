@@ -17,8 +17,6 @@ class WeekInput extends Input
     {
         parent::__construct($name, $week);
 
-        $this->addClass('week-dropdown'); // this will be copied to children on render()
-
         // create week and year dropdown objects
         $this->year = new Dropdown($this->name.'-year');
         $this->year
@@ -39,6 +37,11 @@ class WeekInput extends Input
                     ->setSelected(date('W'))
                     ->setWidth(52);
 
+        $this->attachObserver($this->year);
+        $this->attachObserver($this->week);
+
+        $this->addClass('week-dropdown');
+
         // this will be the field we will actually fetch when posted, because that's easier. ;)
         // we need javascript to fill it when the dropdowns change, tho.
         $this->hiddenInput = new HiddenInput($name, date('Y-W'));
@@ -54,6 +57,7 @@ class WeekInput extends Input
     /**
      * @param string $selected
      * @param int $flag
+     * @return $this
      */
     public function setSelected($selected, $flag = 0)
     {
@@ -90,16 +94,6 @@ class WeekInput extends Input
 
         $output = '';
 
-        // TODO find proper solution for sharing attributes. Look into Observer pattern
-        // copy the attributes given to WeekInput to the children year and week
-        $excludes = array('name','id','value','values','label','labels','selected','posted','required','invalidations','styles');
-        copySharedAttributes($this->year, $this, $excludes);
-        copySharedAttributes($this->week, $this, $excludes);
-        // manually copy style
-        $this->styles->forget('width');
-        $this->year->addStyle($this->styles);
-        $this->week->addStyle($this->styles);
-        
         // start output
         if (! empty($this->label) && ! $this->inReportForm)
             $output .= '<label for="'.$this->id.'">'.$this->label.'</label> ';

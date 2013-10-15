@@ -333,4 +333,61 @@ class InputTest extends \Codeception\TestCase\Test
         $this->assertEquals($expected, $input->getValidations());
     }
 
+    /**
+     * test Observer Pattern implementation
+     */
+    public function testObserver()
+    {
+        $weeks = new \WinkForm\Input\WeekRangeInput('weeks', '2013-01', '2013-02');
+        $from = $weeks->getWeekFrom();
+        $to = $weeks->getWeekTo();
+
+        $weeks->addClass('disco lightning');
+        // classes should be passed down to the child WeekInputs
+        $this->assertEquals(array('week-dropdown', 'disco', 'lightning'), $from->getClasses());
+        $this->assertEquals(array('week-dropdown', 'disco', 'lightning'), $to->getClasses());
+        // classes should be also passed down to the 2 Dropdowns in each WeekInput
+        $render = $from->render();
+        $this->assertContains('class="week-dropdown disco lightning"', $render);
+
+        $weeks->addStyle('border:2px dotted orange')
+            ->setWidth(150)
+            ->setHidden(true);
+        $style = array(
+            'border' => '2px dotted orange',
+            'width' => '75px',  // width is shared equally between the 2 WeekInputs
+            'display' => 'none',
+        );
+        $this->assertEquals($style, $from->getStyles()->all());
+        $this->assertEquals($style, $to->getStyles()->all());
+
+        $weeks->setTitle('Observability Factor');
+        $this->assertEquals('Observability Factor', $from->getTitle());
+        $this->assertEquals('Observability Factor', $to->getTitle());
+    }
+
+    /**
+     * test that all Month inputs observe well
+     */
+    public function testMonthRangeObserver()
+    {
+        $months = new \WinkForm\Input\MonthRangeInput('months', '2013-01', '2013-02');
+        $months->setTitle('Some title');
+        $this->assertEquals('Some title', $months->getMonthFrom()->getTitle());
+        $render = $months->render();
+        $this->assertContains('title="Some title"', $render);
+    }
+
+    /**
+     * test that the Address inputs observe well
+     */
+    public function testAddressObserver()
+    {
+        $input = new \WinkForm\Input\AddressInput('foo');
+        $input->setTitle('Some title');
+        $this->assertEquals('Some title', $input->getHouseNumber()->getTitle());
+        $render = $input->render();
+        $this->assertContains('title="Some title"', $render);
+    }
+
 }

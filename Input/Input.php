@@ -258,6 +258,14 @@ abstract class Input extends ObserverSubject implements ObserverInterface
     }
 
     /**
+     * @return string
+     */
+    public function getTitle()
+    {
+        return $this->title;
+    }
+
+    /**
      * Prepares the inline style for an input element
      *
      * @return NULL|string final inline style
@@ -1226,6 +1234,11 @@ abstract class Input extends ObserverSubject implements ObserverInterface
                 // only overwrite what is being passed down
                 $this->addStyle($value);
             }
+            elseif ($attribute == 'classes')
+            {
+                // don't remove any previously set classes
+                $this->addClass($value);
+            }
             else
             {
                 $this->{$attribute} = $value;
@@ -1245,7 +1258,8 @@ abstract class Input extends ObserverSubject implements ObserverInterface
     {
         // copy all styles except the width
         $styles = $this->styles->all();
-        unset($styles['width']);
+        if (array_key_exists('width', $styles))
+            unset($styles['width']);
 
         return array(
             'classes'           => $this->classes,

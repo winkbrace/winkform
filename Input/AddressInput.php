@@ -3,16 +3,28 @@
 class AddressInput extends Input
 {
 
-    protected $type = 'address',
-              $postcode,
-              $houseNumber,
-              $houseNumberExtension; // hidden input field with the name $name that will contain the YYYY-MM value
+    protected $type = 'address';
+
+    /**
+     * @var TextInput
+     */
+    protected $postcode;
+
+    /**
+     * @var TextInput
+     */
+    protected $houseNumber;
+
+    /**
+     * @var TextInput
+     */
+    protected $houseNumberExtension; // hidden input field with the name $name that will contain the YYYY-MM value
 
 
     /**
      * construct AddressInput object
-     *
      * @param string $name
+     * @param string $value
      */
     function __construct($name, $value = null)
     {
@@ -23,6 +35,10 @@ class AddressInput extends Input
         $this->postcode = new TextInput('postcode', 'postcode');
         $this->houseNumber = new TextInput('huisnr', 'huisnr');
         $this->houseNumberExtension = new TextInput('toevoeging', 'toevoeging');
+
+        $this->attachObserver($this->postcode);
+        $this->attachObserver($this->houseNumber);
+        $this->attachObserver($this->houseNumberExtension);
 
         // set the global style that will get copied down
         $this->setWidth(150)->addStyle('font-style:italic; color:#888;')->addClass('address');
@@ -35,17 +51,6 @@ class AddressInput extends Input
     {
         // check result of validity checks of parameters passed to this Input element
         $this->checkValidity();
-
-        // via casting we can pass all attributes that were set on AddressInput down to the DateInput fields
-        $excludes = array('type', 'name','id','value','values','label','labels','selected','posted','required','invalidations','styles');
-        copySharedAttributes($this->postcode, $this, $excludes);
-        copySharedAttributes($this->houseNumber, $this, $excludes);
-        copySharedAttributes($this->houseNumberExtension, $this, $excludes);
-        // manually copy style
-        $this->styles->forget('width');
-        $this->postcode->addStyle($this->styles);
-        $this->houseNumber->addStyle($this->styles);
-        $this->houseNumberExtension->addStyle($this->styles);
 
         $this->postcode->setLabel($this->label);
 
