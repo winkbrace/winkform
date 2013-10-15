@@ -52,8 +52,6 @@ class AddressInput extends Input
         // check result of validity checks of parameters passed to this Input element
         $this->checkValidity();
 
-        $this->postcode->setLabel($this->label);
-
         // render the date range input fields
         $output = $this->postcode->render()
                 . $this->houseNumber->setWidth(50)->render()
@@ -103,6 +101,19 @@ class AddressInput extends Input
                 $this->houseNumberExtension->setSelected($extension);
             }
         }
+
+        return $this;
+    }
+
+    /**
+     * @param string $label
+     * @return $this
+     */
+    public function setLabel($label)
+    {
+        $this->label = $label;
+        // postcode is the first field to render, so it should have the label
+        $this->postcode->setLabel($label);
 
         return $this;
     }

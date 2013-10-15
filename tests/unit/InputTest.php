@@ -256,15 +256,8 @@ class InputTest extends \Codeception\TestCase\Test
         $this->assertEquals($expected, $input->getStyles()->all());
 
         $from = $input->getDateFrom();
-        // only upon rendering will we copy shared attributes
-        $input->render();
-        // on rendering DateInput, the display attribute is moved to the container div
-        // and the width is not being copied down, so remains it's default. (for now)
-        $expected = array(
-            'padding' => '5px',
-            'margin' => '5px',
-            'width' => '80px',
-        );
+        // only width does not get copied down
+        unset($expected['width']);
         $this->assertEquals($expected, $from->getStyles()->all());
     }
 
@@ -386,6 +379,18 @@ class InputTest extends \Codeception\TestCase\Test
         $input = new \WinkForm\Input\AddressInput('foo');
         $input->setTitle('Some title');
         $this->assertEquals('Some title', $input->getHouseNumber()->getTitle());
+        $render = $input->render();
+        $this->assertContains('title="Some title"', $render);
+    }
+
+    /**
+     * test that the Address inputs observe well
+     */
+    public function testDateObserver()
+    {
+        $input = new \WinkForm\Input\DateRangeInput('foo');
+        $input->setTitle('Some title');
+        $this->assertEquals('Some title', $input->getDateTo()->getTitle());
         $render = $input->render();
         $this->assertContains('title="Some title"', $render);
     }

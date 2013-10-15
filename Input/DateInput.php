@@ -12,6 +12,11 @@ class DateInput extends Input
               $dateFormat,
               $dateFormatDelimiter;
 
+    /**
+     * @var TextInput
+     */
+    protected $text;
+
 
     /**
      * construct DateInput
@@ -25,6 +30,12 @@ class DateInput extends Input
         $this->setDateFormat($config['date_format']);
 
         parent::__construct($name, $value);
+
+        // create TextInput object with all same properties as this DateInput object
+        $this->text = new TextInput($this->name, $value);
+        $this->text->setWidth(80)->setMaxLength(10);
+
+        $this->attachObserver($this->text);
     }
 
     /**
@@ -49,8 +60,8 @@ class DateInput extends Input
 
     /**
      * Override setValue to always validate date format
-     * (non-PHPdoc)
-     * @see \WinkForm\Input\Input::setValue()
+     * @param string $value
+     * @return $this
      */
     public function setValue($value)
     {
@@ -100,21 +111,11 @@ class DateInput extends Input
         $this->checkValidity();
 
         // we will show/hide the container div for the text field and the image and not the text field and the image themselves
-        $this->removeStyle('display:none');
         $hidden = $this->getHidden() === true ? ' style="display:none;"' : '';
-
-        // create TextInput object with all same properties as this DateInput object
-        $text = new TextInput($this->name);
-        copySharedAttributes($text, $this);
-
-        // set default width if none was given
-        if (strpos($this->renderStyle(), 'width') === false)
-            $text->setWidth(80);
-
-        $text->setMaxLength(10);
+        $this->setHidden(false);
 
         $output = '<div id="'.$this->id.'-container"'.$hidden.' style="float: left;">'
-                . $text->render()
+                . $this->text->render()
                 . '</div>' . PHP_EOL;
 
         if (empty($this->disabled))

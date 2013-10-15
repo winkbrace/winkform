@@ -25,13 +25,16 @@ class DateRangeInput extends Input
      * @param string $from  date in d-m-Y format
      * @param string $to    date in d-m-Y format
      */
-    function __construct($name, $from, $to)
+    function __construct($name, $from = null, $to = null)
     {
         parent::__construct($name);
 
         // create the two date input fields
         $this->setDateFrom(new DateInput($this->name.'-from', $from));
         $this->setDateTo(new DateInput($this->name.'-to', $to));
+
+        $this->attachObserver($this->dateFrom);
+        $this->attachObserver($this->dateTo);
 
         // set default labels
         $this->setLabels(array('Between', 'and'));
@@ -45,15 +48,6 @@ class DateRangeInput extends Input
         // check result of validity checks of parameters passed to this Input element
         $this->checkValidity();
 
-        // via casting we can pass all attributes that were set on DateRane down to the DateInput fields
-        $excludes = array('type', 'name', 'id', 'value', 'label', 'selected', 'posted', 'required', 'invalidations', 'inReportForm', 'styles');
-        copySharedAttributes($this->dateFrom, $this, $excludes);
-        copySharedAttributes($this->dateTo, $this, $excludes);
-        // manually copy style
-        $this->styles->forget('width');
-        $this->dateFrom->addStyle($this->styles);
-        $this->dateTo->addStyle($this->styles);
-
         // render the date range input fields
         $output = $this->dateFrom->render() . $this->dateTo->render();
 
@@ -65,9 +59,10 @@ class DateRangeInput extends Input
     /**
      * set labels for the Dates
      * @param array $labels (from, to)
+     * @param null  $flag
      * @return $this
      */
-    public function setLabels($labels, $flag = null)
+    public function setLabels(array $labels, $flag = null)
     {
         $this->dateFrom->setLabel($labels[0], $flag);
         $this->dateTo->setLabel($labels[1], $flag);

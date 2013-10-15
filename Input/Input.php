@@ -382,7 +382,7 @@ abstract class Input extends ObserverSubject implements ObserverInterface
 
     /**
      * @param string $id
-     * @return \WinkForm\Input\Input
+     * @return $this
      */
     public function setId($id)
     {
@@ -399,7 +399,7 @@ abstract class Input extends ObserverSubject implements ObserverInterface
 
     /**
      * @param string $name
-     * @return \WinkForm\Input\Input
+     * @return $this
      */
     protected function setName($name)
     {
@@ -415,7 +415,7 @@ abstract class Input extends ObserverSubject implements ObserverInterface
 
     /**
      * @param string $value
-     * @return \WinkForm\Input\Input
+     * @return $this
      */
     public function setValue($value)
     {
@@ -429,7 +429,7 @@ abstract class Input extends ObserverSubject implements ObserverInterface
 
     /**
      * @param array $values
-     * @return \WinkForm\Input\Input
+     * @return $this
      */
     public function setValues($values)
     {
@@ -446,7 +446,7 @@ abstract class Input extends ObserverSubject implements ObserverInterface
 
     /**
      * @param string $label
-     * @return \WinkForm\Input\Input
+     * @return $this
      */
     public function setLabel($label)
     {
@@ -458,7 +458,7 @@ abstract class Input extends ObserverSubject implements ObserverInterface
     /**
      * @param array $labels
      * @param optional int $flag
-     * @return \WinkForm\Input\Input
+     * @return $this
      */
     public function setLabels($labels, $flag = null)
     {
@@ -481,7 +481,7 @@ abstract class Input extends ObserverSubject implements ObserverInterface
      * text, search, url, tel, email, and password.
      *
      * @param string $placeholder
-     * @return \WinkForm\Input\Input
+     * @return $this
      */
     public function setPlaceholder($placeholder)
     {
@@ -498,7 +498,7 @@ abstract class Input extends ObserverSubject implements ObserverInterface
      * get focus when the page loads
      *
      * @param boolean $flag
-     * @return \WinkForm\Input\Input
+     * @return $this
      */
     public function setAutoFocus($flag)
     {
@@ -516,7 +516,7 @@ abstract class Input extends ObserverSubject implements ObserverInterface
      * @param string $label
      * @param optional string $category
      * @param optional int $flag
-     * @return \WinkForm\Input\Input
+     * @return $this
      */
     public function appendOption($value, $label, $category = null, $flag = null)
     {
@@ -542,7 +542,7 @@ abstract class Input extends ObserverSubject implements ObserverInterface
      * @param $options
      * @param optional int $flag
      * @param string $category    - You can optionally specify one category for all options in the array
-     * @return \WinkForm\Input\Input
+     * @return $this
      */
     public function appendOptions($options, $flag = null, $category = null)
     {
@@ -564,7 +564,7 @@ abstract class Input extends ObserverSubject implements ObserverInterface
      * @param string $label
      * @param optional string $category
      * @param optional int $flag
-     * @return \WinkForm\Input\Input
+     * @return $this
      */
     public function prependOption($value, $label, $category = null, $flag = null)
     {
@@ -591,7 +591,7 @@ abstract class Input extends ObserverSubject implements ObserverInterface
      * @param $options
      * @param optional int $flag
      * @param string $category    - You can optionally specify one category for all options in the array
-     * @return \WinkForm\Input\Input
+     * @return $this
      */
     public function prependOptions($options, $flag = null, $category = null)
     {
@@ -613,7 +613,7 @@ abstract class Input extends ObserverSubject implements ObserverInterface
     /**
      * remove an option (= value and label) by providing the value of that option
      * @param string $value
-     * @return \WinkForm\Input\Input
+     * @return $this
      */
     public function removeOption($value)
     {
@@ -630,7 +630,7 @@ abstract class Input extends ObserverSubject implements ObserverInterface
     /**
      * set categories for dropdowns and checkboxes
      * @param array $categories
-     * @return \WinkForm\Input\Input
+     * @return $this
      */
     public function setCategories($categories)
     {
@@ -644,7 +644,7 @@ abstract class Input extends ObserverSubject implements ObserverInterface
 
     /**
      * @param int $width (in pixels)
-     * @return \WinkForm\Input\Input
+     * @return $this
      */
     public function setWidth($width)
     {
@@ -658,7 +658,7 @@ abstract class Input extends ObserverSubject implements ObserverInterface
 
     /**
      * @param array $classes
-     * @return \WinkForm\Input\Input
+     * @return $this
      */
     public function setClass($classes)
     {
@@ -672,7 +672,7 @@ abstract class Input extends ObserverSubject implements ObserverInterface
     /**
      * add a class or a list of classes separated by a space, just like in html
      * @param string|array
-     * @return \WinkForm\Input\Input
+     * @return $this
      */
     public function addClass($classes)
     {
@@ -696,7 +696,7 @@ abstract class Input extends ObserverSubject implements ObserverInterface
     /**
      * remove a class from the classes
      * @param string $class
-     * @return \WinkForm\Input\Input
+     * @return $this
      */
     public function removeClass($class)
     {
@@ -715,7 +715,7 @@ abstract class Input extends ObserverSubject implements ObserverInterface
      * Resets the inline style and adds the new one
      *
      * @param string|array|Collection $styles
-     * @return \WinkForm\Input\Input
+     * @return $this
      */
     public function setStyle($styles)
     {
@@ -731,7 +731,7 @@ abstract class Input extends ObserverSubject implements ObserverInterface
      *
      * @param string|array $style  either a string (e.g. 'color:red; padding: 8px'),
      *                             or an array (e.g. array('color' => 'red', 'padding' => '8px'));
-     * @return \WinkForm\Input\Input
+     * @return $this
      */
     public function addStyle($style)
     {
@@ -752,7 +752,7 @@ abstract class Input extends ObserverSubject implements ObserverInterface
      *
      * @param string|array $style   either a string (e.g. 'color:red; padding: 8px'),
      *                              or an array (e.g. array('color' => 'red', 'padding' => '8px'));
-     * @return \WinkForm\Input\Input
+     * @return $this
      */
     public function removeStyle($style)
     {
@@ -807,7 +807,7 @@ abstract class Input extends ObserverSubject implements ObserverInterface
      * Set an initial value for the input field
      * @param string $selected
      * @param int $flag
-     * @return \WinkForm\Input\Input
+     * @return $this
      */
     public function setSelected($selected, $flag = 0)
     {
@@ -853,7 +853,7 @@ abstract class Input extends ObserverSubject implements ObserverInterface
     /**
      * set $disabled
      * @param string $disabled
-     * @return \WinkForm\Input\Input
+     * @return $this
      */
     public function setDisabled($disabled)
     {
@@ -869,7 +869,7 @@ abstract class Input extends ObserverSubject implements ObserverInterface
 
     /**
      * resets any previously set disabled option
-     * @return \WinkForm\Input\Input
+     * @return $this
      */
     public function removeDisabled()
     {
@@ -882,7 +882,7 @@ abstract class Input extends ObserverSubject implements ObserverInterface
 
     /**
      * @param boolean $hidden
-     * @return \WinkForm\Input\Input
+     * @return $this
      */
     public function setHidden($hidden)
     {
@@ -901,7 +901,7 @@ abstract class Input extends ObserverSubject implements ObserverInterface
 
     /**
      * @param string $title
-     * @return \WinkForm\Input\Input
+     * @return $this
      */
     public function setTitle($title)
     {
@@ -914,7 +914,7 @@ abstract class Input extends ObserverSubject implements ObserverInterface
 
     /**
      * @param int $size
-     * @return \WinkForm\Input\Input
+     * @return $this
      */
     public function setSize($size)
     {
@@ -931,7 +931,7 @@ abstract class Input extends ObserverSubject implements ObserverInterface
     /**
      * indicator to let Input know if it's in the ReportForm class or not (needed to display labels or not)
      * @param bool $bool
-     * @return \WinkForm\Input\Input
+     * @return $this
      */
     public function setInReportForm($bool)
     {
@@ -955,7 +955,7 @@ abstract class Input extends ObserverSubject implements ObserverInterface
 
     /**
      * @param boolean $required
-     * @return \WinkForm\Input\Input
+     * @return $this
      */
     public function setRequired($required = true)
     {
@@ -990,7 +990,7 @@ abstract class Input extends ObserverSubject implements ObserverInterface
 
     /**
      * @param string $invalidation
-     * @return \WinkForm\Input\Input
+     * @return $this
      */
     public function addInvalidation($invalidation)
     {
@@ -1026,7 +1026,7 @@ abstract class Input extends ObserverSubject implements ObserverInterface
      * set all custom data attributes
      * Note: this will overwrite any previously set or added data attributes
      * @param array $dataAttributes
-     * @return \WinkForm\Input\Input
+     * @return $this
      */
     public function setDataAttributes($dataAttributes)
     {
@@ -1044,7 +1044,7 @@ abstract class Input extends ObserverSubject implements ObserverInterface
      * add a custom data attribute (Example: <input ... data-answer_to_life="42">)
      * @param string $name
      * @param string $value
-     * @return \WinkForm\Input\Input
+     * @return $this
      */
     public function addDataAttribute($name, $value)
     {
@@ -1066,7 +1066,7 @@ abstract class Input extends ObserverSubject implements ObserverInterface
     /**
      * remove a custom data attribute
      * @param string $name
-     * @return \WinkForm\Input\Input
+     * @return $this
      */
     public function removeDataAttribute($name)
     {
@@ -1083,7 +1083,7 @@ abstract class Input extends ObserverSubject implements ObserverInterface
      * @see http://laravel.com/docs/validation#available-validation-rules
      * The rules must exist in the \WinkForm\Validation\WinkValidator class
      * @param string|array $rules
-     * @return \WinkForm\Input\Input
+     * @return $this
      */
     public function addValidation($rules)
     {
