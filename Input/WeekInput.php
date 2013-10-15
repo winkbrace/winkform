@@ -95,7 +95,7 @@ class WeekInput extends Input
         $output = '';
 
         // start output
-        if (! empty($this->label) && ! $this->inReportForm)
+        if (! empty($this->label) && $this->renderWithLabel)
             $output .= '<label for="'.$this->id.'">'.$this->label.'</label> ';
 
         // The applied styles will only apply to the container

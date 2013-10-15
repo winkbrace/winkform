@@ -34,7 +34,7 @@ abstract class Input extends ObserverSubject implements ObserverInterface
               $onclick,
               $onchange,
               $size, // File Input doesn't support style="width" and Dropdown also uses it
-              $inReportForm = false,
+              $renderWithLabel = true,   // boolean value to not let the label render, even though it has one
               $required = false,         // boolean value to tell if the input element is required
               $validations = array(),    // array of validations. @see http://laravel.com/docs/validation#available-validation-rules
               $invalidations = array(),  // result of form validations of this input element
@@ -49,10 +49,22 @@ abstract class Input extends ObserverSubject implements ObserverInterface
     protected $validator;
 
     // bitwise flags
-    const INPUT_OVERRULE_POST = 1; // make the given selected value overwrite anything that is posted
-    const INPUT_SELECTED_INITIALLY_ONLY = 2; // only use an initial "selected" value if nothing has been posted yet
-    const INPUT_DONT_ESCAPE_HTML = 4; // used by setLabels() and appendOptions to not escape HTML chars
-    // next const should be 8, then 16 etc. to have the nth bit set to 1
+    /**
+     * make the given selected value overwrite anything that is posted
+     */
+    const INPUT_OVERRULE_POST = 1;
+
+    /**
+     * only use an initial "selected" value if nothing has been posted yet
+     */
+    const INPUT_SELECTED_INITIALLY_ONLY = 2;
+
+    /**
+     * used by setLabels() and appendOptions to not escape HTML chars
+     */
+    const INPUT_DONT_ESCAPE_HTML = 4;
+
+    // next const should be 8, 16, then 32 etc. to have the nth bit set to 1
 
 
     /**
@@ -126,6 +138,28 @@ abstract class Input extends ObserverSubject implements ObserverInterface
         return (($flag & $value) == $value);
     }
 
+    /**
+     * @param boolean $renderWithLabel
+     */
+    public function setRenderWithLabel($renderWithLabel)
+    {
+        if ($this->validate($renderWithLabel, 'boolean'))
+        {
+            $this->renderWithLabel = $renderWithLabel;
+
+            $this->notify();
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return boolean
+     */
+    public function getRenderWithLabel()
+    {
+        return $this->renderWithLabel;
+    }
 
     /**
      * @return string id="$id"
@@ -201,11 +235,11 @@ abstract class Input extends ObserverSubject implements ObserverInterface
      */
     public function renderLabel()
     {
-        if (empty($this->label) || $this->inReportForm)
+        if (empty($this->label) || ! $this->renderWithLabel)
             return null;
 
-           $class = $this->required ? ' class="required"' : '';
-           return '<label for="'.$this->id.'"'.$class.'>'.$this->label.'</label> ';
+        $class = $this->required ? ' class="required"' : '';
+        return '<label for="'.$this->id.'"'.$class.'>'.$this->label.'</label> ';
     }
 
     /**
@@ -337,14 +371,6 @@ abstract class Input extends ObserverSubject implements ObserverInterface
     public function isHidden()
     {
         return $this->getHidden();
-    }
-
-    /**
-     * @return boolean $inReportForm
-     */
-    public function getInReportForm()
-    {
-        return $this->inReportForm;
     }
 
     /**
@@ -929,23 +955,6 @@ abstract class Input extends ObserverSubject implements ObserverInterface
     }
 
     /**
-     * indicator to let Input know if it's in the ReportForm class or not (needed to display labels or not)
-     * @param bool $bool
-     * @return $this
-     */
-    public function setInReportForm($bool)
-    {
-        if ($this->validate($bool, 'boolean'))
-        {
-            $this->inReportForm = $bool;
-
-            $this->notify();
-        }
-
-        return $this;
-    }
-
-    /**
      * @return boolean $required
      */
     public function isRequired()
@@ -1266,7 +1275,7 @@ abstract class Input extends ObserverSubject implements ObserverInterface
             'title'             => $this->title,
             'disabled'          => $this->disabled,
             'size'              => $this->size,
-            'inReportForm'      => $this->inReportForm,
+            'renderWithLabel'   => $this->renderWithLabel,
             'required'          => $this->required,
             'dataAttributes'    => $this->dataAttributes,
             'styles'            => $styles,

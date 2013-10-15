@@ -395,4 +395,26 @@ class InputTest extends \Codeception\TestCase\Test
         $this->assertContains('title="Some title"', $render);
     }
 
+    /**
+     * test rendering of the label
+     */
+    public function testRenderWithLabel()
+    {
+        $input = new TextInput('foo', 'val');
+
+        $render = $input->render();
+        $this->assertNotContains('<label', $render, 'if no label is set, none should be rendered');
+
+        $input->setLabel('some label');
+        $render = $input->render();
+        $this->assertContains('<label for="foo"', $render, 'by default Inputs are rendered with a label if they have one');
+
+        $input->setRenderWithLabel(false);
+        $render = $input->render();
+        $this->assertNotContains('<label for="foo"', $render, 'if renderWithLabel is set to false, no label should be rendered.');
+
+        $input->setRenderWithLabel('invalid');
+        $this->assertFalse($input->getRenderWithLabel(), 'An invalid argument should not change the attribute');
+    }
+
 }
