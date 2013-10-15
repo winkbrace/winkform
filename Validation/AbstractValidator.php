@@ -38,7 +38,7 @@ abstract class AbstractValidator
      */
     public function __construct()
     {
-        $config = require WINKFORM_PATH.'config.php';
+        $config = get_winkform_config();
 
         $this->locale = $config['locale'];
 

@@ -261,3 +261,15 @@ if (! function_exists('is_blank'))
         return empty($value) && ! is_numeric($value);
     }
 }
+
+if (! function_exists('get_winkform_config'))
+{
+    /**
+     * get the contents of the config file as an array
+     * @return array
+     */
+    function get_winkform_config()
+    {
+        return require CONFIG_PATH . 'config.php';
+    }
+}

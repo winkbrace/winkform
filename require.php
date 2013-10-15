@@ -10,20 +10,21 @@
 if (! defined('BRCLR'))
     define('BRCLR', '<br class="clear" />');
 
+if (! defined('WINKFORM_PATH'))
+    define('WINKFORM_PATH', __DIR__.'/');
+
+if (! defined('CONFIG_PATH'))
+    define('CONFIG_PATH', __DIR__.'/config/');
+
 
 // helper functions
 require_once 'helpers.php';
 
-
-
 // autoloader
-if (! defined('WINKFORM_PATH'))
-    define('WINKFORM_PATH', __DIR__.'/');
-
 spl_autoload_register(function($class) {
-    
+
     $file = trim(substr($class, strrpos($class, "\\")), "\\") . '.php';
-    
+
     // library root
     if (file_exists(WINKFORM_PATH . $file))
         require_once WINKFORM_PATH . $file;
@@ -36,7 +37,7 @@ spl_autoload_register(function($class) {
     // library Validation classes
     elseif (file_exists(WINKFORM_PATH . 'Validation/' . $file))
         require_once WINKFORM_PATH . 'Validation/' . $file;
-    
+
     // else not found. Maybe another autoloader will find the class
 });
 
