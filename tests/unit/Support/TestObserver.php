@@ -13,7 +13,7 @@ class TestObserver implements \WinkForm\Support\ObserverInterface
     protected $attributes;
 
     /**
-     * @param TestSubject $subject
+     * @param ObserverSubject $subject
      */
     function update(ObserverSubject $subject)
     {

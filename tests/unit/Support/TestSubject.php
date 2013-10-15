@@ -11,9 +11,9 @@ class TestSubject extends \WinkForm\Support\ObserverSubject
     protected $attributes;
 
     /**
-     * @param mixed $attributes
+     * @param array $attributes
      */
-    public function setAttributes($attributes)
+    public function setAttributes(array $attributes)
     {
         $this->attributes = $attributes;
         $this->notify();

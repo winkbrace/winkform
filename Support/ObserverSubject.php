@@ -43,4 +43,17 @@ abstract class ObserverSubject
             $observer->update($this);
         }
     }
+
+    /**
+     * set the observer subject's state
+     * @param array $attributes
+     */
+    abstract public function setAttributes(array $attributes);
+
+    /**
+     * get the observer subject's state
+     * @return array
+     */
+    abstract public function getAttributes();
+
 }

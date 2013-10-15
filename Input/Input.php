@@ -1212,14 +1212,25 @@ abstract class Input extends ObserverSubject implements ObserverInterface
     }
 
     /**
-     * set the attributes we want to have copied down from the observer subject
+     * set the attributes we are copying down from the observer subject
      * @param array $attributes
      * @return $this
      */
-    public function setAttributes($attributes)
+    public function setAttributes(array $attributes)
     {
         foreach ($attributes as $attribute => $value)
-            $this->{$attribute} = $value;
+        {
+            if ($attribute == 'styles')
+            {
+                // we don't want to remove styles specific to this observer Input,
+                // only overwrite what is being passed down
+                $this->addStyle($value);
+            }
+            else
+            {
+                $this->{$attribute} = $value;
+            }
+        }
 
         $this->notify();
 
@@ -1232,6 +1243,10 @@ abstract class Input extends ObserverSubject implements ObserverInterface
      */
     public function getAttributes()
     {
+        // copy all styles except the width
+        $styles = $this->styles->all();
+        unset($styles['width']);
+
         return array(
             'classes'           => $this->classes,
             'title'             => $this->title,
@@ -1240,19 +1255,16 @@ abstract class Input extends ObserverSubject implements ObserverInterface
             'inReportForm'      => $this->inReportForm,
             'required'          => $this->required,
             'dataAttributes'    => $this->dataAttributes,
+            'styles'            => $styles,
         );
     }
 
     /**
      * Observer update method
-     * @param Input $subject
+     * @param ObserverSubject $subject
      */
     public function update(ObserverSubject $subject)
     {
-        // copy all styles except the width
-        $styles = $subject->getStyles()->all();
-        unset($styles['width']);
-        $this->addStyle($styles);
         // copy all observable attributes
         $this->setAttributes($subject->getAttributes());
 
