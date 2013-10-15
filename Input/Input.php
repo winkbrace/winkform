@@ -1281,8 +1281,6 @@ abstract class Input extends ObserverSubject implements ObserverInterface
     {
         // copy all observable attributes
         $this->setAttributes($subject->getAttributes());
-
-        // TODO test if this works by writing test and then refactor out copySharedAttributes
     }
 
     /**
