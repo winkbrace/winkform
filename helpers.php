@@ -209,40 +209,6 @@ if (! function_exists('getFiles'))
     }
 }
 
-if (! function_exists('copySharedAttributes'))
-{
-    /**
-     * Copy attributes that are in both $from and $to from $from into $to
-     * Handy for sibling objects (like the Input children)
-     * This acts like an object cast in Java: Car car = (Car) volvo;
-     * @param object $to
-     * @param object $from
-     * @param array $excludes array of properties to exclude from copying
-     */
-    function copySharedAttributes(&$to, $from, $excludes = array())
-    {
-        if (! is_object($to) && ! is_object($from))
-            return false;
-
-        // get the attributes of both objects and loop through all attributes that exist in both objects
-        $rf = new \ReflectionObject($from);
-        $rt = new \ReflectionObject($to);
-        foreach ($rf->getProperties() as $propFrom)
-        {
-            $propFrom->setAccessible(true);
-            $name = $propFrom->getName();
-            $value = $propFrom->getValue($from);
-
-            if ($rt->hasProperty($name) && ! in_array($name, $excludes))
-            {
-                $propTo = $rt->getProperty($name);
-                $propTo->setAccessible(true);
-                $propTo->setValue($to, $value);
-            }
-        }
-    }
-}
-
 if (! function_exists('is_blank'))
 {
     /**
