@@ -48,7 +48,7 @@ if (! function_exists('isPosted'))
         {
             if (! empty($value))
                 return in_array($value, $_POST[$name]);
-            elseif (count($_POST[$name]) == 1 && isset($_POST[$name][0]) && empty($_POST[$name][0]))
+            elseif (count($_POST[$name]) === 1 && isset($_POST[$name][0]) && empty($_POST[$name][0]))
                 return false;
             else
                 return count($_POST[$name]) > 0;

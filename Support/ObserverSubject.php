@@ -1,4 +1,5 @@
 <?php namespace WinkForm\Support;
+
 /**
  * WinkForm
  * Created by Bas de Ruiter

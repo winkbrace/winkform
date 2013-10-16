@@ -1,4 +1,5 @@
 <?php namespace WinkForm\Support;
+
 /**
  * WinkForm
  * Created by Bas de Ruiter
@@ -6,5 +7,9 @@
  */
 interface ObserverInterface
 {
-    function update(ObserverSubject $subject);
+    /**
+     * update all observers of given subject
+     * @param ObserverSubject $subject
+     */
+    public function update(ObserverSubject $subject);
 }

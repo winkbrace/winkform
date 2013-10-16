@@ -6,9 +6,9 @@ require_once 'Support/TestSubject.php';
 
 class ObserverTest extends \Codeception\TestCase\Test
 {
-   /**
-    * @var \CodeGuy
-    */
+    /**
+     * @var \CodeGuy
+     */
     protected $codeGuy;
 
     /**

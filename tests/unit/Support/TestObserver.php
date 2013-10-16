@@ -15,7 +15,7 @@ class TestObserver implements \WinkForm\Support\ObserverInterface
     /**
      * @param ObserverSubject $subject
      */
-    function update(ObserverSubject $subject)
+    public function update(ObserverSubject $subject)
     {
         $this->attributes = $subject->getAttributes();
     }
