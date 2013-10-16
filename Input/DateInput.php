@@ -132,6 +132,10 @@ class DateInput extends Input
         // we will show/hide the container div for the text field and the image and not the text field and the image themselves
         $hidden = $this->getHidden() === true ? ' style="display:none;"' : '';
         $this->setHidden(false);
+        
+        // the text field must have the selected values
+        $this->text->setValue($this->value);
+        $this->text->setSelected($this->selected);
 
         $output = '<div id="'.$this->id.'-container"'.$hidden.' style="float: left;">'
                 . $this->text->render()
