@@ -113,4 +113,15 @@ class DateInputTest extends \Codeception\TestCase\Test
         $this->assertContains('value="12-12-2012"', $render);
     }
     
+    /**
+     * DateInput should properly render the label
+     */
+    public function testRenderLabel()
+    {
+        $input = new DateInput('test');
+        $input->setLabel('a date label');
+        $render = $input->render();
+        $this->assertContains('<label for="test">a date label</label>', $render);
+    }
+    
 }
