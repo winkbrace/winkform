@@ -782,12 +782,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Codeception/Codeception.git",
-                "reference": "003850aff2c45013ad2e1a93385395f3631e5e94"
+                "reference": "b9cc75ae16b405c48ffa02af764439333b4de159"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Codeception/Codeception/zipball/003850aff2c45013ad2e1a93385395f3631e5e94",
-                "reference": "003850aff2c45013ad2e1a93385395f3631e5e94",
+                "url": "https://api.github.com/repos/Codeception/Codeception/zipball/b9cc75ae16b405c48ffa02af764439333b4de159",
+                "reference": "b9cc75ae16b405c48ffa02af764439333b4de159",
                 "shasum": ""
             },
             "require": {
@@ -835,7 +835,7 @@
                 "functional testing",
                 "unit testing"
             ],
-            "time": "2013-10-11 21:58:18"
+            "time": "2013-10-16 22:38:12"
         },
         {
             "name": "fabpot/goutte",
@@ -1558,12 +1558,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "1ded00759dd084320d9637ea0bf8a1cc73a84608"
+                "reference": "3b97c8492bcafbabe6b6fbd2ab35f2f04d932a8d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/1ded00759dd084320d9637ea0bf8a1cc73a84608",
-                "reference": "1ded00759dd084320d9637ea0bf8a1cc73a84608",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/3b97c8492bcafbabe6b6fbd2ab35f2f04d932a8d",
+                "reference": "3b97c8492bcafbabe6b6fbd2ab35f2f04d932a8d",
                 "shasum": ""
             },
             "require": {
@@ -1624,7 +1624,7 @@
                 "testing",
                 "xunit"
             ],
-            "time": "2013-10-13 23:37:04"
+            "time": "2013-10-17 07:27:40"
         },
         {
             "name": "phpunit/phpunit-mock-objects",
