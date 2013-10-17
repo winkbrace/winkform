@@ -2,14 +2,14 @@
 
 class Dropdown extends Input
 {
-    
+
     protected $type = 'dropdown',
               $multiple = false,
               $optionsClasses = array(), // numeric array with classes for each option. indexes have to match index of values
               $optionsTitles = array();  // numeric array with titles for each option. indexes have to match index of values
-    
-   
-    
+
+
+
     /**
      * render the dropdown
      */
@@ -20,7 +20,7 @@ class Dropdown extends Input
 
         // create select tag
         $output = $this->renderLabel();
-            
+
         // multi select dropdown?
         if ($this->multiple === true)
         {
@@ -31,7 +31,7 @@ class Dropdown extends Input
         {
             $name = $this->renderName();
         }
-        
+
         $output .= '<select'
                 . $this->renderId()
                 . $this->renderClass()
@@ -45,7 +45,7 @@ class Dropdown extends Input
                 . $this->renderRequired()
                 . $this->renderAutoFocus()
                 .'>'."\n";
-        
+
         // create options
         $lastCategory = '';
         foreach ($this->values as $i => $value)
@@ -61,32 +61,32 @@ class Dropdown extends Input
                 $output .= '<optgroup label="'.$this->categories[$i].'">'."\n";
                 $lastCategory = $this->categories[$i];
             }
-            
-            // id
+
+            // create option id
             $id = $this->id.'-'.$this->toValidHtmlId($value);
-            
+
             // the actual option
             $output .= '<option id="'.$id.'" value="'.$value.'"'
                     . $this->renderOptionSelected($value)
                     . $this->renderOptionClass($i)
                     . $this->renderOptionTitle($i)
                     . '>'.$this->labels[$i]."</option>\n";
-            
+
         }
-        
+
         // end last category?
         if (! empty($lastCategory))
         {
             $output .= '</optgroup>'."\n";
         }
-        
+
         $output .= '</select>'."\n";
-        
+
         $output .= $this->renderInvalidations();
-        
+
         return $output;
     }
-    
+
     /**
      * @return string multiple="multiple"
      */
@@ -97,6 +97,7 @@ class Dropdown extends Input
 
     /**
      * @param boolean $multiple
+     * @return $this
      */
     public function setMultiple($multiple = true)
     {
@@ -104,13 +105,14 @@ class Dropdown extends Input
         {
             $this->multiple = $multiple;
         }
-        
+
         return $this;
     }
-    
+
     /**
      * set the classes for all options
      * @param array $optionsClasses
+     * @return $this
      */
     public function setOptionsClasses($optionsClasses)
     {
@@ -118,13 +120,14 @@ class Dropdown extends Input
         {
             $this->optionsClasses = $optionsClasses;
         }
-        
+
         return $this;
     }
-    
+
     /**
      * set the titles for all options (used by ChainedDropdowns jquery.chained.js)
      * @param array $optionsTitles
+     * @return $this
      */
     public function setOptionsTitles($optionsTitles)
     {
@@ -132,32 +135,34 @@ class Dropdown extends Input
         {
             $this->optionsTitles = $optionsTitles;
         }
-    
+
         return $this;
     }
-    
+
     /**
      * set class for one option
      * @param string $class
+     * @return $this
      */
     public function appendOptionClass($class)
     {
         $this->optionsClasses[] = $class;
-        
+
         return $this;
     }
-    
+
     /**
      * set title for one option
      * @param string $title
+     * @return $this
      */
     public function appendOptionTitle($title)
     {
         $this->optionsTitles[] = $title;
-    
+
         return $this;
     }
-    
+
     /**
      * get class of the option
      * @param int $i
@@ -167,7 +172,7 @@ class Dropdown extends Input
     {
         return array_key_exists($i, $this->optionsClasses) ? ' class="'.$this->optionsClasses[$i].'"' : null;
     }
-    
+
     /**
      * @param int $i
      * @return string $title
@@ -176,25 +181,24 @@ class Dropdown extends Input
     {
         return array_key_exists($i, $this->optionsTitles) ? ' title="'.$this->optionsTitles[$i].'"' : null;
     }
-    
+
     /**
      * get the selected attribute if needed for the option
-     * @param string $value
+     * @param  string $value
+     * @return string
      */
     protected function renderOptionSelected($value)
     {
-        foreach (array($this->selected, $this->value) as $selected)
-        {
-            if (! empty($selected))
-            {
-                if (is_array($selected))
-                    return in_array($value, $selected) ? ' selected="selected"' : '';
-                else
-                    return $value == $selected ? ' selected="selected"' : '';
-            }
-        }
-        
-        return null;
+        // selected has priority over value
+        $selected = $this->selected ?: $this->value;
+
+        if (empty($selected))
+            return null;
+
+        if (is_array($selected))
+            return in_array($value, $selected) ? ' selected="selected"' : '';
+        else
+            return $value == $selected ? ' selected="selected"' : '';
     }
-    
+
 }
