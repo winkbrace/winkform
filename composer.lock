@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "8fd5e8f0bad84ca0826f3a7f4efa4dad",
+    "hash": "fd3b2a25bd4ae6c974638852697b1534",
     "packages": [
         {
             "name": "illuminate/container",
@@ -1558,12 +1558,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "3b97c8492bcafbabe6b6fbd2ab35f2f04d932a8d"
+                "reference": "1ded00759dd084320d9637ea0bf8a1cc73a84608"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/3b97c8492bcafbabe6b6fbd2ab35f2f04d932a8d",
-                "reference": "3b97c8492bcafbabe6b6fbd2ab35f2f04d932a8d",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/1ded00759dd084320d9637ea0bf8a1cc73a84608",
+                "reference": "1ded00759dd084320d9637ea0bf8a1cc73a84608",
                 "shasum": ""
             },
             "require": {
@@ -1624,7 +1624,7 @@
                 "testing",
                 "xunit"
             ],
-            "time": "2013-10-17 07:27:40"
+            "time": "2013-10-13 23:37:04"
         },
         {
             "name": "phpunit/phpunit-mock-objects",
