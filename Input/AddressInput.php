@@ -89,17 +89,13 @@ class AddressInput extends Input
     {
         if (empty($this->posted) || $this->isFlagSet($flag, self::INPUT_OVERRULE_POST))
         {
-            // of flag is niet geset of wel geset maar dan moet POST empty zijn
-            if (! $this->isFlagSet($flag, self::INPUT_SELECTED_INITIALLY_ONLY) || empty($_POST))
-            {
-                $this->selected = $selected;
-                $this->removeStyle('font-style:italic; color:#888;');
+            $this->selected = $selected;
+            $this->removeStyle('font-style:italic; color:#888;');
 
-                list($postcode, $housenumber, $extension) = $selected;
-                $this->postcode->setSelected($postcode);
-                $this->houseNumber->setSelected($housenumber);
-                $this->houseNumberExtension->setSelected($extension);
-            }
+            list($postcode, $housenumber, $extension) = $selected;
+            $this->postcode->setSelected($postcode);
+            $this->houseNumber->setSelected($housenumber);
+            $this->houseNumberExtension->setSelected($extension);
         }
 
         return $this;

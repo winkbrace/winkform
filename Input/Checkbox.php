@@ -53,13 +53,11 @@ class Checkbox extends Input
         $output = '';
         
         // get the selected values
+        $selected = $this->selected ?: $this->value;
         $selectedValues = array(); // default empty array
-        if (isset($this->selected))
+        if (! empty($selected))
         {
-            if (is_array($this->selected))
-                $selectedValues = $this->selected;
-            else
-                $selectedValues = array($this->selected);
+            $selectedValues = is_array($selected) ? $selected : array($selected);
         }
         
         if (! empty($this->renderInColumns))
@@ -139,7 +137,7 @@ class Checkbox extends Input
                 $output .= '</td>';
         
                 // go to new table row if the number of columns set in renderInColumns is reached. Add empty td for spacing.
-                if (! empty($this->categories) && ! empty($this->renderInColumns) && ++$colcount % $this->renderInColumns == 0)
+                if (! empty($this->categories) && ! empty($this->renderInColumns) && ++$colcount % $this->renderInColumns === 0)
                     $output .= '</tr><tr><td colspan="'.$this->renderInColumns.'" style="padding-top:10px;"></td></tr><tr>'."\n";
             }
         
@@ -172,9 +170,9 @@ class Checkbox extends Input
     {
         if (empty($this->value))
         {
-            $this->setValue('off');
+            $this->setValue('1');
             if ($this->selected === true) // for intuitive use
-                $this->selected = 'off';
+                $this->selected = '1';
         }
         
         $checked = $this->value == $this->selected ? ' checked="checked" ' : '';
@@ -210,7 +208,7 @@ class Checkbox extends Input
         if (! isset($_POST[$this->name.'-isPosted']) || $this->isFlagSet($flag, self::INPUT_OVERRULE_POST))
         {
             // checkboxes can be array or single value. If array of values is given, make sure selected is an array
-            if (! empty($this->values) && ! is_array($selected) && strlen($selected) != 0)
+            if (! empty($this->values) && ! is_array($selected) && strlen($selected) !== 0)
             {
                 // assume commas mean a comma separated list
                 if (strpos($selected, ',') !== false)

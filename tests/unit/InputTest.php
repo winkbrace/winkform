@@ -205,11 +205,11 @@ class InputTest extends \Codeception\TestCase\Test
         $this->assertEquals('selected', $input->getSelected());
 
         // test overrule post
-        $_POST['foo'] = 'this';
+        $_POST['foo'] = 'one';
         $input = new TextInput('foo');
-        $this->assertEquals('this', $input->getSelected());
-        $input->setSelected('other', Input::INPUT_OVERRULE_POST);
-        $this->assertEquals('other', $input->getSelected());
+        $this->assertEquals('one', $input->getSelected());
+        $input->setSelected('two', Input::INPUT_OVERRULE_POST);
+        $this->assertEquals('two', $input->getSelected());
     }
 
     /**

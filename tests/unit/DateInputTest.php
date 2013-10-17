@@ -92,28 +92,6 @@ class DateInputTest extends \Codeception\TestCase\Test
     }
     
     /**
-     * test value, selected and posted are properly rendering
-     */
-    public function testSelected()
-    {
-        // value should be rendered
-        $input = new DateInput('test', '10-10-2010');
-        $render = $input->render();
-        $this->assertContains('value="10-10-2010"', $render);
-        
-        // selected value should be rendered
-        $input->setSelected('11-11-2011');
-        $render = $input->render();
-        $this->assertContains('value="11-11-2011"', $render);
-        
-        // posted value should be rendered
-        $_POST['test'] = '12-12-2012';
-        $input = new DateInput('test');
-        $render = $input->render();
-        $this->assertContains('value="12-12-2012"', $render);
-    }
-    
-    /**
      * DateInput should properly render the label
      */
     public function testRenderLabel()

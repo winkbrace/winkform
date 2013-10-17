@@ -91,14 +91,10 @@ class DateRangeInput extends Input
         {
             if (empty($this->posted) || $this->isFlagSet($flag, self::INPUT_OVERRULE_POST))
             {
-                // of flag is niet geset of wel geset maar dan moet POST empty zijn
-                if (! $this->isFlagSet($flag, self::INPUT_SELECTED_INITIALLY_ONLY) || empty($_POST))
-                {
-                    $from = array_key_exists('from', $selected) ? $selected['from'] : $selected[0];
-                    $to = array_key_exists('to', $selected) ? $selected['to'] : $selected[1];
-                    $this->dateFrom->setSelected($from);
-                    $this->dateTo->setSelected($to);
-                }
+                $from = array_key_exists('from', $selected) ? $selected['from'] : $selected[0];
+                $to = array_key_exists('to', $selected) ? $selected['to'] : $selected[1];
+                $this->dateFrom->setSelected($from);
+                $this->dateTo->setSelected($to);
             }
         }
 

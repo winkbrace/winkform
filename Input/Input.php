@@ -55,16 +55,11 @@ abstract class Input extends ObserverSubject implements ObserverInterface
     const INPUT_OVERRULE_POST = 1;
 
     /**
-     * only use an initial "selected" value if nothing has been posted yet
-     */
-    const INPUT_SELECTED_INITIALLY_ONLY = 2;
-
-    /**
      * used by setLabels() and appendOptions to not escape HTML chars
      */
-    const INPUT_DONT_ESCAPE_HTML = 4;
+    const INPUT_DONT_ESCAPE_HTML = 2;
 
-    // next const should be 8, 16, then 32 etc. to have the nth bit set to 1
+    // next const should be 4, 8, 16, then 32 etc to have the nth bit set to 1
 
 
     /**
@@ -830,8 +825,8 @@ abstract class Input extends ObserverSubject implements ObserverInterface
     }
 
     /**
-     * Set an initial value for the input field
-     * @param string $selected
+     * Set a selected value or selected values for the input
+     * @param mixed $selected
      * @param int $flag
      * @return $this
      */
@@ -839,11 +834,7 @@ abstract class Input extends ObserverSubject implements ObserverInterface
     {
         if (empty($this->posted) || $this->isFlagSet($flag, self::INPUT_OVERRULE_POST))
         {
-            // of flag is niet geset of wel geset maar dan moet POST empty zijn
-            if (! $this->isFlagSet($flag, self::INPUT_SELECTED_INITIALLY_ONLY) || empty($_POST))
-            {
-                $this->selected = $selected;
-            }
+            $this->selected = $selected;
         }
 
         return $this;
