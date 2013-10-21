@@ -56,7 +56,7 @@ class SelectedValueTest extends \Codeception\TestCase\Test
         $dd->setValue(1);
         $render = $dd->render();
         $this->assertContains('value="1" selected', $render);
-        
+
         $dd->setSelected(2);
         $render = $dd->render();
         $this->assertContains('value="2" selected', $render);
@@ -71,8 +71,6 @@ class SelectedValueTest extends \Codeception\TestCase\Test
         $dd->setSelected(2);
         $render = $dd->render();
         $this->assertContains('value="3" selected', $render, 'using setSelected should not overwrite posted value');
-
-        // TODO write tests for multiple dropdown
     }
 
     /**
@@ -84,11 +82,11 @@ class SelectedValueTest extends \Codeception\TestCase\Test
         $input->appendOptions(array(1 => 'one', 'two', 'three'));
         $render = $input->render();
         $this->assertContains('value="1" checked', $render);
-        
+
         $input->setSelected(2);
         $render = $input->render();
         $this->assertContains('value="2" checked', $render);
-        
+
         // using setSelected should not overwrite posted value
         $_POST['foo'] = 3;
         $input = new RadioInput('foo', 1);
@@ -109,11 +107,11 @@ class SelectedValueTest extends \Codeception\TestCase\Test
         $input->appendOptions(array(1 => 'one', 'two', 'three'));
         $render = $input->render();
         $this->assertContains('value="1" checked', $render);
-        
+
         $input->setSelected(2);
         $render = $input->render();
         $this->assertContains('value="2" checked', $render);
-        
+
         // using setSelected should not overwrite posted value
         $_POST['foo'] = array(3);
         $_POST['foo-isPosted'] = 1;
@@ -125,7 +123,7 @@ class SelectedValueTest extends \Codeception\TestCase\Test
         $render = $input->render();
         $this->assertContains('value="3" checked', $render, 'using setSelected should not overwrite posted value');
     }
-    
+
     /**
      * test single checkbox
      */
@@ -134,15 +132,15 @@ class SelectedValueTest extends \Codeception\TestCase\Test
         $input = new Checkbox('foo', 1);
         $render = $input->render();
         $this->assertNotContains('checked', $render);
-        
+
         $input->setSelected(1);
         $render = $input->render();
         $this->assertContains('checked', $render);
-        
+
         $input->setSelected(2);
         $render = $input->render();
         $this->assertNotContains('checked', $render, 'setSelected with invalid value should remove the checked attribute');
-        
+
         // using setSelected should not overwrite posted value
         $_POST['foos'] = 1;
         $_POST['foos-isPosted'] = 1;
@@ -153,7 +151,7 @@ class SelectedValueTest extends \Codeception\TestCase\Test
         $render = $input->render();
         $this->assertContains('checked', $render, 'using setSelected with invalid value should not overwrite posted value');
     }
-    
+
     /**
      * test date input
      * test value, selected and posted are properly rendering
@@ -164,22 +162,22 @@ class SelectedValueTest extends \Codeception\TestCase\Test
         $input = new DateInput('test', '10-10-2010');
         $render = $input->render();
         $this->assertContains('value="10-10-2010"', $render);
-        
+
         // selected value should be rendered
         $input->setSelected('11-11-2011');
         $render = $input->render();
         $this->assertContains('value="11-11-2011"', $render);
-        
+
         // posted value should be rendered
         $_POST['test'] = '12-12-2012';
         $input = new DateInput('test');
         $render = $input->render();
         $this->assertContains('value="12-12-2012"', $render);
-        
+
         // selected should not overwrite posted
         $input->setSelected('11-11-2011');
         $render = $input->render();
         $this->assertContains('value="12-12-2012"', $render);
     }
-    
+
 }
