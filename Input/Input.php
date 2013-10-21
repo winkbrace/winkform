@@ -1015,7 +1015,7 @@ abstract class Input extends ObserverSubject implements ObserverInterface
         $output = '';
         foreach ($this->dataAttributes as $name => $value)
         {
-            $name =  ! str_like($name, 'data-%') ? 'data-'.$name : $name;
+            $name = ! str_like($name, 'data-%') ? 'data-'.$name : $name;
             $output .= ' '.$name.'="'.$value.'"';
         }
 

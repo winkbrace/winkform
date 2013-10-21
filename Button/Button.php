@@ -14,6 +14,12 @@ class Button extends \WinkForm\Input\Input
      */
     protected $type = 'submit';
     
+    /**
+     * html body of the button
+     * @var string
+     */
+    protected $body;
+    
     
     /**
      * construct Button
@@ -37,7 +43,7 @@ class Button extends \WinkForm\Input\Input
         $this->checkValidity();
     
         $output = $this->renderLabel()
-        . '<button'
+            . '<button'
             . $this->renderType()
             . $this->renderId()
             . $this->renderClass()
@@ -50,7 +56,7 @@ class Button extends \WinkForm\Input\Input
             . $this->renderRequired()
             . $this->renderAutoFocus()
             .' >'
-            . $this->getValue()
+            . $this->getBody()
             . '</button>'
             . PHP_EOL;
     
@@ -81,4 +87,24 @@ class Button extends \WinkForm\Input\Input
         
         return $this;
     }
+    
+    /**
+     * @return string $body
+     */
+    public function getBody()
+    {
+        return $this->body;
+    }
+
+    /**
+     * @param string $body
+     * @return $this
+     */
+    public function setBody($body)
+    {
+        $this->body = $body;
+        
+        return $this;
+    }
+
 }
