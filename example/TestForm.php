@@ -52,7 +52,14 @@ class TestForm extends Form
         parent::__construct();
 
         $this->oAddress = self::address('address');
-        $this->oChained = self::chainedDropdowns('chained');
+
+        $this->oChained = self::chainedDropdowns('chained')
+            ->setData(array(
+                0 => array('one' => 1, 'two' => 3, 'three' => 6),
+                1 => array('one' => 1, 'two' => 4, 'three' => 7),
+                2 => array('one' => 2, 'two' => 5, 'three' => 8),
+            ));
+
         $this->oCheckbox = self::checkbox('checkbox', 'value');
         $this->oCheckboxes = self::checkbox('checkboxes')->appendOptions(array(1 => 'one','two','three'));
         $this->oColor = self::color('color');

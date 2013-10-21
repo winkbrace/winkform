@@ -9,7 +9,7 @@ use WinkForm\Validation\QuickValidator;
  * Abstract class for input classes
  * Only render() _has_ to be different for each concrete class. The rest can be inherited.
  *
- * Note on Observer pattern:
+ * Note on implemented Observer pattern:
  * Since extended Input elements can contain other Input elements, the Input class is both
  * an observer and an observer subject.
  *
@@ -18,9 +18,9 @@ use WinkForm\Validation\QuickValidator;
 abstract class Input extends ObserverSubject implements ObserverInterface
 {
     protected $type,
+              $id,
               $name,
               $label,
-              $id,
               $value,
               $values = array(),
               $labels = array(),
@@ -31,8 +31,6 @@ abstract class Input extends ObserverSubject implements ObserverInterface
               $selected,
               $posted,
               $disabled,
-              $onclick,
-              $onchange,
               $size, // File Input doesn't support style="width" and Dropdown also uses it
               $renderWithLabel = true,   // boolean value to not let the label render, even though it has one
               $required = false,         // boolean value to tell if the input element is required
