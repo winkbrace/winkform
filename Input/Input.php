@@ -1237,6 +1237,12 @@ abstract class Input extends ObserverSubject implements ObserverInterface
                 // don't remove any previously set classes
                 $this->addClass($value);
             }
+            elseif ($attribute == 'dataAttributes')
+            {
+                // don't remove any previously set data attributes
+                foreach ($value as $dataKey => $dataValue)
+                    $this->addDataAttribute($dataKey, $dataValue);
+            }
             else
             {
                 $this->{$attribute} = $value;
