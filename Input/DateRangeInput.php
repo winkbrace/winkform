@@ -49,7 +49,7 @@ class DateRangeInput extends Input
         $this->checkValidity();
 
         // render the date range input fields
-        $output = $this->dateFrom->setRenderWithLabel(true)->render() . $this->dateTo->setRenderWithLabel(true)->render();
+        $output = $this->dateFrom->render() . $this->dateTo->render();
 
         $output .= $this->renderInvalidations();
 

@@ -44,7 +44,7 @@ class WeekRangeInput extends Input
         $this->checkValidity();
 
         // render the week range dropdowns
-        $output = $this->weekFrom->setRenderWithLabel(true)->render() . $this->weekTo->setRenderWithLabel(true)->render();
+        $output = $this->weekFrom->render() . $this->weekTo->render();
 
         $output .= $this->renderInvalidations();
 

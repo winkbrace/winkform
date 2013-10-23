@@ -1270,7 +1270,6 @@ abstract class Input extends ObserverSubject implements ObserverInterface
             'title'             => $this->title,
             'disabled'          => $this->disabled,
             'size'              => $this->size,
-            'renderWithLabel'   => $this->renderWithLabel,
             'required'          => $this->required,
             'dataAttributes'    => $this->dataAttributes,
             'styles'            => $styles,

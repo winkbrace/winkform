@@ -137,6 +137,7 @@ class DateInput extends Input
         $this->text->setValue($this->value);
         $this->text->setSelected($this->selected);
         $this->text->setLabel($this->label);
+        $this->text->setRenderWithLabel($this->renderWithLabel);
 
         $output = '<div id="'.$this->id.'-container"'.$hidden.' style="float: left;">'
                 . $this->text->render()
