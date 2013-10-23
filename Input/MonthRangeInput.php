@@ -44,7 +44,7 @@ class MonthRangeInput extends Input
         $this->checkValidity();
 
         // render the month range dropdowns
-        $output = $this->monthFrom->render() . '&nbsp;t/m&nbsp; ' . $this->monthTo->render();
+        $output = $this->monthFrom->setRenderWithLabel(true)->render() . $this->monthTo->setRenderWithLabel(true)->render();
 
         $output .= $this->renderInvalidations();
 
