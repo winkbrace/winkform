@@ -10,7 +10,7 @@ use WinkForm\Form;
 class FormTest extends \Codeception\TestCase\Test
 {
     /**
-     * @var \WinkForm\Form
+     * @var TestForm
      */
     protected $form;
 
@@ -58,6 +58,23 @@ class FormTest extends \Codeception\TestCase\Test
         $form->render();
 
         $this->assertEquals(Form::ENCTYPE_FILE, $form->getEnctype());
+    }
+    
+    /**
+     * test default validation of DateInput and DateRangeInput
+     */
+    public function testDateValidation()
+    {
+        // confirm when nothing posted nothing will be invalidated
+        $this->assertTrue($this->form->validate());
+        $this->assertEmpty($this->form->oDate->getInvalidations());
+        
+        // create invalid posted values
+        $_POST = array('date' => '123-123', 'dateRange-from' => '1', 'dateRange-to' => '2');
+        $form = new TestForm();
+        $this->assertFalse($form->validate());
+        $this->assertNotEmpty($form->oDate->getInvalidations());
+        $this->assertNotEmpty($form->oDateRange->getInvalidations());
     }
 
 }

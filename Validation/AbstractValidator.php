@@ -145,6 +145,12 @@ abstract class AbstractValidator
     {
         if (array_key_exists($name, $this->errors))
             return $this->errors[$name];
+        // The DateRange, MonthRange and WeekRange input fields have 2 child inputs with the name appended with -from and -to.
+        // These should be returned too when requesting errors of the input element
+        elseif (array_key_exists($name.'-from', $this->errors))
+            return $this->errors[$name.'-from'];
+        elseif (array_key_exists($name.'-to', $this->errors))
+            return $this->errors[$name.'-to'];
         else
             return array();
     }

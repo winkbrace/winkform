@@ -1,5 +1,9 @@
 <?php namespace WinkForm;
 
+use WinkForm\Input\DateRangeInput;
+
+use WinkForm\Input\DateInput;
+
 /**
  * abstract class Form
  *
@@ -404,6 +408,17 @@ abstract class Form
         if (! empty($values))
         {
             $this->validator->addValidation($input, 'all_in:'.implode(',', $values));
+        }
+        
+        // always validate the date
+        if ($input instanceof DateInput)
+        {
+            $this->validator->addValidation($input, 'date_format:'.$input->getDateFormat());
+        }
+        elseif ($input instanceof DateRangeInput)
+        {
+            $this->validator->addValidation($input->getDateFrom(), 'date_format:'.$input->getDateFrom()->getDateFormat());
+            $this->validator->addValidation($input->getDateTo(), 'date_format:'.$input->getDateTo()->getDateFormat());
         }
 
         // validations added to the Input element

@@ -238,6 +238,14 @@ class DateInput extends Input
 
         return implode($this->dateFormatDelimiter, $jsDateElements);
     }
+    
+    /**
+     * @return string
+     */
+    public function getDateFormat()
+    {
+        return $this->dateFormat;
+    }
 
     /**
      * Set extra parameters or overwrite default ones for the DatePicker.
