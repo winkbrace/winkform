@@ -13,9 +13,6 @@ if (! defined('BRCLR'))
 if (! defined('WINKFORM_PATH'))
     define('WINKFORM_PATH', __DIR__.'/');
 
-if (! defined('CONFIG_PATH'))
-    define('CONFIG_PATH', __DIR__.'/config/');
-
 
 // helper functions
 require_once 'helpers.php';
@@ -42,4 +39,4 @@ spl_autoload_register(function($class) {
 });
 
 // composer autoloader
-require_once 'vendor/autoload.php';
+require_once '../../vendor/autoload.php';

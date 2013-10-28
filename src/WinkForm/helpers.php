@@ -238,7 +238,7 @@ if (! function_exists('get_winkform_config'))
      */
     function get_winkform_config($key = null)
     {
-        $config = require CONFIG_PATH . 'config.php';
+        $config = require 'config.php';
         if (! empty($key))
             return $config[$key];
         else

@@ -1,6 +1,6 @@
 <?php
 // require the library
-require_once '../require.php';  // path/to/WinkForm/require.php
+require_once '../src/WinkForm/require.php';  // path/to/WinkForm/require.php
 
 // typically your own autoloader should be configured to look in your forms directory
 require_once 'TestForm.php';
@@ -19,8 +19,7 @@ $form = new TestForm();
     <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
     <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
     <!-- ChainedDropdowns uses this jquery plugin -->
-    <!-- loading from github is not a very good idea, since it can be slow, better host it on your own server -->
-    <script src="https://raw.github.com/tuupola/jquery_chained/master/jquery.chained.js"></script>
+    <script src="js/jquery.chained.min.js"></script>
 
     <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css">
 

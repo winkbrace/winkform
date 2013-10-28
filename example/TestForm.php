@@ -66,7 +66,7 @@ class TestForm extends Form
         $this->oDate = self::date('date');
         $this->oDateRange = self::dateRange('dateRange', date('d-m-Y'), date('d-m-Y'));
         $this->oDropdown = self::dropdown('dropdown')->appendOptions(array(1 => 'one','two','three'));
-        $this->oEmail = self::email('email', 'info@basderuiter.nl');
+        $this->oEmail = self::email('email', 'winkbrace@gmail.nl');
         $this->oFile = self::file('file');
         $this->oHidden = self::hidden('hidden');
         $this->oMonth = self::month('month');

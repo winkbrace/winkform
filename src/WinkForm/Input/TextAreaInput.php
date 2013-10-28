@@ -33,17 +33,17 @@ class TextAreaInput extends Input
                     . '>' . PHP_EOL
                     . $this->getValue()
                     . '</textarea>' . PHP_EOL;
-        
+
         // add the JS counter if needed
         $output .= $this->renderCounter();
-        
+
         $output .= $this->renderInvalidations();
-        
+
         return $output;
     }
-    
+
     /**
-     * @return the $rows
+     * @return string $rows
      */
     public function renderRows()
     {
@@ -51,7 +51,7 @@ class TextAreaInput extends Input
     }
 
     /**
-     * @return the $cols
+     * @return string $cols
      */
     public function renderCols()
     {
@@ -69,7 +69,7 @@ class TextAreaInput extends Input
     {
         if (! $this->jsCounter)
             return '';
-        
+
         if ($this->isDisabled())
         {
             $output = 'You have used <span class="done" id="' . $this->getCounterID() . '">'
@@ -80,26 +80,26 @@ class TextAreaInput extends Input
         {
             $prefix = 'You have ';
             $suffix = ' characters left.';
-            
+
             $output = $prefix;
             $output .= '<span id="' . $this->getCounterID() . '"';
-            
+
             // add the options for the counter as a data-value attribute
             $output .= ' data-options="' . $this->getCounterOptions() . '"';
-            
+
             $output .= '></span>';
             $output .= $suffix . PHP_EOL;
         }
-        
+
         $output = '<p class="counter">' . $output . '</p>';
 
         // add the JS that does the counting
         if (! $this->isDisabled())
             $output .= $this->getCounterJS() . PHP_EOL;
-        
+
         return $output;
     }
-    
+
     /**
      * Generates a unique counter ID so it doesn't conflict.
      * @return string
@@ -108,7 +108,7 @@ class TextAreaInput extends Input
     {
         return $this->getId() . '_counter';
     }
-    
+
     /**
      * Prepares the array of options for the counter plugin.
      *
@@ -118,19 +118,19 @@ class TextAreaInput extends Input
     protected function getCounterOptions()
     {
         $options = $this->jsCounterOptions;
-        
+
         // always provide a jQuery selecter for the counter
         $counterId = array_key_exists('counter', $options)
             ? $options['counter']        // custom jQuery selector
             : $this->getCounterID();     // default jQuery selecter (assumes the textarea has a unique ID)
 
         $options['counter'] =  '#' . ltrim($counterId, '#');
-        
+
         $jsonOptions = htmlspecialchars(json_encode($options), ENT_QUOTES, 'UTF-8');
-        
+
         return $jsonOptions;
     }
-    
+
     /**
      * The JS to initialize a counter for a textarea
      * @return string the JS script
@@ -145,7 +145,7 @@ class TextAreaInput extends Input
         });
         </script>';
     }
-    
+
     /**
      * @param int $rows
      */
@@ -155,7 +155,7 @@ class TextAreaInput extends Input
         {
             $this->rows = $rows;
         }
-        
+
         return $this;
     }
 
@@ -168,7 +168,7 @@ class TextAreaInput extends Input
         {
             $this->cols = $cols;
         }
-        
+
         return $this;
     }
 
@@ -188,10 +188,10 @@ class TextAreaInput extends Input
             // add new white-space style
             $this->addStyle('white-space:'.$wrapStyle);
         }
-        
+
         return $this;
     }
-    
+
     /**
      * Set a JS counter for a textarea.
      *
@@ -219,7 +219,7 @@ class TextAreaInput extends Input
         if ($this->validate($counter, 'boolean'))
         {
             $this->jsCounter = $counter;
-            
+
             if ($options)
             {
                 $allowedParams = array('counter', 'countType', 'wordSeparator', 'maxCount', 'strictMax',
@@ -228,7 +228,7 @@ class TextAreaInput extends Input
                 $this->jsCounterOptions = array_intersect_key($options, array_flip($allowedParams));
             }
         }
-    
+
         return $this;
     }
 

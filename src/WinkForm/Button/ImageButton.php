@@ -2,12 +2,12 @@
 
 class ImageButton extends InputButton
 {
-    
+
     protected $type = 'image',
               $src,
               $alt;
-    
-    
+
+
     /**
      * construct Button
      * @param string $name
@@ -16,7 +16,7 @@ class ImageButton extends InputButton
     function __construct($name, $value = null)
     {
         parent::__construct($name, $value);
-    
+
         // remove default bootstrapper btn class
         $this->removeClass('btn');
     }
@@ -29,7 +29,7 @@ class ImageButton extends InputButton
         // default validity check
         $this->validate($this->src, 'not_empty');
         $this->checkValidity();
-        
+
         $output = $this->renderLabel()
                 . '<input'
                 . $this->renderType()
@@ -46,12 +46,12 @@ class ImageButton extends InputButton
                 . $this->renderRequired()
                 . $this->renderAutoFocus()
                 .' />'."\n";
-        
+
         $output .= $this->renderInvalidations();
-        
+
         return $output;
     }
-    
+
     /**
      * @return $src
      */
@@ -61,7 +61,7 @@ class ImageButton extends InputButton
     }
 
     /**
-     * @param url $src
+     * @param string $src
      * @return \WinkForm\Button\ImageButton
      */
     public function setSrc($src)
@@ -70,10 +70,10 @@ class ImageButton extends InputButton
         {
             $this->src = $src;
         }
-        
+
         return $this;
     }
-    
+
     /**
      * @return string $alt
      */
@@ -89,10 +89,10 @@ class ImageButton extends InputButton
     public function setAlt($alt)
     {
         $this->alt = $alt;
-        
+
         return $this;
     }
-    
+
     /**
      * (non-PHPdoc)
      * @see \WinkForm\Input\Input::isPosted()
@@ -101,5 +101,5 @@ class ImageButton extends InputButton
     {
         return ! empty($_POST[$this->name.'_x']);
     }
-    
+
 }

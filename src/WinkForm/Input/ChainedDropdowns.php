@@ -5,7 +5,6 @@
  *
  * The contents of later dropdowns are depending on what is selected in earlier dropdowns
  * These dropdowns require the jquery plugin jquery.chained.min.js found at http://www.appelsiini.net/projects/chained
- * or use the direct download link from github: https://raw.github.com/tuupola/jquery_chained/master/jquery.chained.js
  *
  */
 class ChainedDropdowns extends Input
