@@ -1,5 +1,8 @@
 <?php namespace WinkForm\Input;
 
+use WinkForm\Form;
+use WinkForm\Translation\Translator;
+
 class AddressInput extends Input
 {
 
@@ -30,17 +33,24 @@ class AddressInput extends Input
     {
         parent::__construct($name, $value);
 
+        $translator = Translator::getInstance();
+
         // create the text inputs
-        // NOTE: names must be the same as the values for the jquery script
-        $this->postcode = new TextInput('postcode', 'postcode');
-        $this->houseNumber = new TextInput('huisnr', 'huisnr');
-        $this->houseNumberExtension = new TextInput('toevoeging', 'toevoeging');
+        // NOTE: values must be the same as the titles for the jquery script
+        $postcode = $translator->get('inputs.postal-code');
+        $this->postcode = Form::text($name.'-'.$postcode, str_replace('-', ' ', $postcode))->setTitle(str_replace('-', ' ', $postcode));
+
+        $hnr = $translator->get('inputs.house-number');
+        $this->houseNumber = Form::text($name.'-'.$hnr, str_replace('-', ' ', $hnr))->setTitle(str_replace('-', ' ', $hnr));
+
+        $ext = $translator->get('inputs.extension');
+        $this->houseNumberExtension = Form::text($name.'-'.$ext, str_replace('-', ' ', $ext))->setTitle(str_replace('-', ' ', $ext));
 
         $this->attachObserver($this->postcode);
         $this->attachObserver($this->houseNumber);
         $this->attachObserver($this->houseNumberExtension);
 
-        // set the global style that will get copied down
+        // set the global placeholder style that will get copied down
         $this->setWidth(150)->addStyle('font-style:italic; color:#888;')->addClass('address');
     }
 
@@ -61,7 +71,8 @@ class AddressInput extends Input
 
         $output .= '<script>
                     $("input.address").focus(function() {
-                        if ($(this).val() == $(this).attr("id")) {
+                        console.log($(this).val() + " - " + $(this).attr("title"));
+                        if ($(this).val() == $(this).attr("title")) {
                             $(this).val("").css({fontStyle:"normal", color:"black"});
                         }
                     });

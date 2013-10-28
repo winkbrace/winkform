@@ -1,8 +1,6 @@
 <?php namespace WinkForm\Validation;
 
-use Illuminate\Filesystem\Filesystem;
-use Illuminate\Translation\FileLoader;
-use Illuminate\Translation\Translator;
+use WinkForm\Translation\Translator;
 
 /**
  * Abstract Validation class that utilizes Laravel Validation
@@ -48,7 +46,7 @@ abstract class AbstractValidator
         // by default: lang/en/validation.php
         // you can download the default validation.php in your language at
         // @see https://github.com/caouecs/Laravel4-lang
-        $this->translator = new Translator(new FileLoader(new Filesystem, $config['lang_location']), $this->locale);
+        $this->translator = Translator::getInstance();
 
         // fetch the allowed rules by reading the Validator validate methods
         $this->fetchRules();

@@ -232,10 +232,16 @@ if (! function_exists('get_winkform_config'))
 {
     /**
      * get the contents of the config file as an array
-     * @return array
+     * or the single value if a key is given
+     * @param string $key
+     * @return array|string
      */
-    function get_winkform_config()
+    function get_winkform_config($key = null)
     {
-        return require CONFIG_PATH . 'config.php';
+        $config = require CONFIG_PATH . 'config.php';
+        if (! empty($key))
+            return $config[$key];
+        else
+            return $config;
     }
 }

@@ -922,8 +922,6 @@ abstract class Input extends ObserverSubject implements ObserverInterface
     {
         $this->title = $title;
 
-        $this->notify();
-
         return $this;
     }
 
@@ -1267,7 +1265,6 @@ abstract class Input extends ObserverSubject implements ObserverInterface
 
         return array(
             'classes'           => $this->classes,
-            'title'             => $this->title,
             'disabled'          => $this->disabled,
             'size'              => $this->size,
             'required'          => $this->required,

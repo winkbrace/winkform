@@ -9,5 +9,5 @@ $I->dontSee('error');
 $I->dontSee('Error');
 
 // address field
-$I->see('#address');
-$I->see
+$I->see('#postcode');
+
