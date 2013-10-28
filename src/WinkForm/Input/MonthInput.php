@@ -20,11 +20,13 @@ class MonthInput extends Input
 
         // create the two dropdowns
         $this->month = new Dropdown($name.'-month', date('m'));
+        $this->month->setWidth(92);
         $months = array(1 => 'Januari', 'Februari', 'Maart', 'April', 'Mei', 'Juni', 'Juli', 'Augustus', 'September', 'Oktober', 'November', 'December');
         foreach ($months as $nr => $label)
             $this->month->appendOption($nr, $label);
 
         $this->year = new Dropdown($name.'-year', date('Y'));
+        $this->year->setWidth(65);
         for ($y = date('Y') - 2; $y < date('Y') + 3; $y++)
             $this->year->appendOption($y, $y);
 
@@ -45,12 +47,15 @@ class MonthInput extends Input
         // check result of validity checks of parameters passed to this Input element
         $this->checkValidity();
 
-        // force the widths
-        $this->month->setWidth(92);
-        $this->year->setWidth(65);
+        $output = '<span id="'.$this->id.'-container" class="inputs-container"'.$this->renderStyle().'>';
 
         // render the date range input fields
-        $output = $this->month->render() . $this->year->render() . $this->monthyear->render();
+        $output .= $this->renderLabel()
+            . $this->month->render()
+            . $this->year->render()
+            . $this->monthyear->render();
+
+        $output .= "</span>\n";
 
         $output .= $this->renderInvalidations();
 

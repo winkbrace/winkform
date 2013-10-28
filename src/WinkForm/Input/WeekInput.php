@@ -99,7 +99,7 @@ class WeekInput extends Input
             $output .= '<label for="'.$this->id.'">'.$this->label.'</label> ';
 
         // The applied styles will only apply to the container
-        $output .= '<span id="'.$this->id.'-container"'.$this->renderStyle().'>';
+        $output .= '<span id="'.$this->id.'-container" class="inputs-container"'.$this->renderStyle().'>';
         $output .= $this->year->render();
         $output .= $this->week->render();
         $output .= $this->hiddenInput->render();

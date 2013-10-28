@@ -77,7 +77,7 @@ class TestForm extends Form
             ->appendOptions(array(1 => 'one','two','three'))
             ->setLabel('dropdown');
 
-        $this->oEmail = self::email('email', 'winkbrace@gmail.nl')->setLabel('email');
+        $this->oEmail = self::email('email', 'winkbrace@gmail.com')->setLabel('email');
 
         $this->oFile = self::file('file')->setLabel('file');
 
