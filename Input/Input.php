@@ -977,6 +977,14 @@ abstract class Input extends ObserverSubject implements ObserverInterface
     }
 
     /**
+     * @return boolean
+     */
+    public function getRequired()
+    {
+        return $this->required;
+    }
+
+    /**
      * @return array $invalidations
      */
     public function getInvalidations()

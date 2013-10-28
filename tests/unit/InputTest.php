@@ -354,9 +354,9 @@ class InputTest extends \Codeception\TestCase\Test
         $this->assertEquals($style, $from->getStyles()->all());
         $this->assertEquals($style, $to->getStyles()->all());
 
-        $weeks->setTitle('Observability Factor');
-        $this->assertEquals('Observability Factor', $from->getTitle());
-        $this->assertEquals('Observability Factor', $to->getTitle());
+        $weeks->setRequired(true);
+        $this->assertEquals(true, $from->getRequired());
+        $this->assertEquals(true, $to->getRequired());
     }
 
     /**
@@ -365,10 +365,10 @@ class InputTest extends \Codeception\TestCase\Test
     public function testMonthRangeObserver()
     {
         $months = new \WinkForm\Input\MonthRangeInput('months', '2013-01', '2013-02');
-        $months->setTitle('Some title');
-        $this->assertEquals('Some title', $months->getMonthFrom()->getTitle());
+        $months->setRequired(true);
+        $this->assertEquals(true, $months->getMonthFrom()->getRequired());
         $render = $months->render();
-        $this->assertContains('title="Some title"', $render);
+        $this->assertContains('required', $render);
     }
 
     /**
@@ -377,10 +377,10 @@ class InputTest extends \Codeception\TestCase\Test
     public function testAddressObserver()
     {
         $input = new \WinkForm\Input\AddressInput('foo');
-        $input->setTitle('Some title');
-        $this->assertEquals('Some title', $input->getHouseNumber()->getTitle());
+        $input->setRequired(true);
+        $this->assertEquals(true, $input->getHouseNumber()->getRequired());
         $render = $input->render();
-        $this->assertContains('title="Some title"', $render);
+        $this->assertContains('required', $render);
     }
 
     /**
@@ -389,10 +389,10 @@ class InputTest extends \Codeception\TestCase\Test
     public function testDateObserver()
     {
         $input = new \WinkForm\Input\DateRangeInput('foo');
-        $input->setTitle('Some title');
-        $this->assertEquals('Some title', $input->getDateTo()->getTitle());
+        $input->setRequired(true);
+        $this->assertEquals(true, $input->getDateTo()->getRequired());
         $render = $input->render();
-        $this->assertContains('title="Some title"', $render);
+        $this->assertContains('required', $render);
     }
 
     /**
