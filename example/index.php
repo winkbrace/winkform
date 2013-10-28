@@ -18,6 +18,10 @@ $form = new TestForm();
     <!-- DateInput uses jquery ui date picker -->
     <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
     <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+    <!-- ChainedDropdowns uses this jquery plugin -->
+    <!-- loading from github is not a very good idea, since it can be slow, better host it on your own server -->
+    <script src="https://raw.github.com/tuupola/jquery_chained/master/jquery.chained.js"></script>
+
     <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css">
 
     <!-- Twitter Bootstrap -->

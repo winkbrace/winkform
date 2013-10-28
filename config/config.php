@@ -9,7 +9,7 @@
 return array(
 
     // error message language
-    'locale' => 'en',
+    'locale' => 'nl',
     // path to language files
     'lang_location' => WINKFORM_PATH . 'lang',
 

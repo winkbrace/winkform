@@ -38,9 +38,9 @@ class DateInput extends Input
 
         $this->attachObserver($this->text);
 
-        // set the calendar image specified in the config file
+        // set the calendar image specified in the config file if it is a valid url to an image
         $this->setCalendarImage($config['calendar_image']);
-        if (empty($this->calendarImage))
+        if (empty($this->calendarImage) || ! @getimagesize($this->calendarImage))
         {
             // set default calendar image (base64 encoded, so no actual image file required to use this class)
             // It is of course better to use an actual image for performance reasons
@@ -132,7 +132,7 @@ class DateInput extends Input
         // we will show/hide the container div for the text field and the image and not the text field and the image themselves
         $hidden = $this->getHidden() === true ? ' style="display:none;"' : '';
         $this->setHidden(false);
-        
+
         // the text field must have the selected values
         $this->text->setValue($this->value);
         $this->text->setSelected($this->selected);
@@ -239,7 +239,7 @@ class DateInput extends Input
 
         return implode($this->dateFormatDelimiter, $jsDateElements);
     }
-    
+
     /**
      * @return string
      */
