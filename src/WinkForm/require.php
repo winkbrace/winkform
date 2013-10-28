@@ -17,26 +17,5 @@ if (! defined('WINKFORM_PATH'))
 // helper functions
 require_once 'helpers.php';
 
-// autoloader
-spl_autoload_register(function($class) {
-
-    $file = trim(substr($class, strrpos($class, "\\")), "\\") . '.php';
-
-    // library root
-    if (file_exists(WINKFORM_PATH . $file))
-        require_once WINKFORM_PATH . $file;
-    // library Input classes
-    elseif (file_exists(WINKFORM_PATH . 'Input/' . $file))
-        require_once WINKFORM_PATH . 'Input/' . $file;
-    // library Button classes
-    elseif (file_exists(WINKFORM_PATH . 'Button/' . $file))
-        require_once WINKFORM_PATH . 'Button/' . $file;
-    // library Validation classes
-    elseif (file_exists(WINKFORM_PATH . 'Validation/' . $file))
-        require_once WINKFORM_PATH . 'Validation/' . $file;
-
-    // else not found. Maybe another autoloader will find the class
-});
-
 // composer autoloader
-require_once '../../vendor/autoload.php';
+require_once realpath(WINKFORM_PATH.'../../vendor/autoload.php');
