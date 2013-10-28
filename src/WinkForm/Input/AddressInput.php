@@ -71,7 +71,6 @@ class AddressInput extends Input
 
         $output .= '<script>
                     $("input.address").focus(function() {
-                        console.log($(this).val() + " - " + $(this).attr("title"));
                         if ($(this).val() == $(this).attr("title")) {
                             $(this).val("").css({fontStyle:"normal", color:"black"});
                         }

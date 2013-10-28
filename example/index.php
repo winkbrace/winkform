@@ -2,6 +2,10 @@
 // require the library
 require_once '../src/WinkForm/require.php';  // path/to/WinkForm/require.php
 
+// force English version test form
+$t = \WinkForm\Translation\Translator::getInstance();
+$t->setLocale('en');
+
 // typically your own autoloader should be configured to look in your forms directory
 require_once 'TestForm.php';
 
@@ -18,10 +22,10 @@ $form = new TestForm();
     <!-- DateInput uses jquery ui date picker -->
     <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
     <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+    <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css">
+
     <!-- ChainedDropdowns uses this jquery plugin -->
     <script src="js/jquery.chained.min.js"></script>
-
-    <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css">
 
     <!-- Twitter Bootstrap -->
     <script src="js/bootstrap.min.js"></script>

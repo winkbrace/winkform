@@ -39,6 +39,7 @@ class TestForm extends Form
 
     // buttons
     public $oButton,
+            $oInputButton,
             $oImage,
             $oReset,
             $oSubmit;
@@ -51,9 +52,9 @@ class TestForm extends Form
     {
         parent::__construct();
 
-        $this->oAddress = self::address('address');
+        $this->oAddress = self::address('address')->setLabel('address');
 
-        $this->oChained = self::chainedDropdowns('chained')
+        $this->oChained = self::chainedDropdowns('chained')->setLabel('chained dropdown')
             ->setData(array(
                 0 => array('one' => 1, 'two' => 3, 'three' => 6),
                 1 => array('one' => 1, 'two' => 4, 'three' => 7),
@@ -83,7 +84,8 @@ class TestForm extends Form
         $this->oWeek = self::week('week', '2013-44');
         $this->oWeekRange = self::weekRange('weekRange', '2013-01', '2013-38');
 
-        $this->oButton = self::inputButton('button', 'Button');
+        $this->oButton = self::button('button', 'Button');
+        $this->oInputButton = self::inputButton('inputButton', 'Input Button');
         $this->oImage = self::image('image')->setAlt('Image')->setSrc('https://2.gravatar.com/avatar/f65305395860df24db70a8dc6aeddc2f');
         $this->oReset = self::reset('reset', 'Reset');
         $this->oSubmit = self::submit('submit', 'Submit');
@@ -98,35 +100,13 @@ class TestForm extends Form
     {
         $output = $this->renderFormHead();
 
-        $output .= $this->oAddress->render() . BRCLR
-                . $this->oChained->render() . BRCLR
-                . $this->oCheckbox->render() . BRCLR
-                . $this->oCheckboxes->render() . BRCLR
-                . $this->oColor->render() . BRCLR
-                . $this->oDate->render() . BRCLR
-                . $this->oDateRange->render() . BRCLR
-                . $this->oDropdown->render() . BRCLR
-                . $this->oEmail->render() . BRCLR
-                . $this->oFile->render() . BRCLR
-                . $this->oHidden->render() . BRCLR
-                . $this->oMonth->render() . BRCLR
-                . $this->oMonthRange->render() . BRCLR
-                . $this->oNumber->render() . BRCLR
-                . $this->oPassword->render() . BRCLR
-                . $this->oRadio->render() . BRCLR
-                . $this->oRange->render() . BRCLR
-                . $this->oSearch->render() . BRCLR
-                . $this->oTel->render() . BRCLR
-                . $this->oText->render() . BRCLR
-                . $this->oTextarea->render() . BRCLR
-                . $this->oUrl->render() . BRCLR
-                . $this->oWeek->render() . BRCLR
-                . $this->oWeekRange->render() . BRCLR
-
-                . $this->oButton->render() . BRCLR
-                . $this->oImage->render() . BRCLR
-                . $this->oReset->render() . BRCLR
-                . $this->oSubmit->render() . BRCLR;
+        foreach (get_object_vars($this) as $input)
+        {
+            if ($input instanceof \WinkForm\Input\Input)
+            {
+                $output .= "\n\n<!-- ".$input->getLabel()." -->\n\n" . $input->render() . BRCLR;
+            }
+        }
 
         $output .= $this->renderFormFoot();
 

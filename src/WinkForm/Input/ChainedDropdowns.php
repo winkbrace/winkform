@@ -56,6 +56,7 @@ class ChainedDropdowns extends Input
      * Typically the result of a query fetch has this form ;)
      * @param array $data
      * @return \WinkForm\Input\ChainedDropdowns
+     * @throws \Exception
      */
     public function setData(array $data)
     {
