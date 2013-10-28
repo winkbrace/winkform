@@ -22,6 +22,10 @@ class FormValidatorTest extends \Codeception\TestCase\Test
      */
     protected function _before()
     {
+        // always english for testing
+        $t = \WinkForm\Translation\Translator::getInstance();
+        $t->setLocale('en');
+
         $this->validator = new FormValidator();
     }
 

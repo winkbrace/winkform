@@ -10,11 +10,6 @@ use WinkForm\Translation\Translator;
 abstract class AbstractValidator
 {
     /**
-     * @var string
-     */
-    protected $locale;
-
-    /**
      * @var \Illuminate\Translation\Translator
      */
     protected $translator;
@@ -36,10 +31,6 @@ abstract class AbstractValidator
      */
     public function __construct()
     {
-        $config = get_winkform_config();
-
-        $this->locale = $config['locale'];
-
         // To display the laravel Validator error messages, the Translator is required.
         // We create a translator object that searches for files in the 'lang' folder
         // lang/{locale}/{domain}.php

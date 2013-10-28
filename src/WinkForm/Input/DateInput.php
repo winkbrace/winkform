@@ -1,5 +1,7 @@
 <?php namespace WinkForm\Input;
 
+use WinkForm\Support\Config;
+
 class DateInput extends Input
 {
     /**
@@ -27,7 +29,7 @@ class DateInput extends Input
     function __construct($name, $value = null)
     {
         // set date format before construction to be able to validate $value
-        $config = get_winkform_config();
+        $config = Config::all();
         $this->setDateFormat($config['date_format']);
 
         parent::__construct($name, $value);

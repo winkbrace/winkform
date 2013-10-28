@@ -1,5 +1,6 @@
 <?php namespace WinkForm\Translation;
 
+use WinkForm\Support\Config;
 use Illuminate\Filesystem\Filesystem;
 use Illuminate\Translation\FileLoader;
 
@@ -27,7 +28,7 @@ class Translator
     {
         if (empty(static::$instance))
         {
-            $config = get_winkform_config();
+            $config = Config::all();
             static::$instance = new \Illuminate\Translation\Translator(new FileLoader(new Filesystem, $config['lang_location']), $config['locale']);
         }
 

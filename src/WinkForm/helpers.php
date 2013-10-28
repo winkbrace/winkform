@@ -227,21 +227,3 @@ if (! function_exists('is_blank'))
         return empty($value) && ! is_numeric($value);
     }
 }
-
-if (! function_exists('get_winkform_config'))
-{
-    /**
-     * get the contents of the config file as an array
-     * or the single value if a key is given
-     * @param string $key
-     * @return array|string
-     */
-    function get_winkform_config($key = null)
-    {
-        $config = require 'config.php';
-        if (! empty($key))
-            return $config[$key];
-        else
-            return $config;
-    }
-}

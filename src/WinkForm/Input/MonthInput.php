@@ -19,12 +19,12 @@ class MonthInput extends Input
         parent::__construct($name, $value);
 
         // create the two dropdowns
-        $this->month = new Dropdown($name.'_month', date('m'));
+        $this->month = new Dropdown($name.'-month', date('m'));
         $months = array(1 => 'Januari', 'Februari', 'Maart', 'April', 'Mei', 'Juni', 'Juli', 'Augustus', 'September', 'Oktober', 'November', 'December');
         foreach ($months as $nr => $label)
             $this->month->appendOption($nr, $label);
 
-        $this->year = new Dropdown($name.'_year', date('Y'));
+        $this->year = new Dropdown($name.'-year', date('Y'));
         for ($y = date('Y') - 2; $y < date('Y') + 3; $y++)
             $this->year->appendOption($y, $y);
 
@@ -58,8 +58,8 @@ class MonthInput extends Input
                      $(document).ready(function()
                      {
                         // fill hidden input field when one of the dropdowns changes
-                        $("#'.$this->name.'_year, #'.$this->name.'_month").change(function() {
-                            $("#'.$this->name.'").val($("#'.$this->name.'_year").val() + "-" + $("#'.$this->name.'_month").val());
+                        $("#'.$this->name.'-year, #'.$this->name.'-month").change(function() {
+                            $("#'.$this->name.'").val($("#'.$this->name.'-year").val() + "-" + $("#'.$this->name.'-month").val());
                         });
                       });
                     </script>' . PHP_EOL;

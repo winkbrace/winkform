@@ -25,7 +25,7 @@ class FormTest extends \Codeception\TestCase\Test
      */
     protected function _before()
     {
-        require_once WINKFORM_PATH.'example/TestForm.php';
+        require_once realpath(WINKFORM_PATH.'../../example/TestForm.php');
         $this->form = new TestForm();
     }
 
@@ -59,7 +59,7 @@ class FormTest extends \Codeception\TestCase\Test
 
         $this->assertEquals(Form::ENCTYPE_FILE, $form->getEnctype());
     }
-    
+
     /**
      * test default validation of DateInput and DateRangeInput
      */
@@ -68,7 +68,7 @@ class FormTest extends \Codeception\TestCase\Test
         // confirm when nothing posted nothing will be invalidated
         $this->assertTrue($this->form->validate());
         $this->assertEmpty($this->form->oDate->getInvalidations());
-        
+
         // create invalid posted values
         $_POST = array('date' => '123-123', 'dateRange-from' => '1', 'dateRange-to' => '2');
         $form = new TestForm();

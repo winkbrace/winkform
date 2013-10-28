@@ -61,34 +61,69 @@ class TestForm extends Form
                 2 => array('one' => 2, 'two' => 5, 'three' => 8),
             ));
 
-        $this->oCheckbox = self::checkbox('checkbox', 'value');
-        $this->oCheckboxes = self::checkbox('checkboxes')->appendOptions(array(1 => 'one','two','three'));
-        $this->oColor = self::color('color');
-        $this->oDate = self::date('date');
-        $this->oDateRange = self::dateRange('dateRange', date('d-m-Y'), date('d-m-Y'));
-        $this->oDropdown = self::dropdown('dropdown')->appendOptions(array(1 => 'one','two','three'));
-        $this->oEmail = self::email('email', 'winkbrace@gmail.nl');
-        $this->oFile = self::file('file');
-        $this->oHidden = self::hidden('hidden');
-        $this->oMonth = self::month('month');
-        $this->oMonthRange = self::monthRange('monthRange', '2013-01', '2013-09');
-        $this->oNumber = self::number('number');
-        $this->oPassword = self::password('password');
-        $this->oRadio = self::radio('radio')->appendOptions(array(1 => 'one','two','three'));
-        $this->oRange = self::range('range');
-        $this->oSearch = self::search('search');
-        $this->oTel = self::tel('tel');
-        $this->oText = self::text('text', 'value');
-        $this->oTextarea = self::textarea('textarea', 'value');
-        $this->oUrl = self::url('url');
-        $this->oWeek = self::week('week', '2013-44');
-        $this->oWeekRange = self::weekRange('weekRange', '2013-01', '2013-38');
+        $this->oCheckbox = self::checkbox('checkbox', 'value')->setLabel('single checkbox');
 
-        $this->oButton = self::button('button', 'Button');
-        $this->oInputButton = self::inputButton('inputButton', 'Input Button');
-        $this->oImage = self::image('image')->setAlt('Image')->setSrc('https://2.gravatar.com/avatar/f65305395860df24db70a8dc6aeddc2f');
-        $this->oReset = self::reset('reset', 'Reset');
-        $this->oSubmit = self::submit('submit', 'Submit');
+        $this->oCheckboxes = self::checkbox('checkboxes')
+            ->setLabel('multiple checkboxes')
+            ->appendOptions(array(1 => 'one','two','three'));
+
+        $this->oColor = self::color('color')->setLabel('color');
+
+        $this->oDate = self::date('date')->setLabel('date');
+
+        $this->oDateRange = self::dateRange('dateRange', date('d-m-Y'), date('d-m-Y'))->setLabel('date range');
+
+        $this->oDropdown = self::dropdown('dropdown')
+            ->appendOptions(array(1 => 'one','two','three'))
+            ->setLabel('dropdown');
+
+        $this->oEmail = self::email('email', 'winkbrace@gmail.nl')->setLabel('email');
+
+        $this->oFile = self::file('file')->setLabel('file');
+
+        $this->oHidden = self::hidden('hidden')->setLabel('hidden');
+
+        $this->oMonth = self::month('month')->setLabel('month');
+
+        $this->oMonthRange = self::monthRange('monthRange', '2013-01', '2013-09')->setLabel('month range');
+
+        $this->oNumber = self::number('number')->setLabel('number');
+
+        $this->oPassword = self::password('password')->setLabel('password');
+
+        $this->oRadio = self::radio('radio')
+            ->appendOptions(array(1 => 'one','two','three'))
+            ->setLabel('radio');
+
+        $this->oRange = self::range('range')->setLabel('range');
+
+        $this->oSearch = self::search('search')->setLabel('search');
+
+        $this->oTel = self::tel('tel')->setLabel('tel');
+
+        $this->oText = self::text('text', 'value')->setLabel('text');
+
+        $this->oTextarea = self::textarea('textarea', 'value')->setLabel('textarea');
+
+        $this->oUrl = self::url('url')->setLabel('url');
+
+        $this->oWeek = self::week('week', '2013-44')->setLabel('week');
+
+        $this->oWeekRange = self::weekRange('weekRange', '2013-01', '2013-38')->setLabel('week range');
+
+
+        $this->oButton = self::button('button', 'Button')->setLabel('button');
+
+        $this->oInputButton = self::inputButton('inputButton', 'Input Button')->setLabel('input button');
+
+        $this->oImage = self::image('image')
+            ->setAlt('Image')
+            ->setSrc('https://2.gravatar.com/avatar/f65305395860df24db70a8dc6aeddc2f')
+            ->setLabel('image');
+
+        $this->oReset = self::reset('reset', 'Reset')->setLabel('reset');
+
+        $this->oSubmit = self::submit('submit', 'Submit')->setLabel('submit');
 
     }
 
@@ -104,7 +139,9 @@ class TestForm extends Form
         {
             if ($input instanceof \WinkForm\Input\Input)
             {
-                $output .= "\n\n<!-- ".$input->getLabel()." -->\n\n" . $input->render() . BRCLR;
+                $output .= "\n\n<!-- ".$input->getLabel()." -->\n\n"
+                    . $input->render()
+                    . BRCLR;
             }
         }
 
