@@ -16,6 +16,6 @@ return array(
     // date format
     'date_format' => 'd-m-Y',
     // url to calendar image
-    'calendar_image' => (defined('BASE_URL') ? BASE_URL : '/') . 'images/helveticons/32x32/Calendar alt 32x32.png',
+    'calendar_image' => 'https://raw.github.com/winkbrace/winkform/master/example/img/Calendar%20alt%2032x32.png',
 
 );

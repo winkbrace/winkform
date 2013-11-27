@@ -1,5 +1,8 @@
 {
     "name": "winkbrace/winkform",
+    "type": "library",
+    "description": "Forms library for PHP >= 5.3 using Laravel 4 Validation",
+    "keywords": ["form", "laravel"],
     "license": "MIT",
     "authors": [
         {
@@ -19,7 +22,7 @@
     },
     "autoload": {
         "psr-0": {
-            "WinkForm": "src/"
+            "WinkForm": "src"
         }
     },
     "target-dir": "WinkForm",
