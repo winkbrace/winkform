@@ -24,7 +24,5 @@
         "psr-0": {
             "WinkForm": "src"
         }
-    },
-    "target-dir": "WinkForm",
-    "minimum-stability": "dev"
+    }
 }
