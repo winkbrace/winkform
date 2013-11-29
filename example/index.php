@@ -1,6 +1,6 @@
 <?php
 // require the library
-require_once '../src/WinkForm/require.php';  // path/to/WinkForm/require.php
+require_once '../vendor/autoload.php';
 
 // force English version test form
 $t = \WinkForm\Translation\Translator::getInstance();

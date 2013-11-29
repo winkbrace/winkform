@@ -1,5 +1,14 @@
 <?php
 
+// constant
+if (! defined('WINKFORM_PATH'))
+    define('WINKFORM_PATH', __DIR__.'/');
+
+// constant that I often use when rendering label and input floating
+if (! defined('BRCLR'))
+    define('BRCLR', '<br class="clear" />');
+
+
 if (! function_exists('str_like'))
 {
     /**
