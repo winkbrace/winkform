@@ -24,6 +24,6 @@
         "psr-0": {
             "WinkForm": "src"
         },
-        "files": ["helpers.php"]
+        "files": ["src/WinkForm/helpers.php"]
     }
 }
