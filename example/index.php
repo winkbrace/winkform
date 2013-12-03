@@ -12,6 +12,9 @@ require_once 'TestForm.php';
 // create the form
 $form = new TestForm();
 
+if ($form->isPosted() && ! $form->validate())
+    echo error('Can\'t process form, because not all fields are filled correctly');
+
 // for sake of the example the html and css is inline here
 ?><!DOCTYPE html>
 <html>

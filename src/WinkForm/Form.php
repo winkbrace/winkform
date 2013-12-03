@@ -340,13 +340,21 @@ abstract class Form
               $isValid = true,
               $validator;   // Validate class to perform the POST validation
 
+    /**
+     * this hidden input field will contain a random string we use to ensure the form is posted from our domain
+     * @var Input\HiddenInput
+     */
+    protected $xsrftoken;
+
 
     /**
      * Create new Form
      */
     public function __construct()
     {
-        $this->validator = new \WinkForm\Validation\FormValidator();
+        $this->validator = new Validation\FormValidator();
+
+        $this->setXsrftoken();
     }
 
     /**
@@ -362,7 +370,12 @@ abstract class Form
     protected function renderFormHead()
     {
         $this->determineEnctype();
-        return '<form name="'.$this->name.'" method="'.$this->method.'" action="'.$this->action.'" enctype="'.$this->enctype.'">'."\n";
+
+        $output = '<form name="'.$this->name.'" method="'.$this->method.'" action="'.$this->action.'" enctype="'.$this->enctype.'">'."\n";
+
+        $output .= $this->xsrftoken->render();
+
+        return $output;
     }
 
     /**
@@ -380,6 +393,9 @@ abstract class Form
      */
     public function validate()
     {
+        if ($this->xsrftoken->getPosted() != $_COOKIE['xsrftoken'])
+            return false;
+
         // handle validations passed to this form or to the public input fields
         foreach (get_object_vars($this) as $input)
         {
@@ -441,7 +457,10 @@ abstract class Form
      * is the form posted?
      * @return boolean
      */
-    abstract public function isPosted();
+    public function isPosted()
+    {
+        return $this->xsrftoken->isPosted();
+    }
 
     /**
      * Invalidate input field (and let this form know it is invalid)
@@ -566,4 +585,14 @@ abstract class Form
         return $this->enctype;
     }
 
+    /**
+     * set xsrf token to prevent cross site form requests
+     */
+    protected function setXsrftoken()
+    {
+        $key = md5(rand(0, 1000000000));
+        setcookie('xsrftoken', $key);
+
+        $this->xsrftoken = self::hidden('xsrftoken')->setSelected($key, Input\Input::INPUT_OVERRULE_POST)->setRequired();
+    }
 }

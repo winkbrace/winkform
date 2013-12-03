@@ -210,7 +210,7 @@ class WinkValidator extends Validator
     }
 
     /**
-     * Check that all itmes in the array or Collection are instanceof parameter
+     * Check that all items in the array or Collection are instanceof parameter
      * @param string $attribute
      * @param array|Collection $value
      * @param array $parameters
@@ -234,6 +234,21 @@ class WinkValidator extends Validator
         }
 
         return true;
+    }
+
+    /**
+     * Check that value equals given parameter
+     * @param $attribute
+     * @param $value
+     * @param $parameters
+     * @return bool
+     */
+    protected function validateEquals($attribute, $value, $parameters)
+    {
+        if (empty($parameters))
+            return false;
+
+        return $value == $parameters;
     }
 
 }
