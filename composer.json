@@ -25,5 +25,6 @@
             "WinkForm": "src"
         },
         "files": ["src/WinkForm/helpers.php"]
-    }
+    },
+    "minimum-stability": "dev"
 }

@@ -42,7 +42,7 @@ class DateInput extends Input
 
         // set the calendar image specified in the config file if it is a valid url to an image
         $this->setCalendarImage($config['calendar_image']);
-        if (empty($this->calendarImage) || ! @getimagesize($this->calendarImage))
+        if (empty($this->calendarImage))
         {
             // set default calendar image (base64 encoded, so no actual image file required to use this class)
             // It is of course better to use an actual image for performance reasons
