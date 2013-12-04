@@ -11,6 +11,30 @@ class FileInput extends Input
     protected $type = 'file';
     
     /**
+     * @var string
+     */
+    protected $filename;
+    
+    /**
+     * @var string
+     */
+    protected $filetype;
+    
+    
+    /**
+     * create FileInput object
+     * @param string $name
+     * @param string $value
+     */
+    public function __construct($name, $value = null)
+    {
+        parent::__construct($name, $value);
+        
+        // default "width" (actually invalid html, but it will work)
+        $this->size = 40;
+    }
+    
+    /**
      * render the hidden input element
      */
     public function render()
@@ -18,10 +42,6 @@ class FileInput extends Input
         // check result of validity checks of parameters passed to this Input element
         $this->checkValidity();
 
-        // default "width" (actually invalid html, but it will work)
-        if (empty($this->size))
-            $this->size = 40;
-            
         $output = $this->renderLabel()
             . '<input'
             . $this->renderType()
@@ -61,6 +81,9 @@ class FileInput extends Input
         {
             $this->posted = $_FILES[$this->name]['tmp_name'];
             $this->selected = $_FILES[$this->name]['tmp_name'];
+            
+            $this->filename = $_FILES[$this->name]['name'];
+            $this->filetype = $_FILES[$this->name]['type'];
         }
     }
     
@@ -95,4 +118,22 @@ class FileInput extends Input
         return $lines;
     }
     
+    /**
+     * get the name of the posted file
+     * @return string $filename
+     */
+    public function getFilename()
+    {
+        return $this->filename;
+    }
+
+    /**
+     * get the mime type of the posted file
+     * @return string $filetype
+     */
+    public function getFiletype()
+    {
+        return $this->filetype;
+    }
+
 }
