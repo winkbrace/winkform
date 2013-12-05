@@ -236,3 +236,25 @@ if (! function_exists('is_blank'))
         return empty($value) && ! is_numeric($value);
     }
 }
+
+if (! function_exists('attributify'))
+{
+    /**
+     * convert key => value array to key="value" html element attributes
+     * @param array $attributes
+     * @return string
+     */
+    function attributify(array $attributes)
+    {
+        $string = '';
+        if (! empty($attributes))
+        {
+            foreach ($attributes as $key => $val)
+            {
+                $string .= ' ' . $key . '="' . $val . '"';
+            }
+        }
+
+        return $string;
+    }
+}

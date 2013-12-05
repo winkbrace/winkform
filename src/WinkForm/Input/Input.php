@@ -224,15 +224,17 @@ abstract class Input extends ObserverSubject implements ObserverInterface
     }
 
     /**
+     * @param array $attributes
      * @return string $label
      */
-    public function renderLabel()
+    public function renderLabel(array $attributes = array())
     {
         if (empty($this->label) || ! $this->renderWithLabel)
             return null;
 
         $class = $this->required ? ' class="required"' : '';
-        return '<label for="'.$this->id.'"'.$class.'>'.$this->label.'</label> ';
+
+        return '<label for="' . $this->id . '"' . $class . attributify($attributes) . '>' . $this->label . '</label> ';
     }
 
     /**

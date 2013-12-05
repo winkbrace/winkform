@@ -140,8 +140,8 @@ class DateInput extends Input
         $this->text->setSelected($this->selected);
         $this->text->setRenderWithLabel($this->renderWithLabel);
 
-        $output = $this->renderLabel()
-                . '<div id="'.$this->id.'-container" class="inputs-container"'.$hidden.$this->renderStyle().'>'
+        $output = $this->renderLabel(array('class' => 'date-element'))
+                . '<div id="'.$this->id.'-container" class="inputs-container date-element"'.$hidden.$this->renderStyle().'>'
                 . $this->text->render()
                 . '</div>' . PHP_EOL;
 
