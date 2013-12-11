@@ -38,13 +38,18 @@ class AddressInput extends Input
         // create the text inputs
         // NOTE: values must be the same as the titles for the jquery script
         $postcode = $translator->get('inputs.postal-code');
-        $this->postcode = Form::text($name.'-'.$postcode, str_replace('-', ' ', $postcode))->setTitle(str_replace('-', ' ', $postcode));
+        $this->postcode = Form::text($name.'-'.$postcode, str_replace('-', ' ', $postcode))
+            ->setTitle(str_replace('-', ' ', $postcode))
+            ->setWidth(100);
 
         $hnr = $translator->get('inputs.house-number');
-        $this->houseNumber = Form::text($name.'-'.$hnr, str_replace('-', ' ', $hnr))->setTitle(str_replace('-', ' ', $hnr));
+        $this->houseNumber = Form::text($name.'-'.$hnr, str_replace('-', ' ', $hnr))
+            ->setTitle(str_replace('-', ' ', $hnr))
+            ->setWidth(50);
 
         $ext = $translator->get('inputs.extension');
-        $this->houseNumberExtension = Form::text($name.'-'.$ext, str_replace('-', ' ', $ext))->setTitle(str_replace('-', ' ', $ext));
+        $this->houseNumberExtension = Form::text($name.'-'.$ext, str_replace('-', ' ', $ext))
+            ->setTitle(str_replace('-', ' ', $ext));
 
         $this->attachObserver($this->postcode);
         $this->attachObserver($this->houseNumber);
@@ -64,7 +69,7 @@ class AddressInput extends Input
 
         // render the date range input fields
         $output = $this->postcode->render()
-                . $this->houseNumber->setWidth(50)->render()
+                . $this->houseNumber->render()
                 . $this->houseNumberExtension->render();
 
         $output .= $this->renderInvalidations();
