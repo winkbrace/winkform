@@ -21,7 +21,7 @@ class AddressInput extends Input
     /**
      * @var TextInput
      */
-    protected $houseNumberExtension; // hidden input field with the name $name that will contain the YYYY-MM value
+    protected $houseNumberExtension;
 
 
     /**
@@ -49,14 +49,15 @@ class AddressInput extends Input
 
         $ext = $translator->get('inputs.extension');
         $this->houseNumberExtension = Form::text($name.'-'.$ext, str_replace('-', ' ', $ext))
-            ->setTitle(str_replace('-', ' ', $ext));
+            ->setTitle(str_replace('-', ' ', $ext))
+            ->setWidth(150);
 
         $this->attachObserver($this->postcode);
         $this->attachObserver($this->houseNumber);
         $this->attachObserver($this->houseNumberExtension);
 
         // set the global placeholder style that will get copied down
-        $this->setWidth(150)->addStyle('font-style:italic; color:#888;')->addClass('address');
+        $this->addStyle('font-style:italic; color:#888;')->addClass('address');
     }
 
     /**
@@ -160,10 +161,12 @@ class AddressInput extends Input
      */
     public function isPosted()
     {
+        $translator = Translator::getInstance();
+
         return ($this->postcode->isPosted()
                 && $this->houseNumber->isPosted()
-                && $this->postcode->getPosted() != 'postcode'
-                && $this->houseNumber->getPosted() != 'huisnr'
+                && $this->postcode->getPosted() != $translator->get('inputs.postal-code')
+                && $this->houseNumber->getPosted() != $translator->get('inputs.house-number')
                );
     }
 
