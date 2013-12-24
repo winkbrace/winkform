@@ -204,7 +204,7 @@ abstract class Form
     {
         return new Input\RadioInput($name, $value);
     }
-    
+
     /**
      * create a <button> element
      * @param string $name
@@ -393,6 +393,9 @@ abstract class Form
      */
     public function validate()
     {
+        if (! $this->isPosted())
+            return $this->isValid();
+
         if ($this->xsrftoken->getPosted() != $_COOKIE['xsrftoken'])
             return false;
 
@@ -425,7 +428,7 @@ abstract class Form
         {
             $this->validator->addValidation($input, 'all_in:'.implode(',', $values));
         }
-        
+
         // always validate the date
         if ($input instanceof DateInput)
         {

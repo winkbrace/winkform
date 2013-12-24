@@ -90,7 +90,7 @@ class DateInputTest extends \Codeception\TestCase\Test
         $html = $input->render();
         $this->assertContains('"dateFormat":"mm.dd.y"', $html, 'setting php date format should also adjust js date format');
     }
-    
+
     /**
      * DateInput should properly render the label
      */
@@ -99,7 +99,8 @@ class DateInputTest extends \Codeception\TestCase\Test
         $input = new DateInput('test');
         $input->setLabel('a date label');
         $render = $input->render();
-        $this->assertContains('<label for="test">a date label</label>', $render);
+        $this->assertContains('<label for="test"', $render);
+        $this->assertContains('a date label</label>', $render);
     }
-    
+
 }

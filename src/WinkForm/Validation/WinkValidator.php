@@ -8,7 +8,6 @@ use \Illuminate\Support\Collection;
 /**
  * Extension on Laravel Validator class with extra validations
  * @author b-deruiter
- *
  */
 class WinkValidator extends Validator
 {
