@@ -190,9 +190,9 @@ class Dropdown extends Input
     protected function renderOptionSelected($value)
     {
         // selected has priority over value
-        $selected = $this->selected ?: $this->value;
+        $selected = ! is_blank($this->selected) ? $this->selected : $this->value;
 
-        if (empty($selected))
+        if (is_blank($selected))
             return null;
 
         if (is_array($selected))
