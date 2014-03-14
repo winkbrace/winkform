@@ -2,6 +2,7 @@
 
 use \Illuminate\Validation\Validator;
 use \Illuminate\Support\Collection;
+use Symfony\Component\Translation\TranslatorInterface;
 
 // TODO add error messages for these validations and ideally register them in this class
 
@@ -11,6 +12,24 @@ use \Illuminate\Support\Collection;
  */
 class WinkValidator extends Validator
 {
+    /**
+     * Create a new Validator instance.
+     *
+     * @param  \Symfony\Component\Translation\TranslatorInterface  $translator
+     * @param  array $data
+     * @param  array $rules
+     * @param  array $messages
+     * @param  array $customAttributes
+     * @return \WinkForm\Validation\WinkValidator
+     */
+    public function __construct(TranslatorInterface $translator, $data, $rules, $messages = array(), $customAttributes = array())
+    {
+        // add NotEmpty to the implicit exceptions to skipping empty string validations
+        $this->implicitRules[] = 'NotEmpty';
+
+        parent::__construct($translator, $data, $rules, $messages, $customAttributes);
+    }
+
     /**
      * Validate that an attribute is not an array.
      *
