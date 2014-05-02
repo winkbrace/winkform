@@ -45,4 +45,21 @@ class DropdownTest extends \Codeception\TestCase\Test
         $this->assertContains('value="0" selected="selected"', $render);
     }
 
+    /**
+     * Test that the options are prepended correctly
+     */
+    public function testPrependOptions()
+    {
+        $input = new Dropdown('test');
+        $input->prependOptions(array(
+            '201401' => '2014-01',
+            '201402' => '2014-02',
+            '201403' => '2014-03',
+        ));
+
+        $actual = $input->getValues();
+        $expected = array('201401', '201402', '201403');
+
+        $this->assertEquals($expected, $actual);
+    }
 }
