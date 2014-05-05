@@ -621,7 +621,7 @@ abstract class Input extends ObserverSubject implements ObserverInterface
             // loop over the options array and add all values to values and labels
             // array_merge or the + operator won't do, because they will remove duplicate keys
             // (and we will have a lot of duplicate keys in 2 numeric arrays)
-            $options = array_reverse($options); // reverse the array to keep the order when we unshift :)
+            $options = array_reverse($options, true); // reverse the array to keep the order when we unshift :)
             foreach ($options as $value => $label)
             {
                 $this->prependOption($value, $label, $category, $flag);
