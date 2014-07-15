@@ -74,7 +74,6 @@ class AddressInput extends Input
                 . $this->houseNumberExtension->render();
 
         $output .= $this->renderInvalidations();
-
         $output .= '<script>
                     $("input.address").focus(function() {
                         if ($(this).val() == $(this).attr("title")) {
@@ -101,7 +100,7 @@ class AddressInput extends Input
      * @return \WinkForm\Input\AddressInput
      * @see \WinkForm\Input\Input::setSelected()
      */
-    public function setSelected($selected, $flag = 0)
+    public function setSelected(array $selected, $flag = 0)
     {
         if (empty($this->posted) || $this->isFlagSet($flag, self::INPUT_OVERRULE_POST))
         {
