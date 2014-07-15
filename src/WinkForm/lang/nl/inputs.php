@@ -10,8 +10,8 @@
 return array(
 
     // address input
-    'postal-code' => 'postcode',
+    'postal-code'  => 'postcode',
     'house-number' => 'huisnr',
-    'extension' => 'toevoeging',
+    'extension'    => 'toevoeging',
 
 );
