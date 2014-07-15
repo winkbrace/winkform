@@ -30,6 +30,9 @@ if ($form->isPosted() && ! $form->validate())
     <!-- ChainedDropdowns uses this jquery plugin -->
     <script src="js/jquery.chained.min.js"></script>
 
+    <!-- This script is required to use the placeholder attribute in IE -->
+    <script src="js/jquery.html-placeholder-shim.js"></script>
+
     <!-- Twitter Bootstrap -->
     <script src="js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="css/bootstrap.min.css">
