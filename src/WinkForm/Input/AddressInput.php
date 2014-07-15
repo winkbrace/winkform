@@ -38,17 +38,20 @@ class AddressInput extends Input
         // create the text inputs
         // NOTE: values must be the same as the titles for the jquery script
         $postcode = $translator->get('inputs.postal-code');
-        $this->postcode = Form::text($name.'-'.$postcode, str_replace('-', ' ', $postcode))
+        $this->postcode = Form::text($name.'-'.$postcode)
+            ->setPlaceholder(str_replace('-', ' ', $postcode))
             ->setTitle(str_replace('-', ' ', $postcode))
             ->setWidth(100);
 
         $hnr = $translator->get('inputs.house-number');
-        $this->houseNumber = Form::text($name.'-'.$hnr, str_replace('-', ' ', $hnr))
+        $this->houseNumber = Form::text($name.'-'.$hnr)
             ->setTitle(str_replace('-', ' ', $hnr))
+            ->setPlaceholder(str_replace('-', ' ', $hnr))
             ->setWidth(50);
 
         $ext = $translator->get('inputs.extension');
-        $this->houseNumberExtension = Form::text($name.'-'.$ext, str_replace('-', ' ', $ext))
+        $this->houseNumberExtension = Form::text($name.'-'.$ext)
+            ->setPlaceholder(str_replace('-', ' ', $ext))
             ->setTitle(str_replace('-', ' ', $ext))
             ->setWidth(150);
 
@@ -57,7 +60,7 @@ class AddressInput extends Input
         $this->attachObserver($this->houseNumberExtension);
 
         // set the global placeholder style that will get copied down
-        $this->addStyle('font-style:italic; color:#888;')->addClass('address');
+        $this->addClass('address');
     }
 
     /**
@@ -74,27 +77,12 @@ class AddressInput extends Input
                 . $this->houseNumberExtension->render();
 
         $output .= $this->renderInvalidations();
-        $output .= '<script>
-                    $("input.address").focus(function() {
-                        if ($(this).val() == $(this).attr("title")) {
-                            $(this).val("").css({fontStyle:"normal", color:"black"});
-                        }
-                    });
-                    </script>'."\n";
-
-        // if setSelected has been used, remove the default values by triggering focus on the .address elements
-        if (! empty($this->selected))
-        {
-            $output .= '<script>
-                        $("input.address").trigger("focus");
-                        </script>'."\n";
-        }
 
         return $output;
     }
 
     /**
-     * setSelected method that will set the child inputs values and makes the font normal and removes the default values
+     * setSelected method that will set the child inputs values
      * @param array $selected array(postcode, housenr, extension)
      * @param int $flag
      * @return \WinkForm\Input\AddressInput
@@ -105,7 +93,6 @@ class AddressInput extends Input
         if (empty($this->posted) || $this->isFlagSet($flag, self::INPUT_OVERRULE_POST))
         {
             $this->selected = $selected;
-            $this->removeStyle('font-style:italic; color:#888;');
 
             list($postcode, $housenumber, $extension) = $selected;
             $this->postcode->setSelected($postcode);
