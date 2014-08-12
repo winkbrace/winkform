@@ -88,10 +88,11 @@ class AddressInput extends Input
      * @return \WinkForm\Input\AddressInput
      * @see \WinkForm\Input\Input::setSelected()
      */
-    public function setSelected(array $selected, $flag = 0)
+    public function setSelected($selected, $flag = 0)
     {
         if (empty($this->posted) || $this->isFlagSet($flag, self::INPUT_OVERRULE_POST))
         {
+            $selected = array_values((array) $selected);
             $this->selected = $selected;
 
             list($postcode, $housenumber, $extension) = $selected;
